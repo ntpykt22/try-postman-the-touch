@@ -49,12 +49,9 @@
 					}
 				},
 				"url": {
-					"raw": "https://api-dev.beauti.one/customers/api/request-otp",
-					"protocol": "https",
+					"raw": "{{customer_host}}/customers/api/request-otp",
 					"host": [
-						"api-dev",
-						"beauti",
-						"one"
+						"{{customer_host}}"
 					],
 					"path": [
 						"customers",
@@ -176,7 +173,8 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"var jsonData = pm.response.json();",
+							"const jsonData = pm.response.json();",
+							"",
 							"",
 							"pm.test(\"Parse the response JSON and set access_token environment variable\", function () {",
 							"    pm.environment.set(\"access_token\", jsonData.data.access_token);",
@@ -191,12 +189,10 @@
 							"});",
 							"",
 							"pm.test(\"ตรวจสอบ access_token ไม่เท่ากันกับ null \", function () {",
-							"    var jsonData = pm.response.json();",
-							"    pm.expect(jsonData.data.access_token).to.be.null;",
+							"    pm.expect(jsonData.data.access_token).to.be.not.null;",
 							"});",
 							"",
 							"pm.test(\"ตรวจสอบ token expire เท่ากันกับ 259200\", function () {",
-							"    var jsonData = pm.response.json();",
 							"    pm.expect(jsonData.data.access_token_expires_in).to.eql(259200);",
 							"});",
 							"",
@@ -232,7 +228,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"phoneNumber\": \"+66844096434\",\n    \"otp\": \"138631\"\n}",
+					"raw": "{\n    \"phoneNumber\": \"+66926261441\",\n    \"otp\": \"934843\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -459,7 +455,7 @@
 					"script": {
 						"exec": [
 							"var jsonData = pm.response.json();",
-							"pm.collectionVariables.set(\"data.cart_id\", \"cart_id\");",
+							"pm.collectionVariables.set(\"cartId\", jsonData.data.cart_id);",
 							"",
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
@@ -470,7 +466,7 @@
 							"});",
 							"",
 							"pm.test(\"ตรวจสอบ Cart_id ไม่เท่ากันกับ null \", function () {",
-							"    pm.expect(jsonData.data.cart_id).to.be.null;",
+							"    pm.expect(jsonData.data.cart_id).to.be.not.null;",
 							"});",
 							"",
 							"pm.test(\"ตรวจสอบ Cart_id มีจำนวน 24 ตำแหน่ง\", function () {",
@@ -484,8 +480,24 @@
 				}
 			],
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "app-id",
+						"value": "{{app_id}}",
+						"type": "text"
+					}
+				],
 				"url": {
 					"raw": "{{cart_host}}/api/cart/me",
 					"host": [
@@ -1047,201 +1059,6 @@
 					"body": "{\n    \"status\": \"OK\",\n    \"data\": {\n        \"id\": \"66e11f9e506ccb2e966bd721\",\n        \"order_id\": \"ODR6709000022\",\n        \"order_items\": [\n            {\n                \"seq_no\": 1,\n                \"order_id\": \"ODR6709000022\",\n                \"product_id\": \"SKU202301000082\",\n                \"quantity\": 1,\n                \"product\": {\n                    \"product_id\": \"SKU202301000082\",\n                    \"parent_id\": \"PRD202301000015\",\n                    \"gallery_image\": [\n                        {\n                            \"id\": \"63c6c1d293d3594ffa5cc99d\",\n                            \"url\": \"https://media.thetouchexclusive.com/Deep%20Infusion_1673970130300.png\"\n                        }\n                    ],\n                    \"type\": \"simple\",\n                    \"item_type\": \"VIRTUAL\",\n                    \"product_name\": \"Deep Infusion\",\n                    \"category_ids\": [\n                        \"CAT202110000123\"\n                    ],\n                    \"category_names\": [\n                        \"Basic Course\"\n                    ],\n                    \"sku\": \"DI-PW\",\n                    \"standard_price\": 6412.5,\n                    \"market_price\": 7500,\n                    \"attributes\": [],\n                    \"total_discount_percent\": 14.499999999999998,\n                    \"discount_max_percent\": 35,\n                    \"discount_max_amount\": null,\n                    \"discount_max_agent_percent\": 10,\n                    \"discount_max_agent_amount\": null,\n                    \"commission_percent\": null,\n                    \"commission_amount\": null,\n                    \"discount_percent\": 0,\n                    \"discount_agent_percent\": 0,\n                    \"first_commission_person\": null\n                },\n                \"option_products\": [],\n                \"option_ids\": [],\n                \"serial\": [],\n                \"shipping_fee\": 0,\n                \"vat\": 490.6542,\n                \"price_exclude_vat\": 7009.3458,\n                \"discount_product\": 1087.5,\n                \"discount_promotion\": 0,\n                \"discount_shipping_fee\": 0,\n                \"market_price\": 7500,\n                \"special_price\": 0,\n                \"standard_price\": 6412.5,\n                \"total_shipping_fee\": 0,\n                \"total_standard_price\": 6412.5,\n                \"total_special_price\": 0,\n                \"total_discount\": 1087.5,\n                \"total_market_price\": 7500,\n                \"total_vat\": 419.5093,\n                \"total_price_exclude_vat\": 5992.9907,\n                \"total_price\": 6412.5,\n                \"total_option_price\": 0,\n                \"total_discount_product\": 1087.5,\n                \"total_discount_promotion\": 0,\n                \"total_discount_shipping_fee\": 0,\n                \"additional\": {\n                    \"discount_amount\": 750,\n                    \"discount_agent_amount\": 337.5\n                },\n                \"total_operation_price\": 0\n            },\n            {\n                \"seq_no\": 2,\n                \"order_id\": \"ODR6709000022\",\n                \"product_id\": \"SKU202212000010\",\n                \"quantity\": 1,\n                \"product\": {\n                    \"product_id\": \"SKU202212000010\",\n                    \"parent_id\": \"PRD202212000004\",\n                    \"gallery_image\": [\n                        {\n                            \"id\": \"63ad377d84dfae4886657b73\",\n                            \"url\": \"https://media.thetouchexclusive.com/products/image/1-UPL.jpg\"\n                        }\n                    ],\n                    \"type\": \"simple\",\n                    \"item_type\": \"VIRTUAL\",\n                    \"product_name\": \"Ultimate Intensive Pulse Light\",\n                    \"category_ids\": [\n                        \"CAT202110000132\"\n                    ],\n                    \"category_names\": [\n                        \"LASER Course\"\n                    ],\n                    \"sku\": \"UPL-หน้าอก\",\n                    \"standard_price\": 3000,\n                    \"market_price\": 3000,\n                    \"attributes\": [\n                        {\n                            \"attribute_code\": \"att_202403000050\",\n                            \"attribute_optionlabel\": \"UPL หน้า\",\n                            \"value\": 2,\n                            \"id\": \"b7be3283-a9b9-4d82-ae84-a94b03ccec72\",\n                            \"option\": {\n                                \"position\": 0,\n                                \"attribute_label\": \"UPL\",\n                                \"attribute_optionlabel\": \"UPL หน้า\",\n                                \"color\": null\n                            }\n                        }\n                    ],\n                    \"total_discount_percent\": 0,\n                    \"discount_max_percent\": 35,\n                    \"discount_max_amount\": null,\n                    \"discount_max_agent_percent\": 10,\n                    \"discount_max_agent_amount\": null,\n                    \"commission_percent\": null,\n                    \"commission_amount\": null,\n                    \"discount_percent\": 0,\n                    \"discount_agent_percent\": 0,\n                    \"first_commission_person\": null\n                },\n                \"option_products\": [],\n                \"option_ids\": [],\n                \"serial\": [],\n                \"shipping_fee\": 0,\n                \"vat\": 196.2617,\n                \"price_exclude_vat\": 2803.7383,\n                \"discount_product\": 0,\n                \"discount_promotion\": 0,\n                \"discount_shipping_fee\": 0,\n                \"market_price\": 3000,\n                \"special_price\": 0,\n                \"standard_price\": 3000,\n                \"total_shipping_fee\": 0,\n                \"total_standard_price\": 3000,\n                \"total_special_price\": 0,\n                \"total_discount\": 0,\n                \"total_market_price\": 3000,\n                \"total_vat\": 196.2617,\n                \"total_price_exclude_vat\": 2803.7383,\n                \"total_price\": 3000,\n                \"total_option_price\": 0,\n                \"total_discount_product\": 0,\n                \"total_discount_promotion\": 0,\n                \"total_discount_shipping_fee\": 0,\n                \"additional\": {\n                    \"discount_amount\": 0,\n                    \"discount_agent_amount\": 0\n                },\n                \"total_operation_price\": 0\n            }\n        ],\n        \"order_payment\": {\n            \"payment_status\": \"confirm\",\n            \"payment_method\": {\n                \"id\": \"64898be6b662da0e62d0dd6d\",\n                \"name\": \"SCB\",\n                \"payment_type\": \"installment\",\n                \"payment_request_type\": \"redirect_url\",\n                \"is_active\": true,\n                \"payment_gateway\": \"CCPP\",\n                \"logo\": {\n                    \"file_id\": \"64898be4f71eb3d142889334\",\n                    \"url\": \"https://media.thetouchexclusive.com/20230614/scb_1686735844248.jpg\"\n                },\n                \"installment_plans\": [\n                    {\n                        \"id\": \"6513ab9746ca9c0033afc8e6\",\n                        \"payment_gateway\": \"CCPP\",\n                        \"payment_method_id\": \"64898be6b662da0e62d0dd6d\",\n                        \"term\": 3,\n                        \"rate\": 0,\n                        \"minimum_price\": 5000,\n                        \"is_active\": true,\n                        \"created_at\": \"2023-09-27T04:12:07.918Z\",\n                        \"updated_at\": \"2023-09-27T04:12:07.918Z\",\n                        \"created_by\": \"admin@harmonyx.co\",\n                        \"pay_per_month\": 0\n                    },\n                    {\n                        \"id\": \"6513ab9746ca9c0033afc8e8\",\n                        \"payment_gateway\": \"CCPP\",\n                        \"payment_method_id\": \"64898be6b662da0e62d0dd6d\",\n                        \"term\": 4,\n                        \"rate\": 0,\n                        \"minimum_price\": 5000,\n                        \"is_active\": true,\n                        \"created_at\": \"2023-09-27T04:12:07.919Z\",\n                        \"updated_at\": \"2023-09-27T04:12:07.919Z\",\n                        \"created_by\": \"admin@harmonyx.co\",\n                        \"pay_per_month\": 0\n                    },\n                    {\n                        \"id\": \"6513ab9746ca9c0033afc8ea\",\n                        \"payment_gateway\": \"CCPP\",\n                        \"payment_method_id\": \"64898be6b662da0e62d0dd6d\",\n                        \"term\": 6,\n                        \"rate\": 0,\n                        \"minimum_price\": 5000,\n                        \"is_active\": true,\n                        \"created_at\": \"2023-09-27T04:12:07.919Z\",\n                        \"updated_at\": \"2023-09-27T04:12:07.919Z\",\n                        \"created_by\": \"admin@harmonyx.co\",\n                        \"pay_per_month\": 0\n                    },\n                    {\n                        \"id\": \"6513ab9746ca9c0033afc8ec\",\n                        \"payment_gateway\": \"CCPP\",\n                        \"payment_method_id\": \"64898be6b662da0e62d0dd6d\",\n                        \"term\": 10,\n                        \"rate\": 0,\n                        \"minimum_price\": 5000,\n                        \"is_active\": true,\n                        \"created_at\": \"2023-09-27T04:12:07.919Z\",\n                        \"updated_at\": \"2023-09-27T04:12:07.919Z\",\n                        \"created_by\": \"admin@harmonyx.co\",\n                        \"pay_per_month\": 0\n                    }\n                ]\n            },\n            \"request_type\": \"redirect_url\",\n            \"payment_request_data\": {\n                \"request_data\": {\n                    \"payment_token\": \"kSAops9Zwhos8hSTSeLTUehwmoB+sA6TpV2e1dw+p0c0Bu1T49hZyUfuJZlw+oJoiamBb8QMIW7n/S8h2CbZD7DveG/HJc8Wxci+FffnJbp8MqJ455xIXBjMTTCWeafv\",\n                    \"redirect_url\": \"https://sandbox-pgw-ui.2c2p.com/payment/4.1/#/token/kSAops9Zwhos8hSTSeLTUehwmoB%2bsA6TpV2e1dw%2bp0c0Bu1T49hZyUfuJZlw%2boJoiamBb8QMIW7n%2fS8h2CbZD7DveG%2fHJc8Wxci%2bFffnJbp8MqJ455xIXBjMTTCWeafv\",\n                    \"payment_ref_id\": \"010029_ODR6709000022\",\n                    \"transaction_id\": \"66e11f9ebf47228b22286c6f\"\n                }\n            },\n            \"installment\": 10,\n            \"additional\": {\n                \"term\": 10\n            }\n        },\n        \"cart_id\": \"66e00445a2888e8c775c04e3\",\n        \"order_status\": \"success\",\n        \"customer_type\": \"customer\",\n        \"customer_id\": \"e6fa52a5-801b-4fe8-94cd-fe1d4bc9cb0a\",\n        \"account_code\": \"BA00000309\",\n        \"customer_info\": {\n            \"id\": \"66e00aaee4a5c6098d3bf676\",\n            \"first_name\": \"Wachiraporn\",\n            \"last_name\": \"Mapatang\",\n            \"email\": \"ikatmapatang@gmail.com\",\n            \"phone_number\": \"0844096434\",\n            \"line_id\": \"-\",\n            \"branch\": \"สาขาเซ็นทรัล อีสต์วิลล์ เลียบด่วน-รามอินทรา\",\n            \"coupon_channel\": \"SMS\",\n            \"social_media_channel\": \"Facebook ads\",\n            \"receive_tax_invoice_flag\": false\n        },\n        \"item_count\": 2,\n        \"total_market_price\": 10500,\n        \"total_discount\": 1087.5,\n        \"total_vat\": 615.771,\n        \"total_exclude_vat\": null,\n        \"total_price\": 9412.5,\n        \"total_payable\": 9412.5,\n        \"total_option_price\": 0,\n        \"total_standard_price\": 9412.5,\n        \"total_special_price\": 0,\n        \"total_price_exclude_vat\": 8796.729,\n        \"total_discount_product\": 1087.5,\n        \"total_discount_promotion\": 0,\n        \"total_discount_shipping_fee\": 0,\n        \"total_shipping_fee\": 0,\n        \"created_at\": \"2024-09-11T04:42:06.235Z\",\n        \"updated_at\": \"2024-09-11T04:47:29.009Z\",\n        \"link_pay_key\": \"2bf12444-0bb6-4fe4-8c67-903f8d3196c0\",\n        \"checkout_content\": {\n            \"count\": 2,\n            \"customer_id\": \"e6fa52a5-801b-4fe8-94cd-fe1d4bc9cb0a\",\n            \"cart_id\": \"66e00445a2888e8c775c04e3\",\n            \"items\": [\n                {\n                    \"product_id\": \"SKU202301000082\",\n                    \"quantity\": 1,\n                    \"product\": {\n                        \"product_id\": \"SKU202301000082\",\n                        \"parent_id\": \"PRD202301000015\",\n                        \"gallery_image\": [\n                            {\n                                \"id\": \"63c6c1d293d3594ffa5cc99d\",\n                                \"url\": \"https://media.thetouchexclusive.com/Deep%20Infusion_1673970130300.png\"\n                            }\n                        ],\n                        \"type\": \"simple\",\n                        \"item_type\": \"VIRTUAL\",\n                        \"product_name\": \"Deep Infusion\",\n                        \"category_ids\": [\n                            \"CAT202110000123\"\n                        ],\n                        \"category_names\": [\n                            \"Basic Course\"\n                        ],\n                        \"sku\": \"DI-PW\",\n                        \"standard_price\": 6412.5,\n                        \"market_price\": 7500,\n                        \"attributes\": [],\n                        \"total_discount_percent\": 14.499999999999998,\n                        \"discount_max_percent\": 35,\n                        \"discount_max_amount\": null,\n                        \"discount_max_agent_percent\": 10,\n                        \"discount_max_agent_amount\": null,\n                        \"commission_percent\": null,\n                        \"commission_amount\": null,\n                        \"discount_percent\": 0,\n                        \"discount_agent_percent\": 0,\n                        \"first_commission_person\": null\n                    },\n                    \"option_products\": [],\n                    \"option_ids\": [],\n                    \"serial\": [],\n                    \"shipping_fee\": 0,\n                    \"vat\": 490.6542,\n                    \"price_exclude_vat\": 7009.3458,\n                    \"discount_product\": 1087.5,\n                    \"discount_promotion\": 0,\n                    \"discount_shipping_fee\": 0,\n                    \"market_price\": 7500,\n                    \"special_price\": 0,\n                    \"standard_price\": 6412.5,\n                    \"total_shipping_fee\": 0,\n                    \"total_standard_price\": 6412.5,\n                    \"total_special_price\": 0,\n                    \"total_discount\": 1087.5,\n                    \"total_market_price\": 7500,\n                    \"total_vat\": 419.5093,\n                    \"total_price_exclude_vat\": 5992.9907,\n                    \"total_price\": 6412.5,\n                    \"total_option_price\": 0,\n                    \"total_discount_product\": 1087.5,\n                    \"total_discount_promotion\": 0,\n                    \"total_discount_shipping_fee\": 0,\n                    \"is_selected\": true,\n                    \"is_available\": true,\n                    \"is_not_exist\": false,\n                    \"additional\": {\n                        \"discount_amount\": 750,\n                        \"discount_agent_amount\": 337.5\n                    },\n                    \"total_operation_price\": 0\n                },\n                {\n                    \"product_id\": \"SKU202212000010\",\n                    \"quantity\": 1,\n                    \"product\": {\n                        \"product_id\": \"SKU202212000010\",\n                        \"parent_id\": \"PRD202212000004\",\n                        \"gallery_image\": [\n                            {\n                                \"id\": \"63ad377d84dfae4886657b73\",\n                                \"url\": \"https://media.thetouchexclusive.com/products/image/1-UPL.jpg\"\n                            }\n                        ],\n                        \"type\": \"simple\",\n                        \"item_type\": \"VIRTUAL\",\n                        \"product_name\": \"Ultimate Intensive Pulse Light\",\n                        \"category_ids\": [\n                            \"CAT202110000132\"\n                        ],\n                        \"category_names\": [\n                            \"LASER Course\"\n                        ],\n                        \"sku\": \"UPL-หน้าอก\",\n                        \"standard_price\": 3000,\n                        \"market_price\": 3000,\n                        \"attributes\": [\n                            {\n                                \"attribute_code\": \"att_202403000050\",\n                                \"value\": 2,\n                                \"id\": \"b7be3283-a9b9-4d82-ae84-a94b03ccec72\",\n                                \"option\": {\n                                    \"position\": 0,\n                                    \"attribute_label\": \"UPL\",\n                                    \"attribute_optionlabel\": \"UPL หน้า\",\n                                    \"color\": null\n                                }\n                            }\n                        ],\n                        \"total_discount_percent\": 0,\n                        \"discount_max_percent\": 35,\n                        \"discount_max_amount\": null,\n                        \"discount_max_agent_percent\": 10,\n                        \"discount_max_agent_amount\": null,\n                        \"commission_percent\": null,\n                        \"commission_amount\": null,\n                        \"discount_percent\": 0,\n                        \"discount_agent_percent\": 0,\n                        \"first_commission_person\": null\n                    },\n                    \"option_products\": [],\n                    \"option_ids\": [],\n                    \"serial\": [],\n                    \"shipping_fee\": 0,\n                    \"vat\": 196.2617,\n                    \"price_exclude_vat\": 2803.7383,\n                    \"discount_product\": 0,\n                    \"discount_promotion\": 0,\n                    \"discount_shipping_fee\": 0,\n                    \"market_price\": 3000,\n                    \"special_price\": 0,\n                    \"standard_price\": 3000,\n                    \"total_shipping_fee\": 0,\n                    \"total_standard_price\": 3000,\n                    \"total_special_price\": 0,\n                    \"total_discount\": 0,\n                    \"total_market_price\": 3000,\n                    \"total_vat\": 196.2617,\n                    \"total_price_exclude_vat\": 2803.7383,\n                    \"total_price\": 3000,\n                    \"total_option_price\": 0,\n                    \"total_discount_product\": 0,\n                    \"total_discount_promotion\": 0,\n                    \"total_discount_shipping_fee\": 0,\n                    \"is_selected\": true,\n                    \"is_available\": true,\n                    \"is_not_exist\": false,\n                    \"additional\": {\n                        \"discount_amount\": 0,\n                        \"discount_agent_amount\": 0\n                    },\n                    \"total_operation_price\": 0\n                }\n            ],\n            \"payment\": {\n                \"id\": \"64898be6b662da0e62d0dd6d\",\n                \"name\": \"CCPP\",\n                \"payment_type\": \"installment\",\n                \"installment\": 10,\n                \"additional\": {\n                    \"term\": 10\n                }\n            },\n            \"delivery\": {\n                \"billing_address\": {\n                    \"address\": \"372\",\n                    \"country_id\": \"6393083a8b38b57eeaeeb908\",\n                    \"region_id\": \"6393083a8b38b57eeaeeb90d\",\n                    \"sub_district_id\": \"6393083a8b38b57eeaeebdc2\",\n                    \"district_id\": \"6393083a8b38b57eeaeeb99b\",\n                    \"province_id\": \"6393083a8b38b57eeaeeb91a\",\n                    \"sub_district_name\": \"สำโรงเหนือ\",\n                    \"district_name\": \"เมืองสมุทรปราการ\",\n                    \"province_name\": \"สมุทรปราการ\",\n                    \"postcode\": \"10270\"\n                }\n            },\n            \"total_market_price\": 10500,\n            \"total_discount\": 1087.5,\n            \"total_payable\": 9412.5,\n            \"total_vat\": 615.771,\n            \"total_option_price\": 0,\n            \"total_price\": 9412.5,\n            \"coupon_code\": [],\n            \"applied_rules\": [],\n            \"customer_info\": {\n                \"id\": \"66e00aaee4a5c6098d3bf676\",\n                \"first_name\": \"Wachiraporn\",\n                \"last_name\": \"Mapatang\",\n                \"email\": \"ikatmapatang@gmail.com\",\n                \"phone_number\": \"0844096434\",\n                \"line_id\": \"-\",\n                \"branch\": \"สาขาเซ็นทรัล อีสต์วิลล์ เลียบด่วน-รามอินทรา\",\n                \"coupon_channel\": \"SMS\",\n                \"social_media_channel\": \"Facebook ads\",\n                \"receive_tax_invoice_flag\": false\n            }\n        },\n        \"total_operation_price\": 0,\n        \"applied_rules\": [],\n        \"order_addresses\": [\n            {\n                \"address_type\": \"shipping\",\n                \"country_name\": null,\n                \"region_name\": null,\n                \"province_name\": null,\n                \"sub_district_name\": null,\n                \"district_name\": null\n            }\n        ]\n    }\n}"
 				}
 			]
-		},
-		{
-			"name": "https://api-dev.beauti.one/customers/api/request-otp",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Status code is 200\", function () {",
-							"    pm.response.to.have.status(201);",
-							"});",
-							"",
-							"pm.test(\"Your test name\", function () {",
-							"    var jsonData = pm.response.json();",
-							"    pm.expect(jsonData.status).to.eql(\"OK\");",
-							"});"
-						],
-						"type": "text/javascript",
-						"packages": {}
-					}
-				}
-			],
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "app-id",
-						"value": "0b53b462-afdc-42cd-9c13-bb82dec47426",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"phoneNumber\": \"+66844096434\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "https://api-dev.beauti.one/customers/api/request-otp",
-					"protocol": "https",
-					"host": [
-						"api-dev",
-						"beauti",
-						"one"
-					],
-					"path": [
-						"customers",
-						"api",
-						"request-otp"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "https://api-dev.beauti.one/customers/api/request-otp",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Status code is 200\", function () {",
-							"    pm.response.to.have.status(201);",
-							"});",
-							"",
-							"pm.test(\"ตรวจสอบสถานะ status เท่ากันกับ OK\", function () {",
-							"    var jsonData = pm.response.json();",
-							"    pm.expect(jsonData.status).to.eql(\"OS\");",
-							"});"
-						],
-						"type": "text/javascript",
-						"packages": {}
-					}
-				}
-			],
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "app-id",
-						"value": "0b53b462-afdc-42cd-9c13-bb82dec47426",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"phoneNumber\": \"+66844096434\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "https://api-dev.beauti.one/customers/api/request-otp",
-					"protocol": "https",
-					"host": [
-						"api-dev",
-						"beauti",
-						"one"
-					],
-					"path": [
-						"customers",
-						"api",
-						"request-otp"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "{{customer_host}}/api/login-otp",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"var jsonData = pm.response.json();",
-							"",
-							"pm.test(\"Parse the response JSON and set access_token environment variable\", function () {",
-							"    pm.environment.set(\"access_token\", jsonData.data.access_token);",
-							"});",
-							"",
-							"pm.test(\"Status code is 201\", function () {",
-							"    pm.response.to.have.status(201);",
-							"});",
-							"",
-							"pm.test(\"ตรวจสอบสถานะ status เท่ากันกับ OK\", function () {",
-							"    pm.expect(jsonData.status).to.eql(\"OK\");",
-							"});",
-							"",
-							"pm.test(\"ตรวจสอบ access_token ไม่เท่ากันกับ null \", function () {",
-							"    var jsonData = pm.response.json();",
-							"    pm.expect(jsonData.data.access_token).to.be.null;",
-							"});",
-							"",
-							"pm.test(\"ตรวจสอบ token expire เท่ากันกับ 259200\", function () {",
-							"    var jsonData = pm.response.json();",
-							"    pm.expect(jsonData.data.access_token_expires_in).to.eql(259200);",
-							"});",
-							"",
-							"",
-							"",
-							"",
-							"",
-							""
-						],
-						"type": "text/javascript",
-						"packages": {}
-					}
-				}
-			],
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{access_token}}",
-							"type": "string"
-						}
-					]
-				},
-				"method": "POST",
-				"header": [
-					{
-						"key": "app-id",
-						"value": "{{app_id}}",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"phoneNumber\": \"+66926261441\",\n    \"otp\": \"642273\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{customer_host}}/api/login-otp",
-					"host": [
-						"{{customer_host}}"
-					],
-					"path": [
-						"api",
-						"login-otp"
-					]
-				}
-			},
-			"response": []
 		}
 	],
 	"variable": [
