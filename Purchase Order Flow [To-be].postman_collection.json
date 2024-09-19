@@ -31,6 +31,13 @@
 						"type": "text/javascript",
 						"packages": {}
 					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"packages": {},
+						"type": "text/javascript"
+					}
 				}
 			],
 			"request": {
@@ -38,7 +45,18 @@
 					"type": "noauth"
 				},
 				"method": "POST",
-				"header": [],
+				"header": [
+					{
+						"key": "Origin",
+						"value": "https://agent-dev.thetouchexclusive.com",
+						"type": "text"
+					},
+					{
+						"key": "app-id",
+						"value": "{{app_id}}",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "raw",
 					"raw": "{\n    \"phoneNumber\": \"+66926261441\"\n}\n",
@@ -49,12 +67,11 @@
 					}
 				},
 				"url": {
-					"raw": "{{customer_host}}/customers/api/request-otp",
+					"raw": "{{customer_host}}/api/request-otp",
 					"host": [
 						"{{customer_host}}"
 					],
 					"path": [
-						"customers",
 						"api",
 						"request-otp"
 					]
@@ -621,17 +638,18 @@
 							"var receivedproduct_id = jsonData.data.cart_items[0].product_id;",
 							"",
 							"pm.test(\"Status code is 200\", function () {",
-							"    pm.response.to.have.status(200);",
+							"    pm.response.to.have.status(201);",
 							"});",
 							"",
 							"// ตรวจสอบว่า productId ที่ส่งและรับตรงกันหรือไม่",
 							"pm.test(\"ตรวจสอบว่า productId ที่ส่งและรับตรงกันหรือไม่\", function () {",
-							"    pm.expect(receivedproduct_id).to.eql(sentProductId);",
+							"    pm.expect(receivedproduct_id).to.eql(sentproductId);",
 							"});",
 							"",
 							"pm.test(\"ตรวจสอบราคาสินค้าเท่ากันกับ 20000\", function () {",
 							"    pm.expect(jsonData.data.total_standard_price).to.eql(20000);",
 							"});",
+							"",
 							"",
 							""
 						],
@@ -641,11 +659,21 @@
 				}
 			],
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"productId\": \"SKU202212000010\",\n    \"quantity\": 1,\n    \"additional\": {\n        \"discountAmount\": 0,\n        \"discountAgentAmount\": 0\n    }\n}",
+					"raw": "{\n    \"productId\": \"SKU202301000080\",\n    \"quantity\": 1,\n    \"additional\": {\n        \"discountAmount\": 0,\n        \"discountAgentAmount\": 0\n    }\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -653,14 +681,14 @@
 					}
 				},
 				"url": {
-					"raw": "{{cart_host}}/api/cart/66e00445a2888e8c775c04e3/items",
+					"raw": "{{cart_host}}/api/cart/{{cartId}}/items",
 					"host": [
 						"{{cart_host}}"
 					],
 					"path": [
 						"api",
 						"cart",
-						"66e00445a2888e8c775c04e3",
+						"{{cartId}}",
 						"items"
 					]
 				}
@@ -724,7 +752,11 @@
 							"    pm.response.to.have.status(200);",
 							"});",
 							"",
-							"pm.test(\"ตรวจสอบ Customer ID ไม่เท่ากันกับ null \", function () {",
+							"pm.test(\"ตรวจสอบ Customer ID \", function () {",
+							"    pm.expect(jsonData.data.checkout_content[0].customer_id).to.be.null;",
+							"});",
+							"",
+							"pm.test(\"ตรวจสอบ Customer ID \", function () {",
 							"    pm.expect(jsonData.data.checkout_content[0].customer_id).to.be.null;",
 							"});"
 						],
@@ -734,6 +766,16 @@
 				}
 			],
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
 				"method": "GET",
 				"header": [],
 				"url": {
@@ -749,7 +791,7 @@
 					"variable": [
 						{
 							"key": "cart_id",
-							"value": ""
+							"value": "{{cartId}}"
 						}
 					]
 				}
@@ -815,6 +857,16 @@
 				}
 			],
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
 				"method": "GET",
 				"header": [],
 				"url": {
@@ -832,6 +884,26 @@
 		},
 		{
 			"name": "[Web][Payment] - Get Payment Method by Amount (Select 2p2c 10m)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"ตรวจสอบสถานะ status เท่ากันกับ OK\", function () {",
+							"    pm.expect(jsonData.status).to.eql(\"OK\");",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -897,6 +969,26 @@
 		},
 		{
 			"name": "[Web][Checkout] - Place Order",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"ตรวจสอบสถานะ status เท่ากันกับ OK\", function () {",
+							"    pm.expect(jsonData.status).to.eql(\"OK\");",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [],
