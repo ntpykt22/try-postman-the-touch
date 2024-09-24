@@ -1,0 +1,1269 @@
+{
+	"info": {
+		"_postman_id": "91673108-fe18-46b4-ac1b-8fd9bedb0871",
+		"name": "Flow Automate update",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "29975143",
+		"_collection_link": "https://gold-meteor-938872.postman.co/workspace/Automate-The-touch-~6fe6b753-8160-4331-bae1-1c9e857d848d/collection/29975143-91673108-fe18-46b4-ac1b-8fd9bedb0871?action=share&source=collection_link&creator=29975143"
+	},
+	"item": [
+		{
+			"name": "Change ENV Bypass OTP",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-api-key",
+						"value": "skey_test_21759RNGxY3WHfL4GnTc5Oopgs3pwXFxZLXde"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"AUTH_SMS_PASSWORDLESS_FORCED\": \"123456\",\n    \"AUTH_SMS_PASSWORDLESS_BYPASS\": true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api-dev.beauti.one/auth/change-env",
+					"protocol": "https",
+					"host": [
+						"api-dev",
+						"beauti",
+						"one"
+					],
+					"path": [
+						"auth",
+						"change-env"
+					]
+				},
+				"description": "Generated from cURL: curl --location 'https://dev-kpaymentgateway-services.kasikornbank.com/card/v2/charge' \\\n--header 'x-api-key: skey_test_21759RNGxY3WHfL4GnTc5Oopgs3pwXFxZLXde' \\\n--data '{\n    \"description\": \"beauty\",\n    \"amount\": \"12000\",\n    \"reference_order\": \"ORD000001\",\n    \"additional_data\": {\n        \"mid\": \"401945778841001\",\n        \"smartpay_id\": \"0001\",\n        \"tid\": \"25879777\",\n        \"term\": \"02\"\n    },\n    \"token\": \"tokn_test_21759ab40683feb41cef7f5243ec492e2a34c\",\n    \"mode\": \"token\",\n    \"source_type\": \"card\",\n    \"currency\": \"THB\"\n}'"
+			},
+			"response": []
+		},
+		{
+			"name": "[Web] - Request OTP",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"  var jsonData = pm.response.json();",
+							"",
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"pm.test(\"ตรวจสอบสถานะ status เท่ากันกับ OK\", function () {",
+							"    pm.expect(jsonData.status).to.eql(\"OK\");",
+							"});",
+							"",
+							"pm.test(\"ตรวจสอบ otp_ref_id มีจำนวน 6 ตำแหน่ง\", function () {",
+							"    pm.expect(jsonData.data.otp_ref_id.length).to.eql(6);",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "app-id",
+						"value": "0b53b462-afdc-42cd-9c13-bb82dec47426",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"phoneNumber\": \"+66926261441\"\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{customer_host}}/api/request-otp",
+					"host": [
+						"{{customer_host}}"
+					],
+					"path": [
+						"api",
+						"request-otp"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "[Web] - Request OTP",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "app-id",
+								"value": "0b53b462-afdc-42cd-9c13-bb82dec47426",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"phoneNumber\": \"+66844096434\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api-dev.beauti.one/customers/api/request-otp",
+							"protocol": "https",
+							"host": [
+								"api-dev",
+								"beauti",
+								"one"
+							],
+							"path": [
+								"customers",
+								"api",
+								"request-otp"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Tue, 10 Sep 2024 10:41:04 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "46"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "x-powered-by",
+							"value": "Express"
+						},
+						{
+							"key": "etag",
+							"value": "W/\"2e-MHZ/cINZaSaubL0P7Pes0c+5r/8\""
+						},
+						{
+							"key": "x-kong-upstream-latency",
+							"value": "422"
+						},
+						{
+							"key": "x-kong-proxy-latency",
+							"value": "2"
+						},
+						{
+							"key": "via",
+							"value": "kong/3.3.0"
+						},
+						{
+							"key": "CF-Cache-Status",
+							"value": "DYNAMIC"
+						},
+						{
+							"key": "Report-To",
+							"value": "{\"endpoints\":[{\"url\":\"https:\\/\\/a.nel.cloudflare.com\\/report\\/v4?s=OgT08eVR%2F7nOD7ZpCVX5gfBz19PBb%2FLQ3xeTVjyLMVDDVYQLUZE752gxhM02SAZMVA77TAqmAKfkmrTetBsSNpX1iJflU%2FkpZjgGsH2j7%2BiOt6nfNCvmXArk0hfKal4sWRVcn7M%3D\"}],\"group\":\"cf-nel\",\"max_age\":604800}"
+						},
+						{
+							"key": "NEL",
+							"value": "{\"success_fraction\":0,\"report_to\":\"cf-nel\",\"max_age\":604800}"
+						},
+						{
+							"key": "Server",
+							"value": "cloudflare"
+						},
+						{
+							"key": "CF-RAY",
+							"value": "8c0ecdb18a1b2725-BKK"
+						},
+						{
+							"key": "alt-svc",
+							"value": "h3=\":443\"; ma=86400"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": \"OK\",\n    \"data\": {\n        \"otp_ref_id\": \"DR1Y5K\"\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "[Web] - Login with OTP (รอ by pass)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const jsonData = pm.response.json();",
+							"",
+							"",
+							"pm.test(\"Parse the response JSON and set access_token environment variable\", function () {",
+							"    pm.environment.set(\"access_token\", jsonData.data.access_token);",
+							"});",
+							"",
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"pm.test(\"ตรวจสอบสถานะ status เท่ากันกับ OK\", function () {",
+							"    pm.expect(jsonData.status).to.eql(\"OK\");",
+							"});",
+							"",
+							"pm.test(\"ตรวจสอบ access_token ไม่เท่ากันกับ null \", function () {",
+							"    pm.expect(jsonData.data.access_token).to.be.not.null;",
+							"});",
+							"",
+							"pm.test(\"ตรวจสอบ token expire เท่ากันกับ 259200\", function () {",
+							"    pm.expect(jsonData.data.access_token_expires_in).to.eql(259200);",
+							"});",
+							"",
+							"",
+							"",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "app-id",
+						"value": "{{app_id}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"phoneNumber\": \"+66926261441\",\n    \"otp\": \"123456\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{customer_host}}/api/login-otp",
+					"host": [
+						"{{customer_host}}"
+					],
+					"path": [
+						"api",
+						"login-otp"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "[Web] - Login with OTP",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "app-id",
+								"value": "{{app_id}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"phoneNumber\": \"+66926261441\",\n    \"otp\": \"649273\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{customer_host}}/api/login-otp",
+							"host": [
+								"{{customer_host}}"
+							],
+							"path": [
+								"api",
+								"login-otp"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Tue, 10 Sep 2024 10:41:35 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "593"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "x-powered-by",
+							"value": "Express"
+						},
+						{
+							"key": "etag",
+							"value": "W/\"251-OeWN06DhDl3Gdele8THY4ADN4Vg\""
+						},
+						{
+							"key": "x-kong-upstream-latency",
+							"value": "222"
+						},
+						{
+							"key": "x-kong-proxy-latency",
+							"value": "0"
+						},
+						{
+							"key": "via",
+							"value": "kong/3.3.0"
+						},
+						{
+							"key": "CF-Cache-Status",
+							"value": "DYNAMIC"
+						},
+						{
+							"key": "Report-To",
+							"value": "{\"endpoints\":[{\"url\":\"https:\\/\\/a.nel.cloudflare.com\\/report\\/v4?s=jJNFdVMXIlik1pArqrSOu%2FNsVJTIjhwoxRal1os48c0mc22%2FqRk0igmz6qlUTwOQ9%2FSIwCKHVihv2xUJA7poLlIy9tpRyVXCZcOWPrEcNwqdbrcCELUMTgqllNfQsVA7nxrxNS0%3D\"}],\"group\":\"cf-nel\",\"max_age\":604800}"
+						},
+						{
+							"key": "NEL",
+							"value": "{\"success_fraction\":0,\"report_to\":\"cf-nel\",\"max_age\":604800}"
+						},
+						{
+							"key": "Server",
+							"value": "cloudflare"
+						},
+						{
+							"key": "CF-RAY",
+							"value": "8c0ece745b422725-BKK"
+						},
+						{
+							"key": "alt-svc",
+							"value": "h3=\":443\"; ma=86400"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": \"OK\",\n    \"data\": {\n        \"access_token\": \"eyJhbGciOiJIUzI1NiJ9.eyJodHRwczovL2hhc3VyYS5pby9qd3QvY2xhaW1zIjp7IngtaGFzdXJhLWFsbG93ZWQtcm9sZXMiOlsibWUiLCJ1c2VyIl0sIngtaGFzdXJhLWRlZmF1bHQtcm9sZSI6InVzZXIiLCJ4LWhhc3VyYS11c2VyLWlkIjoiZTZmYTUyYTUtODAxYi00ZmU4LTk0Y2QtZmUxZDRiYzljYjBhIiwieC1oYXN1cmEtdXNlci1pcy1hbm9ueW1vdXMiOiJmYWxzZSJ9LCJzdWIiOiJlNmZhNTJhNS04MDFiLTRmZTgtOTRjZC1mZTFkNGJjOWNiMGEiLCJpYXQiOjE3MjU5NjQ4OTUsImV4cCI6MTcyNjIyNDA5NSwiaXNzIjoiaGFzdXJhLWF1dGgifQ.Qe0nUSMILnj7QkSrFXNUrRxNWgq0RsYNKIcYbHcYGJE\",\n        \"access_token_expires_in\": 259200,\n        \"refresh_token\": \"33c7a348-33cd-4f32-8b44-5b41a36ae128\"\n    }\n}"
+				},
+				{
+					"name": "401 - Unauthorized",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "app-id",
+								"value": "{{app_id}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"phoneNumber\": \"+66844096434\",\n    \"otp\": \"649273\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{customer_host}}/api/login-otp",
+							"host": [
+								"{{customer_host}}"
+							],
+							"path": [
+								"api",
+								"login-otp"
+							]
+						}
+					},
+					"status": "Unauthorized",
+					"code": 401,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Tue, 10 Sep 2024 10:43:52 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "98"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "x-powered-by",
+							"value": "Express"
+						},
+						{
+							"key": "etag",
+							"value": "W/\"62-/nVf4hdEggTtShw2UGXEw3uH15U\""
+						},
+						{
+							"key": "x-kong-upstream-latency",
+							"value": "31"
+						},
+						{
+							"key": "x-kong-proxy-latency",
+							"value": "2"
+						},
+						{
+							"key": "via",
+							"value": "kong/3.3.0"
+						},
+						{
+							"key": "cf-cache-status",
+							"value": "DYNAMIC"
+						},
+						{
+							"key": "Report-To",
+							"value": "{\"endpoints\":[{\"url\":\"https:\\/\\/a.nel.cloudflare.com\\/report\\/v4?s=ZlBc1P2Mp4Ue5bfn8%2BCvy%2B1wYNl6Oz9ZTxnhRtDQV5wlaTbQBLX%2FSqHI25XrWnbqfp7eqWW%2FD%2F1isHWV%2FIbd8XU0SSCMC%2Bkh0K1A99VaZUkkSOm4Sg4dG24gHVgM5MoDkaSGFE0%3D\"}],\"group\":\"cf-nel\",\"max_age\":604800}"
+						},
+						{
+							"key": "NEL",
+							"value": "{\"success_fraction\":0,\"report_to\":\"cf-nel\",\"max_age\":604800}"
+						},
+						{
+							"key": "Server",
+							"value": "cloudflare"
+						},
+						{
+							"key": "CF-RAY",
+							"value": "8c0ed1ca7cd82705-BKK"
+						},
+						{
+							"key": "alt-svc",
+							"value": "h3=\":443\"; ma=86400"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": 401,\n    \"message\": \"Invalid or expired OTP\",\n    \"error\": {\n        \"invalid-otp\": \"Invalid or expired OTP\"\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "[Web][Cart[ - Get Cart [Me] Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"",
+							"// เก็บตัวแปร cartId ",
+							"pm.collectionVariables.set(\"cartId\", jsonData.data.cart_id);",
+							"console.log(\"cartId:\", jsonData.data.cart_id);",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"ตรวจสอบ status เท่ากันกับ OK\", function () {",
+							"    pm.expect(jsonData.status).to.eql(\"OK\");",
+							"});",
+							"",
+							"pm.test(\"ตรวจสอบ cart_id ต้องไม่ว่างและมีความยาว 24 ตัวอักษร\", function () {",
+							"    pm.expect(jsonData.data.cart_id).to.not.null;",
+							"    pm.expect(jsonData.data.cart_id.length).to.eql(24);",
+							"});",
+							"",
+							"pm.test(\"ตรวจสอบ cart_id เท่ากันกับ \" + jsonData.data.cart_id , function () {",
+							"    pm.expect(jsonData.data.cart_id).to.eql(\"66e010b6a2888e8c775c05b1\");",
+							"});",
+							"",
+							"pm.test(\"ตรวจสอบ customer_id เท่ากันกับ \" + jsonData.data.customer_id , function () {",
+							"    pm.expect(jsonData.data.customer_id).to.eql(\"ad5d787d-761b-460f-ae29-0825bad90385\");",
+							"});",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "app-id",
+						"value": "{{app_id}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{cart_host}}/api/cart/me",
+					"host": [
+						"{{cart_host}}"
+					],
+					"path": [
+						"api",
+						"cart",
+						"me"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Get Cart [Me]",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api-dev.beauti.one/cart/api/cart/me",
+							"protocol": "https",
+							"host": [
+								"api-dev",
+								"beauti",
+								"one"
+							],
+							"path": [
+								"cart",
+								"api",
+								"cart",
+								"me"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Wed, 11 Sep 2024 04:13:04 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "x-powered-by",
+							"value": "Express"
+						},
+						{
+							"key": "etag",
+							"value": "W/\"290-D+zWppClzfbuoNMehLOcE5r1gAQ\""
+						},
+						{
+							"key": "x-kong-upstream-latency",
+							"value": "276"
+						},
+						{
+							"key": "x-kong-proxy-latency",
+							"value": "1"
+						},
+						{
+							"key": "via",
+							"value": "kong/3.3.0"
+						},
+						{
+							"key": "CF-Cache-Status",
+							"value": "DYNAMIC"
+						},
+						{
+							"key": "Report-To",
+							"value": "{\"endpoints\":[{\"url\":\"https:\\/\\/a.nel.cloudflare.com\\/report\\/v4?s=BtY7GHXVgO84uLQk3SYqzVZ8kKaMrQ7KlVlyN%2FmKsogwftya%2BhYIc3AsOx7z2tgKeCn7TdrMZn94NSipJ13utatTPnqdJUs38qpsGBWzWtsogsCOMbFSJ54KoK8gUGRNNH4TBIw%3D\"}],\"group\":\"cf-nel\",\"max_age\":604800}"
+						},
+						{
+							"key": "NEL",
+							"value": "{\"success_fraction\":0,\"report_to\":\"cf-nel\",\"max_age\":604800}"
+						},
+						{
+							"key": "Server",
+							"value": "cloudflare"
+						},
+						{
+							"key": "CF-RAY",
+							"value": "8c14d2b6c8964ccb-SIN"
+						},
+						{
+							"key": "Content-Encoding",
+							"value": "br"
+						},
+						{
+							"key": "alt-svc",
+							"value": "h3=\":443\"; ma=86400"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": \"OK\",\n    \"data\": {\n        \"total_standard_price\": 0,\n        \"total_special_price\": 0,\n        \"cart_id\": \"66e00445a2888e8c775c04e3\",\n        \"customer_id\": \"e6fa52a5-801b-4fe8-94cd-fe1d4bc9cb0a\",\n        \"cart_items\": [],\n        \"cart_type\": \"normal\",\n        \"status\": \"valid\",\n        \"item_count\": 0,\n        \"total_market_price\": 0,\n        \"total_discount\": 0,\n        \"total_discount_product\": 0,\n        \"total_discount_promotion\": 0,\n        \"total_discount_shipping_fee\": 0,\n        \"total_shipping_fee\": 0,\n        \"total_vat\": 0,\n        \"total_price_exclude_vat\": 0,\n        \"total_price\": 0,\n        \"total_payable\": 0,\n        \"total_option_price\": 0,\n        \"is_error\": false,\n        \"message\": \"\",\n        \"coupon_code\": [],\n        \"applied_rules\": [],\n        \"total_operation_price\": 0,\n        \"created_at\": \"2024-09-10T08:33:09.544Z\",\n        \"updated_at\": \"2024-09-11T04:10:01.314Z\"\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "[Web][Cart] - Add Item to Cart [2] Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"var requestBody = JSON.parse(pm.request.body.raw);",
+							"var sentproductId = requestBody.productId;",
+							"",
+							"var receivedproduct_id = jsonData.data.cart_items[0].product_id;",
+							"var receivedproduct_qty = jsonData.data.cart_items[0].quantity;",
+							"var total_stnd_price = jsonData.data.total_standard_price",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"pm.test(\"ตรวจสอบว่า productId เท่ากันกับ \" + sentproductId, function () {",
+							"    pm.expect(jsonData.data.cart_items[0].product_id).to.eql(sentproductId);",
+							"});",
+							"",
+							"pm.test(\"ตรวจสอบราคาสินค้าทั้งหมด เท่ากันกับ \" + total_stnd_price +\" บาท\", function () {",
+							"    pm.expect(total_stnd_price).to.eql(6000);",
+							"});",
+							"",
+							"pm.test(\"ตรวจสอบว่าจำนวนสินค้า เท่ากันกับ \" + receivedproduct_qty +\" รายการ\", function () {",
+							"    pm.expect(jsonData.data.cart_items[0].quantity).to.eql(2);",
+							"});",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "app-id",
+						"value": "{{app_id}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"productId\": \"SKU202212000010\",\n    \"quantity\": 2,\n    \"additional\": {\n        \"discountAmount\": 0,\n        \"discountAgentAmount\": 0\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{cart_host}}/api/cart/{{cartId}}/items",
+					"host": [
+						"{{cart_host}}"
+					],
+					"path": [
+						"api",
+						"cart",
+						"{{cartId}}",
+						"items"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Add Item to Cart [2]",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"productId\": \"SKU202212000010\",\n    \"quantity\": 1,\n    \"additional\": {\n        \"discountAmount\": 0,\n        \"discountAgentAmount\": 0\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api-dev.beauti.one/cart/api/cart/66e00445a2888e8c775c04e3/items",
+							"protocol": "https",
+							"host": [
+								"api-dev",
+								"beauti",
+								"one"
+							],
+							"path": [
+								"cart",
+								"api",
+								"cart",
+								"66e00445a2888e8c775c04e3",
+								"items"
+							]
+						}
+					},
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json",
+							"description": "",
+							"type": "text"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": \"OK\",\n    \"data\": {\n        \"total_standard_price\": 9412.5,\n        \"total_special_price\": 0,\n        \"cart_id\": \"66e00445a2888e8c775c04e3\",\n        \"customer_id\": \"e6fa52a5-801b-4fe8-94cd-fe1d4bc9cb0a\",\n        \"cart_items\": [\n            {\n                \"product_id\": \"SKU202301000082\",\n                \"quantity\": 1,\n                \"product\": {\n                    \"product_id\": \"SKU202301000082\",\n                    \"parent_id\": \"PRD202301000015\",\n                    \"gallery_image\": [\n                        {\n                            \"id\": \"63c6c1d293d3594ffa5cc99d\",\n                            \"url\": \"https://media.thetouchexclusive.com/Deep%20Infusion_1673970130300.png\"\n                        }\n                    ],\n                    \"type\": \"simple\",\n                    \"item_type\": \"VIRTUAL\",\n                    \"product_name\": \"Deep Infusion\",\n                    \"category_ids\": [\n                        \"CAT202110000123\"\n                    ],\n                    \"category_names\": [\n                        \"Basic Course\"\n                    ],\n                    \"sku\": \"DI-PW\",\n                    \"standard_price\": 6412.5,\n                    \"market_price\": 7500,\n                    \"attributes\": [],\n                    \"total_discount_percent\": 14.499999999999998,\n                    \"discount_max_percent\": 35,\n                    \"discount_max_amount\": null,\n                    \"discount_max_agent_percent\": 10,\n                    \"discount_max_agent_amount\": null,\n                    \"commission_percent\": null,\n                    \"commission_amount\": null,\n                    \"discount_percent\": 0,\n                    \"discount_agent_percent\": 0,\n                    \"first_commission_person\": null\n                },\n                \"option_products\": [],\n                \"option_ids\": [],\n                \"serial\": [],\n                \"shipping_fee\": 0,\n                \"vat\": 490.6542,\n                \"price_exclude_vat\": 7009.3458,\n                \"discount_product\": 1087.5,\n                \"discount_promotion\": 0,\n                \"discount_shipping_fee\": 0,\n                \"market_price\": 7500,\n                \"special_price\": 0,\n                \"standard_price\": 6412.5,\n                \"total_shipping_fee\": 0,\n                \"total_standard_price\": 6412.5,\n                \"total_special_price\": 0,\n                \"total_discount\": 1087.5,\n                \"total_market_price\": 7500,\n                \"total_vat\": 419.5093,\n                \"total_price_exclude_vat\": 5992.9907,\n                \"total_price\": 6412.5,\n                \"total_option_price\": 0,\n                \"total_discount_product\": 1087.5,\n                \"total_discount_promotion\": 0,\n                \"total_discount_shipping_fee\": 0,\n                \"is_selected\": true,\n                \"is_available\": true,\n                \"is_not_exist\": false,\n                \"additional\": {\n                    \"discount_amount\": 750,\n                    \"discount_agent_amount\": 337.5\n                },\n                \"total_operation_price\": 0\n            },\n            {\n                \"product_id\": \"SKU202212000010\",\n                \"quantity\": 1,\n                \"product\": {\n                    \"product_id\": \"SKU202212000010\",\n                    \"parent_id\": \"PRD202212000004\",\n                    \"gallery_image\": [\n                        {\n                            \"id\": \"63ad377d84dfae4886657b73\",\n                            \"url\": \"https://media.thetouchexclusive.com/products/image/1-UPL.jpg\"\n                        }\n                    ],\n                    \"type\": \"simple\",\n                    \"item_type\": \"VIRTUAL\",\n                    \"product_name\": \"Ultimate Intensive Pulse Light\",\n                    \"category_ids\": [\n                        \"CAT202110000132\"\n                    ],\n                    \"category_names\": [\n                        \"LASER Course\"\n                    ],\n                    \"sku\": \"UPL-หน้าอก\",\n                    \"standard_price\": 3000,\n                    \"market_price\": 3000,\n                    \"attributes\": [\n                        {\n                            \"attribute_code\": \"att_202403000050\",\n                            \"value\": 2,\n                            \"id\": \"b7be3283-a9b9-4d82-ae84-a94b03ccec72\",\n                            \"option\": {\n                                \"position\": 0,\n                                \"attribute_label\": \"UPL\",\n                                \"attribute_optionlabel\": \"UPL หน้า\",\n                                \"color\": null\n                            }\n                        }\n                    ],\n                    \"total_discount_percent\": 0,\n                    \"discount_max_percent\": 35,\n                    \"discount_max_amount\": null,\n                    \"discount_max_agent_percent\": 10,\n                    \"discount_max_agent_amount\": null,\n                    \"commission_percent\": null,\n                    \"commission_amount\": null,\n                    \"discount_percent\": 0,\n                    \"discount_agent_percent\": 0,\n                    \"first_commission_person\": null\n                },\n                \"option_products\": [],\n                \"option_ids\": [],\n                \"serial\": [],\n                \"shipping_fee\": 0,\n                \"vat\": 196.2617,\n                \"price_exclude_vat\": 2803.7383,\n                \"discount_product\": 0,\n                \"discount_promotion\": 0,\n                \"discount_shipping_fee\": 0,\n                \"market_price\": 3000,\n                \"special_price\": 0,\n                \"standard_price\": 3000,\n                \"total_shipping_fee\": 0,\n                \"total_standard_price\": 3000,\n                \"total_special_price\": 0,\n                \"total_discount\": 0,\n                \"total_market_price\": 3000,\n                \"total_vat\": 196.2617,\n                \"total_price_exclude_vat\": 2803.7383,\n                \"total_price\": 3000,\n                \"total_option_price\": 0,\n                \"total_discount_product\": 0,\n                \"total_discount_promotion\": 0,\n                \"total_discount_shipping_fee\": 0,\n                \"is_selected\": true,\n                \"is_available\": true,\n                \"is_not_exist\": false,\n                \"additional\": {\n                    \"discount_amount\": 0,\n                    \"discount_agent_amount\": 0\n                },\n                \"total_operation_price\": 0\n            }\n        ],\n        \"cart_type\": \"normal\",\n        \"status\": \"valid\",\n        \"item_count\": 2,\n        \"total_market_price\": 10500,\n        \"total_discount\": 1087.5,\n        \"total_discount_product\": 1087.5,\n        \"total_discount_promotion\": 0,\n        \"total_discount_shipping_fee\": 0,\n        \"total_shipping_fee\": 0,\n        \"total_vat\": 615.771,\n        \"total_price_exclude_vat\": 8796.729,\n        \"total_price\": 9412.5,\n        \"total_payable\": 9412.5,\n        \"total_option_price\": 0,\n        \"is_error\": false,\n        \"message\": \"\",\n        \"coupon_code\": [],\n        \"applied_rules\": [],\n        \"total_operation_price\": 0,\n        \"created_at\": \"2024-09-10T08:33:09.544Z\",\n        \"updated_at\": \"2024-09-11T04:21:04.545Z\"\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "[Web][Checkout] - Get Checkout Content",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"ตรวจสอบ customer_id เท่ากันกับ \" + jsonData.data.checkout_content.customer_id , function () {",
+							"    pm.expect(jsonData.data.checkout_content.customer_id).to.eql(\"ad5d787d-761b-460f-ae29-0825bad90385\");",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "app-id",
+						"value": "{{app_id}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{cart_host}}/api/checkout/{{cartId}}",
+					"host": [
+						"{{cart_host}}"
+					],
+					"path": [
+						"api",
+						"checkout",
+						"{{cartId}}"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "[Web][Checkout] - Get Checkout Content",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{cart_host}}/api/checkout/:cart_id",
+							"host": [
+								"{{cart_host}}"
+							],
+							"path": [
+								"api",
+								"checkout",
+								":cart_id"
+							],
+							"variable": [
+								{
+									"key": "cart_id",
+									"value": "66e00445a2888e8c775c04e3"
+								}
+							]
+						}
+					},
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json",
+							"description": "",
+							"type": "text"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": \"OK\",\n    \"data\": {\n        \"checkout_content\": {\n            \"count\": 2,\n            \"customer_id\": \"e6fa52a5-801b-4fe8-94cd-fe1d4bc9cb0a\",\n            \"cart_id\": \"66e00445a2888e8c775c04e3\",\n            \"items\": [\n                {\n                    \"product_id\": \"SKU202301000082\",\n                    \"quantity\": 1,\n                    \"product\": {\n                        \"product_id\": \"SKU202301000082\",\n                        \"parent_id\": \"PRD202301000015\",\n                        \"gallery_image\": [\n                            {\n                                \"id\": \"63c6c1d293d3594ffa5cc99d\",\n                                \"url\": \"https://media.thetouchexclusive.com/Deep%20Infusion_1673970130300.png\"\n                            }\n                        ],\n                        \"type\": \"simple\",\n                        \"item_type\": \"VIRTUAL\",\n                        \"product_name\": \"Deep Infusion\",\n                        \"category_ids\": [\n                            \"CAT202110000123\"\n                        ],\n                        \"category_names\": [\n                            \"Basic Course\"\n                        ],\n                        \"sku\": \"DI-PW\",\n                        \"standard_price\": 6412.5,\n                        \"market_price\": 7500,\n                        \"attributes\": [],\n                        \"total_discount_percent\": 14.499999999999998,\n                        \"discount_max_percent\": 35,\n                        \"discount_max_amount\": null,\n                        \"discount_max_agent_percent\": 10,\n                        \"discount_max_agent_amount\": null,\n                        \"commission_percent\": null,\n                        \"commission_amount\": null,\n                        \"discount_percent\": 0,\n                        \"discount_agent_percent\": 0,\n                        \"first_commission_person\": null\n                    },\n                    \"option_products\": [],\n                    \"option_ids\": [],\n                    \"serial\": [],\n                    \"shipping_fee\": 0,\n                    \"vat\": 490.6542,\n                    \"price_exclude_vat\": 7009.3458,\n                    \"discount_product\": 1087.5,\n                    \"discount_promotion\": 0,\n                    \"discount_shipping_fee\": 0,\n                    \"market_price\": 7500,\n                    \"special_price\": 0,\n                    \"standard_price\": 6412.5,\n                    \"total_shipping_fee\": 0,\n                    \"total_standard_price\": 6412.5,\n                    \"total_special_price\": 0,\n                    \"total_discount\": 1087.5,\n                    \"total_market_price\": 7500,\n                    \"total_vat\": 419.5093,\n                    \"total_price_exclude_vat\": 5992.9907,\n                    \"total_price\": 6412.5,\n                    \"total_option_price\": 0,\n                    \"total_discount_product\": 1087.5,\n                    \"total_discount_promotion\": 0,\n                    \"total_discount_shipping_fee\": 0,\n                    \"is_selected\": true,\n                    \"is_available\": true,\n                    \"is_not_exist\": false,\n                    \"additional\": {\n                        \"discount_amount\": 750,\n                        \"discount_agent_amount\": 337.5\n                    },\n                    \"total_operation_price\": 0\n                },\n                {\n                    \"product_id\": \"SKU202212000010\",\n                    \"quantity\": 1,\n                    \"product\": {\n                        \"product_id\": \"SKU202212000010\",\n                        \"parent_id\": \"PRD202212000004\",\n                        \"gallery_image\": [\n                            {\n                                \"id\": \"63ad377d84dfae4886657b73\",\n                                \"url\": \"https://media.thetouchexclusive.com/products/image/1-UPL.jpg\"\n                            }\n                        ],\n                        \"type\": \"simple\",\n                        \"item_type\": \"VIRTUAL\",\n                        \"product_name\": \"Ultimate Intensive Pulse Light\",\n                        \"category_ids\": [\n                            \"CAT202110000132\"\n                        ],\n                        \"category_names\": [\n                            \"LASER Course\"\n                        ],\n                        \"sku\": \"UPL-หน้าอก\",\n                        \"standard_price\": 3000,\n                        \"market_price\": 3000,\n                        \"attributes\": [\n                            {\n                                \"attribute_code\": \"att_202403000050\",\n                                \"value\": 2,\n                                \"id\": \"b7be3283-a9b9-4d82-ae84-a94b03ccec72\",\n                                \"option\": {\n                                    \"position\": 0,\n                                    \"attribute_label\": \"UPL\",\n                                    \"attribute_optionlabel\": \"UPL หน้า\",\n                                    \"color\": null\n                                }\n                            }\n                        ],\n                        \"total_discount_percent\": 0,\n                        \"discount_max_percent\": 35,\n                        \"discount_max_amount\": null,\n                        \"discount_max_agent_percent\": 10,\n                        \"discount_max_agent_amount\": null,\n                        \"commission_percent\": null,\n                        \"commission_amount\": null,\n                        \"discount_percent\": 0,\n                        \"discount_agent_percent\": 0,\n                        \"first_commission_person\": null\n                    },\n                    \"option_products\": [],\n                    \"option_ids\": [],\n                    \"serial\": [],\n                    \"shipping_fee\": 0,\n                    \"vat\": 196.2617,\n                    \"price_exclude_vat\": 2803.7383,\n                    \"discount_product\": 0,\n                    \"discount_promotion\": 0,\n                    \"discount_shipping_fee\": 0,\n                    \"market_price\": 3000,\n                    \"special_price\": 0,\n                    \"standard_price\": 3000,\n                    \"total_shipping_fee\": 0,\n                    \"total_standard_price\": 3000,\n                    \"total_special_price\": 0,\n                    \"total_discount\": 0,\n                    \"total_market_price\": 3000,\n                    \"total_vat\": 196.2617,\n                    \"total_price_exclude_vat\": 2803.7383,\n                    \"total_price\": 3000,\n                    \"total_option_price\": 0,\n                    \"total_discount_product\": 0,\n                    \"total_discount_promotion\": 0,\n                    \"total_discount_shipping_fee\": 0,\n                    \"is_selected\": true,\n                    \"is_available\": true,\n                    \"is_not_exist\": false,\n                    \"additional\": {\n                        \"discount_amount\": 0,\n                        \"discount_agent_amount\": 0\n                    },\n                    \"total_operation_price\": 0\n                }\n            ],\n            \"total_market_price\": 10500,\n            \"total_discount\": 1087.5,\n            \"total_payable\": 9412.5,\n            \"total_vat\": 615.771,\n            \"total_option_price\": 0,\n            \"total_price\": 9412.5,\n            \"coupon_code\": [],\n            \"applied_rules\": []\n        },\n        \"error_message\": {\n            \"delivery\": \"\",\n            \"payment\": \"\",\n            \"order_limit\": \"\",\n            \"coupon\": \"\"\n        },\n        \"is_error\": false,\n        \"payment_methods\": [\n            {\n                \"id\": \"63f48b5128db0dc0f5fff03e\",\n                \"name\": \"KTC\",\n                \"payment_type\": \"credit_card\",\n                \"payment_request_type\": \"post_form\",\n                \"merchant_data\": {\n                    \"pay_type\": \"N\",\n                    \"pay_method\": \"CC\",\n                    \"curr_code\": \"764\",\n                    \"merchant_id\": \"991305344\",\n                    \"tx_type\": \"Retail\",\n                    \"promotion_type\": \"00\"\n                },\n                \"is_active\": true,\n                \"payment_gateway\": \"KTC\",\n                \"logo\": {\n                    \"file_id\": \"63ad4e3884dfae4886657cf2\",\n                    \"url\": \"https://media.thetouchexclusive.com/products/image/3-OXY.jpg\"\n                },\n                \"installment_plans\": []\n            },\n            {\n                \"id\": \"63f5d06c2b63aa99ebc3a959\",\n                \"name\": \"KBANK offline\",\n                \"payment_type\": \"offline_payment\",\n                \"payment_request_type\": \"slip\",\n                \"is_active\": true,\n                \"payment_gateway\": \"KBANK\",\n                \"logo\": {\n                    \"file_id\": \"63ad4e3884dfae4886657cf2\",\n                    \"url\": \"https://media.thetouchexclusive.com/products/image/3-OXY.jpg\"\n                },\n                \"installment_plans\": []\n            },\n            {\n                \"id\": \"63f5f67d816afc13d93ef840\",\n                \"name\": \"KBANK credit\",\n                \"payment_type\": \"credit_card\",\n                \"payment_request_type\": \"redirect_url\",\n                \"merchant_data\": {\n                    \"banking\": \"KBANK\"\n                },\n                \"is_active\": true,\n                \"payment_gateway\": \"KBANK\",\n                \"logo\": {\n                    \"file_id\": \"63ad4e3884dfae4886657cf2\",\n                    \"url\": \"https://media.thetouchexclusive.com/products/image/3-OXY.jpg\"\n                },\n                \"installment_plans\": []\n            },\n            {\n                \"id\": \"64215f8c32c3e47ea8684bf0\",\n                \"name\": \"KBANK QR\",\n                \"payment_type\": \"qr\",\n                \"payment_request_type\": \"qr\",\n                \"merchant_data\": {\n                    \"banking_no\": \"111-111-111-11\",\n                    \"account_name\": \"The Touch Beauty\"\n                },\n                \"is_active\": true,\n                \"payment_gateway\": \"KBANK\",\n                \"logo\": {\n                    \"url\": null\n                },\n                \"installment_plans\": []\n            },\n            {\n                \"id\": \"645b4066506d239682ae38be\",\n                \"payment_type\": \"bank_transfer\",\n                \"payment_request_type\": \"slip\",\n                \"merchant_data\": {\n                    \"banking_name\": \"ธนาคารกสิกรไทย\",\n                    \"banking_no\": \"1525252525\",\n                    \"account_name\": \"ddddddd\"\n                },\n                \"is_active\": true,\n                \"payment_gateway\": null,\n                \"logo\": {\n                    \"file_id\": \"645b4065078fef7cb41371fa\",\n                    \"url\": \"https://media.thetouchexclusive.com/20230510/images_1683701861008.png\"\n                },\n                \"installment_plans\": []\n            },\n            {\n                \"id\": \"64898bbbb662da0e62d0dd61\",\n                \"name\": \"BAY3\",\n                \"payment_type\": \"installment\",\n                \"payment_request_type\": \"post_form\",\n                \"is_active\": true,\n                \"payment_gateway\": \"BAY\",\n                \"logo\": {\n                    \"file_id\": \"64898bb9f71eb3d142889327\",\n                    \"url\": \"https://media.thetouchexclusive.com/20230614/bank-of-ayudhya-public-company-limited--600_1686735801356.png\"\n                },\n                \"installment_plans\": [\n                    {\n                        \"id\": \"66163891f7a08be7a0dcc92a\",\n                        \"payment_gateway\": \"BAY\",\n                        \"payment_method_id\": \"64898bbbb662da0e62d0dd61\",\n                        \"term\": 3,\n                        \"rate\": 0,\n                        \"minimum_price\": 5000,\n                        \"config\": {\n                            \"card_type\": \"creditcard\",\n                            \"marketing_code\": \"446008\",\n                            \"mid\": \"272253\"\n                        },\n                        \"is_active\": true,\n                        \"created_at\": \"2024-04-10T06:58:25.080Z\",\n                        \"updated_at\": \"2024-04-10T06:58:25.080Z\",\n                        \"created_by\": \"admin@harmonyx.co\",\n                        \"pay_per_month\": 0\n                    }\n                ]\n            },\n            {\n                \"id\": \"64898be6b662da0e62d0dd6d\",\n                \"name\": \"SCB\",\n                \"payment_type\": \"installment\",\n                \"payment_request_type\": \"redirect_url\",\n                \"is_active\": true,\n                \"payment_gateway\": \"CCPP\",\n                \"logo\": {\n                    \"file_id\": \"64898be4f71eb3d142889334\",\n                    \"url\": \"https://media.thetouchexclusive.com/20230614/scb_1686735844248.jpg\"\n                },\n                \"installment_plans\": [\n                    {\n                        \"id\": \"6513ab9746ca9c0033afc8e6\",\n                        \"payment_gateway\": \"CCPP\",\n                        \"payment_method_id\": \"64898be6b662da0e62d0dd6d\",\n                        \"term\": 3,\n                        \"rate\": 0,\n                        \"minimum_price\": 5000,\n                        \"is_active\": true,\n                        \"created_at\": \"2023-09-27T04:12:07.918Z\",\n                        \"updated_at\": \"2023-09-27T04:12:07.918Z\",\n                        \"created_by\": \"admin@harmonyx.co\",\n                        \"pay_per_month\": 0\n                    },\n                    {\n                        \"id\": \"6513ab9746ca9c0033afc8e8\",\n                        \"payment_gateway\": \"CCPP\",\n                        \"payment_method_id\": \"64898be6b662da0e62d0dd6d\",\n                        \"term\": 4,\n                        \"rate\": 0,\n                        \"minimum_price\": 5000,\n                        \"is_active\": true,\n                        \"created_at\": \"2023-09-27T04:12:07.919Z\",\n                        \"updated_at\": \"2023-09-27T04:12:07.919Z\",\n                        \"created_by\": \"admin@harmonyx.co\",\n                        \"pay_per_month\": 0\n                    },\n                    {\n                        \"id\": \"6513ab9746ca9c0033afc8ea\",\n                        \"payment_gateway\": \"CCPP\",\n                        \"payment_method_id\": \"64898be6b662da0e62d0dd6d\",\n                        \"term\": 6,\n                        \"rate\": 0,\n                        \"minimum_price\": 5000,\n                        \"is_active\": true,\n                        \"created_at\": \"2023-09-27T04:12:07.919Z\",\n                        \"updated_at\": \"2023-09-27T04:12:07.919Z\",\n                        \"created_by\": \"admin@harmonyx.co\",\n                        \"pay_per_month\": 0\n                    },\n                    {\n                        \"id\": \"6513ab9746ca9c0033afc8ec\",\n                        \"payment_gateway\": \"CCPP\",\n                        \"payment_method_id\": \"64898be6b662da0e62d0dd6d\",\n                        \"term\": 10,\n                        \"rate\": 0,\n                        \"minimum_price\": 5000,\n                        \"is_active\": true,\n                        \"created_at\": \"2023-09-27T04:12:07.919Z\",\n                        \"updated_at\": \"2023-09-27T04:12:07.919Z\",\n                        \"created_by\": \"admin@harmonyx.co\",\n                        \"pay_per_month\": 0\n                    }\n                ]\n            },\n            {\n                \"id\": \"64898d12b662da0e62d0ddc5\",\n                \"name\": \"KBANK\",\n                \"payment_type\": \"installment\",\n                \"payment_request_type\": \"redirect_url\",\n                \"is_active\": true,\n                \"payment_gateway\": \"KBANK\",\n                \"logo\": {\n                    \"file_id\": \"64898d11f71eb3d1428894d5\",\n                    \"url\": \"https://media.thetouchexclusive.com/20230614/564000004884401_1686736145242.jpg\"\n                },\n                \"installment_plans\": [\n                    {\n                        \"id\": \"64ae62e0a08f32680dcd9a49\",\n                        \"payment_gateway\": \"KBANK\",\n                        \"payment_method_id\": \"64898d12b662da0e62d0ddc5\",\n                        \"term\": 4,\n                        \"rate\": 0.15,\n                        \"minimum_price\": 2500,\n                        \"is_active\": true,\n                        \"created_at\": \"2023-07-12T08:22:56.736Z\",\n                        \"updated_at\": \"2023-07-12T08:22:56.736Z\",\n                        \"created_by\": \"admin@harmonyx.co\",\n                        \"pay_per_month\": 0\n                    },\n                    {\n                        \"id\": \"64ae62e0a08f32680dcd9a4b\",\n                        \"payment_gateway\": \"KBANK\",\n                        \"payment_method_id\": \"64898d12b662da0e62d0ddc5\",\n                        \"term\": 6,\n                        \"rate\": 0.11,\n                        \"minimum_price\": 2500,\n                        \"is_active\": true,\n                        \"created_at\": \"2023-07-12T08:22:56.737Z\",\n                        \"updated_at\": \"2023-07-12T08:22:56.737Z\",\n                        \"created_by\": \"admin@harmonyx.co\",\n                        \"pay_per_month\": 0\n                    },\n                    {\n                        \"id\": \"64898d44b662da0e62d0ddda\",\n                        \"payment_gateway\": \"KBANK\",\n                        \"payment_method_id\": \"64898d12b662da0e62d0ddc5\",\n                        \"term\": 10,\n                        \"rate\": 0,\n                        \"minimum_price\": 5000,\n                        \"config\": {\n                            \"smart_pay_id\": \"0001\"\n                        },\n                        \"is_active\": true,\n                        \"created_at\": \"2023-06-14T09:49:56.665Z\",\n                        \"updated_at\": \"2023-06-14T09:49:56.665Z\",\n                        \"created_by\": \"admin@harmonyx.co\",\n                        \"pay_per_month\": 0\n                    }\n                ]\n            },\n            {\n                \"id\": \"64898d2fb662da0e62d0ddd1\",\n                \"name\": \"KTC\",\n                \"payment_type\": \"installment\",\n                \"payment_request_type\": \"post_form\",\n                \"merchant_data\": {\n                    \"tx_type\": \"Flexi\",\n                    \"curr_code\": \"764\",\n                    \"pay_type\": \"N\",\n                    \"pay_method\": \"CC\",\n                    \"promotion_type\": \"01\"\n                },\n                \"is_active\": true,\n                \"payment_gateway\": \"KTC\",\n                \"logo\": {\n                    \"file_id\": \"64898d2df71eb3d1428894e2\",\n                    \"url\": \"https://media.thetouchexclusive.com/20230614/ktc_logo_1686736173834.png\"\n                },\n                \"installment_plans\": [\n                    {\n                        \"id\": \"64898d52b662da0e62d0dde4\",\n                        \"payment_gateway\": \"KTC\",\n                        \"payment_method_id\": \"64898d2fb662da0e62d0ddd1\",\n                        \"term\": 10,\n                        \"rate\": 0,\n                        \"minimum_price\": 5000,\n                        \"is_active\": true,\n                        \"created_at\": \"2023-06-14T09:50:10.902Z\",\n                        \"updated_at\": \"2023-06-14T09:50:10.902Z\",\n                        \"created_by\": \"admin@harmonyx.co\",\n                        \"pay_per_month\": 0\n                    }\n                ]\n            },\n            {\n                \"id\": \"6502ebc7d0baa6ab32726dea\",\n                \"name\": \"KBANK NEW\",\n                \"payment_type\": \"installment\",\n                \"payment_request_type\": \"redirect_url\",\n                \"is_active\": true,\n                \"payment_gateway\": \"KBANK\",\n                \"logo\": {\n                    \"file_id\": \"6502ebc673691116638486c2\",\n                    \"url\": \"https://media.thetouchexclusive.com/20230914/download_1694690246115.jpg\"\n                },\n                \"installment_plans\": [\n                    {\n                        \"id\": \"6502ebf0d0baa6ab32726df3\",\n                        \"payment_gateway\": \"KBANK\",\n                        \"payment_method_id\": \"6502ebc7d0baa6ab32726dea\",\n                        \"term\": 3,\n                        \"rate\": 0,\n                        \"minimum_price\": 5000,\n                        \"config\": {\n                            \"smart_pay_id\": \"0001\"\n                        },\n                        \"is_active\": true,\n                        \"created_at\": \"2023-09-14T11:18:08.757Z\",\n                        \"updated_at\": \"2023-09-14T11:18:08.757Z\",\n                        \"created_by\": \"admin@harmonyx.co\",\n                        \"pay_per_month\": 0\n                    },\n                    {\n                        \"id\": \"6502ebf0d0baa6ab32726df5\",\n                        \"payment_gateway\": \"KBANK\",\n                        \"payment_method_id\": \"6502ebc7d0baa6ab32726dea\",\n                        \"term\": 6,\n                        \"rate\": 0,\n                        \"minimum_price\": 5000,\n                        \"config\": {\n                            \"smart_pay_id\": \"0001\"\n                        },\n                        \"is_active\": true,\n                        \"created_at\": \"2023-09-14T11:18:08.757Z\",\n                        \"updated_at\": \"2023-09-14T11:18:13.644Z\",\n                        \"created_by\": \"admin@harmonyx.co\",\n                        \"updated_by\": \"admin@harmonyx.co\",\n                        \"pay_per_month\": 0\n                    }\n                ]\n            },\n            {\n                \"id\": \"6549d6fe0205ef6e25ebf275\",\n                \"name\": \"CITI BANK\",\n                \"payment_type\": \"installment\",\n                \"payment_request_type\": \"redirect_url\",\n                \"is_active\": true,\n                \"payment_gateway\": \"CCPP\",\n                \"logo\": {\n                    \"file_id\": \"6549d6fbfbeb5b27ed26aa66\",\n                    \"url\": \"https://media.thetouchexclusive.com/20231107/unnamed_1699337979122.jpg\"\n                },\n                \"installment_plans\": [\n                    {\n                        \"id\": \"6549d72d0205ef6e25ebf27e\",\n                        \"payment_gateway\": \"CCPP\",\n                        \"payment_method_id\": \"6549d6fe0205ef6e25ebf275\",\n                        \"term\": 4,\n                        \"rate\": 0,\n                        \"minimum_price\": 5000,\n                        \"is_active\": true,\n                        \"created_at\": \"2023-11-07T06:20:29.659Z\",\n                        \"updated_at\": \"2023-11-07T06:20:29.659Z\",\n                        \"created_by\": \"admin@harmonyx.co\",\n                        \"pay_per_month\": 0\n                    },\n                    {\n                        \"id\": \"6549d72d0205ef6e25ebf280\",\n                        \"payment_gateway\": \"CCPP\",\n                        \"payment_method_id\": \"6549d6fe0205ef6e25ebf275\",\n                        \"term\": 6,\n                        \"rate\": 0,\n                        \"minimum_price\": 5000,\n                        \"is_active\": true,\n                        \"created_at\": \"2023-11-07T06:20:29.659Z\",\n                        \"updated_at\": \"2023-11-07T06:20:29.659Z\",\n                        \"created_by\": \"admin@harmonyx.co\",\n                        \"pay_per_month\": 0\n                    }\n                ]\n            }\n        ],\n        \"delivery_methods\": [],\n        \"available_coupons\": []\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "[Web][???] - Get Branch",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"ตรวจสอบสถานะ status เท่ากันกับ OK\", function () {",
+							"    pm.expect(jsonData.status).to.eql(\"OK\");",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{branch_host}}/api/branch",
+					"host": [
+						"{{branch_host}}"
+					],
+					"path": [
+						"api",
+						"branch"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[Web][Payment] - Get Payment Method by Amount (Select 2p2c 10m)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{payment_host}}/api/payment/methods?amount=6000",
+					"host": [
+						"{{payment_host}}"
+					],
+					"path": [
+						"api",
+						"payment",
+						"methods"
+					],
+					"query": [
+						{
+							"key": "amount",
+							"value": "6000"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Get Payment Method by Amount",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api-dev.beauti.one/payment/api/payment/methods?amount=9412.5",
+							"protocol": "https",
+							"host": [
+								"api-dev",
+								"beauti",
+								"one"
+							],
+							"path": [
+								"payment",
+								"api",
+								"payment",
+								"methods"
+							],
+							"query": [
+								{
+									"key": "amount",
+									"value": "9412.5"
+								}
+							]
+						}
+					},
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json",
+							"description": "",
+							"type": "text"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": \"OK\",\n    \"data\": [\n        {\n            \"id\": \"63f48b5128db0dc0f5fff03e\",\n            \"name\": \"KTC\",\n            \"payment_type\": \"credit_card\",\n            \"payment_request_type\": \"post_form\",\n            \"payment_gateway\": \"KTC\",\n            \"merchant_data\": {\n                \"pay_type\": \"N\",\n                \"pay_method\": \"CC\",\n                \"curr_code\": \"764\",\n                \"merchant_id\": \"991305344\",\n                \"tx_type\": \"Retail\",\n                \"promotion_type\": \"00\"\n            },\n            \"is_active\": true,\n            \"logo\": {\n                \"file_id\": \"63ad4e3884dfae4886657cf2\",\n                \"url\": \"https://media.thetouchexclusive.com/products/image/3-OXY.jpg\"\n            },\n            \"created_at\": \"2023-02-21T09:13:53.420Z\",\n            \"updated_at\": \"2023-02-21T09:13:53.420Z\",\n            \"created_by\": \"admin@harmonyx.co\",\n            \"installment_plans\": []\n        },\n        {\n            \"id\": \"63f5d06c2b63aa99ebc3a959\",\n            \"name\": \"KBANK offline\",\n            \"payment_type\": \"offline_payment\",\n            \"payment_request_type\": \"slip\",\n            \"payment_gateway\": \"KBANK\",\n            \"is_active\": true,\n            \"logo\": {\n                \"file_id\": \"63ad4e3884dfae4886657cf2\",\n                \"url\": \"https://media.thetouchexclusive.com/products/image/3-OXY.jpg\"\n            },\n            \"created_at\": \"2023-02-22T08:21:00.863Z\",\n            \"updated_at\": \"2023-02-22T08:21:00.863Z\",\n            \"installment_plans\": []\n        },\n        {\n            \"id\": \"63f5f67d816afc13d93ef840\",\n            \"name\": \"KBANK credit\",\n            \"payment_type\": \"credit_card\",\n            \"payment_request_type\": \"redirect_url\",\n            \"payment_gateway\": \"KBANK\",\n            \"merchant_data\": {\n                \"banking\": \"KBANK\"\n            },\n            \"is_active\": true,\n            \"logo\": {\n                \"file_id\": \"63ad4e3884dfae4886657cf2\",\n                \"url\": \"https://media.thetouchexclusive.com/products/image/3-OXY.jpg\"\n            },\n            \"created_at\": \"2023-02-22T11:03:25.161Z\",\n            \"updated_at\": \"2023-02-22T11:03:25.161Z\",\n            \"installment_plans\": []\n        },\n        {\n            \"id\": \"64215f8c32c3e47ea8684bf0\",\n            \"name\": \"KBANK QR\",\n            \"payment_type\": \"qr\",\n            \"payment_request_type\": \"qr\",\n            \"payment_gateway\": \"KBANK\",\n            \"merchant_data\": {\n                \"banking_no\": \"111-111-111-11\",\n                \"account_name\": \"The Touch Beauty\"\n            },\n            \"is_active\": true,\n            \"logo\": {\n                \"url\": null\n            },\n            \"created_at\": \"2023-03-27T09:19:08.042Z\",\n            \"updated_at\": \"2023-03-27T09:19:08.042Z\",\n            \"installment_plans\": []\n        },\n        {\n            \"id\": \"645b4066506d239682ae38be\",\n            \"payment_type\": \"bank_transfer\",\n            \"payment_request_type\": \"slip\",\n            \"payment_gateway\": null,\n            \"merchant_data\": {\n                \"banking_name\": \"ธนาคารกสิกรไทย\",\n                \"banking_no\": \"1525252525\",\n                \"account_name\": \"ddddddd\"\n            },\n            \"is_active\": true,\n            \"logo\": {\n                \"file_id\": \"645b4065078fef7cb41371fa\",\n                \"url\": \"https://media.thetouchexclusive.com/20230510/images_1683701861008.png\"\n            },\n            \"created_at\": \"2023-05-10T06:57:42.224Z\",\n            \"updated_at\": \"2023-05-10T06:57:53.307Z\",\n            \"created_by\": \"admin@harmonyx.co\",\n            \"updated_by\": \"admin@harmonyx.co\",\n            \"installment_plans\": []\n        },\n        {\n            \"id\": \"64898bbbb662da0e62d0dd61\",\n            \"name\": \"BAY3\",\n            \"payment_type\": \"installment\",\n            \"payment_request_type\": \"post_form\",\n            \"payment_gateway\": \"BAY\",\n            \"is_active\": true,\n            \"logo\": {\n                \"file_id\": \"64898bb9f71eb3d142889327\",\n                \"url\": \"https://media.thetouchexclusive.com/20230614/bank-of-ayudhya-public-company-limited--600_1686735801356.png\"\n            },\n            \"created_at\": \"2023-06-14T09:43:23.263Z\",\n            \"updated_at\": \"2024-04-10T06:59:07.568Z\",\n            \"created_by\": \"admin@harmonyx.co\",\n            \"updated_by\": \"admin@harmonyx.co\",\n            \"installment_plans\": [\n                {\n                    \"id\": \"66163891f7a08be7a0dcc92a\",\n                    \"payment_gateway\": \"BAY\",\n                    \"payment_method_id\": \"64898bbbb662da0e62d0dd61\",\n                    \"term\": 3,\n                    \"rate\": 0,\n                    \"minimum_price\": 5000,\n                    \"config\": {\n                        \"card_type\": \"creditcard\",\n                        \"marketing_code\": \"446008\",\n                        \"mid\": \"272253\"\n                    },\n                    \"is_active\": true,\n                    \"created_at\": \"2024-04-10T06:58:25.080Z\",\n                    \"updated_at\": \"2024-04-10T06:58:25.080Z\",\n                    \"created_by\": \"admin@harmonyx.co\",\n                    \"pay_per_month\": 3137.5\n                }\n            ]\n        },\n        {\n            \"id\": \"64898be6b662da0e62d0dd6d\",\n            \"name\": \"SCB\",\n            \"payment_type\": \"installment\",\n            \"payment_request_type\": \"redirect_url\",\n            \"payment_gateway\": \"CCPP\",\n            \"is_active\": true,\n            \"logo\": {\n                \"file_id\": \"64898be4f71eb3d142889334\",\n                \"url\": \"https://media.thetouchexclusive.com/20230614/scb_1686735844248.jpg\"\n            },\n            \"created_at\": \"2023-06-14T09:44:06.033Z\",\n            \"updated_at\": \"2023-09-27T04:12:07.933Z\",\n            \"created_by\": \"admin@harmonyx.co\",\n            \"installment_plans\": [\n                {\n                    \"id\": \"6513ab9746ca9c0033afc8e6\",\n                    \"payment_gateway\": \"CCPP\",\n                    \"payment_method_id\": \"64898be6b662da0e62d0dd6d\",\n                    \"term\": 3,\n                    \"rate\": 0,\n                    \"minimum_price\": 5000,\n                    \"is_active\": true,\n                    \"created_at\": \"2023-09-27T04:12:07.918Z\",\n                    \"updated_at\": \"2023-09-27T04:12:07.918Z\",\n                    \"created_by\": \"admin@harmonyx.co\",\n                    \"pay_per_month\": 3137.5\n                },\n                {\n                    \"id\": \"6513ab9746ca9c0033afc8e8\",\n                    \"payment_gateway\": \"CCPP\",\n                    \"payment_method_id\": \"64898be6b662da0e62d0dd6d\",\n                    \"term\": 4,\n                    \"rate\": 0,\n                    \"minimum_price\": 5000,\n                    \"is_active\": true,\n                    \"created_at\": \"2023-09-27T04:12:07.919Z\",\n                    \"updated_at\": \"2023-09-27T04:12:07.919Z\",\n                    \"created_by\": \"admin@harmonyx.co\",\n                    \"pay_per_month\": 2353.125\n                },\n                {\n                    \"id\": \"6513ab9746ca9c0033afc8ea\",\n                    \"payment_gateway\": \"CCPP\",\n                    \"payment_method_id\": \"64898be6b662da0e62d0dd6d\",\n                    \"term\": 6,\n                    \"rate\": 0,\n                    \"minimum_price\": 5000,\n                    \"is_active\": true,\n                    \"created_at\": \"2023-09-27T04:12:07.919Z\",\n                    \"updated_at\": \"2023-09-27T04:12:07.919Z\",\n                    \"created_by\": \"admin@harmonyx.co\",\n                    \"pay_per_month\": 1568.75\n                },\n                {\n                    \"id\": \"6513ab9746ca9c0033afc8ec\",\n                    \"payment_gateway\": \"CCPP\",\n                    \"payment_method_id\": \"64898be6b662da0e62d0dd6d\",\n                    \"term\": 10,\n                    \"rate\": 0,\n                    \"minimum_price\": 5000,\n                    \"is_active\": true,\n                    \"created_at\": \"2023-09-27T04:12:07.919Z\",\n                    \"updated_at\": \"2023-09-27T04:12:07.919Z\",\n                    \"created_by\": \"admin@harmonyx.co\",\n                    \"pay_per_month\": 941.25\n                }\n            ]\n        },\n        {\n            \"id\": \"64898d12b662da0e62d0ddc5\",\n            \"name\": \"KBANK\",\n            \"payment_type\": \"installment\",\n            \"payment_request_type\": \"redirect_url\",\n            \"payment_gateway\": \"KBANK\",\n            \"is_active\": true,\n            \"logo\": {\n                \"file_id\": \"64898d11f71eb3d1428894d5\",\n                \"url\": \"https://media.thetouchexclusive.com/20230614/564000004884401_1686736145242.jpg\"\n            },\n            \"created_at\": \"2023-06-14T09:49:06.589Z\",\n            \"updated_at\": \"2023-07-12T08:22:56.795Z\",\n            \"created_by\": \"admin@harmonyx.co\",\n            \"installment_plans\": [\n                {\n                    \"id\": \"64ae62e0a08f32680dcd9a49\",\n                    \"payment_gateway\": \"KBANK\",\n                    \"payment_method_id\": \"64898d12b662da0e62d0ddc5\",\n                    \"term\": 4,\n                    \"rate\": 0.15,\n                    \"minimum_price\": 2500,\n                    \"is_active\": true,\n                    \"created_at\": \"2023-07-12T08:22:56.736Z\",\n                    \"updated_at\": \"2023-07-12T08:22:56.736Z\",\n                    \"created_by\": \"admin@harmonyx.co\",\n                    \"pay_per_month\": 2356.6546875\n                },\n                {\n                    \"id\": \"64ae62e0a08f32680dcd9a4b\",\n                    \"payment_gateway\": \"KBANK\",\n                    \"payment_method_id\": \"64898d12b662da0e62d0ddc5\",\n                    \"term\": 6,\n                    \"rate\": 0.11,\n                    \"minimum_price\": 2500,\n                    \"is_active\": true,\n                    \"created_at\": \"2023-07-12T08:22:56.737Z\",\n                    \"updated_at\": \"2023-07-12T08:22:56.737Z\",\n                    \"created_by\": \"admin@harmonyx.co\",\n                    \"pay_per_month\": 1570.475625\n                },\n                {\n                    \"id\": \"64898d44b662da0e62d0ddda\",\n                    \"payment_gateway\": \"KBANK\",\n                    \"payment_method_id\": \"64898d12b662da0e62d0ddc5\",\n                    \"term\": 10,\n                    \"rate\": 0,\n                    \"minimum_price\": 5000,\n                    \"config\": {\n                        \"smart_pay_id\": \"0001\"\n                    },\n                    \"is_active\": true,\n                    \"created_at\": \"2023-06-14T09:49:56.665Z\",\n                    \"updated_at\": \"2023-06-14T09:49:56.665Z\",\n                    \"created_by\": \"admin@harmonyx.co\",\n                    \"pay_per_month\": 941.25\n                }\n            ]\n        },\n        {\n            \"id\": \"64898d2fb662da0e62d0ddd1\",\n            \"name\": \"KTC\",\n            \"payment_type\": \"installment\",\n            \"payment_request_type\": \"post_form\",\n            \"payment_gateway\": \"KTC\",\n            \"merchant_data\": {\n                \"tx_type\": \"Flexi\",\n                \"curr_code\": \"764\",\n                \"pay_type\": \"N\",\n                \"pay_method\": \"CC\",\n                \"promotion_type\": \"01\"\n            },\n            \"is_active\": true,\n            \"logo\": {\n                \"file_id\": \"64898d2df71eb3d1428894e2\",\n                \"url\": \"https://media.thetouchexclusive.com/20230614/ktc_logo_1686736173834.png\"\n            },\n            \"created_at\": \"2023-06-14T09:49:35.689Z\",\n            \"updated_at\": \"2023-06-14T09:50:10.910Z\",\n            \"created_by\": \"admin@harmonyx.co\",\n            \"installment_plans\": [\n                {\n                    \"id\": \"64898d52b662da0e62d0dde4\",\n                    \"payment_gateway\": \"KTC\",\n                    \"payment_method_id\": \"64898d2fb662da0e62d0ddd1\",\n                    \"term\": 10,\n                    \"rate\": 0,\n                    \"minimum_price\": 5000,\n                    \"is_active\": true,\n                    \"created_at\": \"2023-06-14T09:50:10.902Z\",\n                    \"updated_at\": \"2023-06-14T09:50:10.902Z\",\n                    \"created_by\": \"admin@harmonyx.co\",\n                    \"pay_per_month\": 941.25\n                }\n            ]\n        },\n        {\n            \"id\": \"6502ebc7d0baa6ab32726dea\",\n            \"name\": \"KBANK NEW\",\n            \"payment_type\": \"installment\",\n            \"payment_request_type\": \"redirect_url\",\n            \"payment_gateway\": \"KBANK\",\n            \"is_active\": true,\n            \"logo\": {\n                \"file_id\": \"6502ebc673691116638486c2\",\n                \"url\": \"https://media.thetouchexclusive.com/20230914/download_1694690246115.jpg\"\n            },\n            \"created_at\": \"2023-09-14T11:17:27.946Z\",\n            \"updated_at\": \"2023-09-14T11:18:08.774Z\",\n            \"created_by\": \"admin@harmonyx.co\",\n            \"installment_plans\": [\n                {\n                    \"id\": \"6502ebf0d0baa6ab32726df3\",\n                    \"payment_gateway\": \"KBANK\",\n                    \"payment_method_id\": \"6502ebc7d0baa6ab32726dea\",\n                    \"term\": 3,\n                    \"rate\": 0,\n                    \"minimum_price\": 5000,\n                    \"config\": {\n                        \"smart_pay_id\": \"0001\"\n                    },\n                    \"is_active\": true,\n                    \"created_at\": \"2023-09-14T11:18:08.757Z\",\n                    \"updated_at\": \"2023-09-14T11:18:08.757Z\",\n                    \"created_by\": \"admin@harmonyx.co\",\n                    \"pay_per_month\": 3137.5\n                },\n                {\n                    \"id\": \"6502ebf0d0baa6ab32726df5\",\n                    \"payment_gateway\": \"KBANK\",\n                    \"payment_method_id\": \"6502ebc7d0baa6ab32726dea\",\n                    \"term\": 6,\n                    \"rate\": 0,\n                    \"minimum_price\": 5000,\n                    \"config\": {\n                        \"smart_pay_id\": \"0001\"\n                    },\n                    \"is_active\": true,\n                    \"created_at\": \"2023-09-14T11:18:08.757Z\",\n                    \"updated_at\": \"2023-09-14T11:18:13.644Z\",\n                    \"created_by\": \"admin@harmonyx.co\",\n                    \"updated_by\": \"admin@harmonyx.co\",\n                    \"pay_per_month\": 1568.75\n                }\n            ]\n        },\n        {\n            \"id\": \"6549d6fe0205ef6e25ebf275\",\n            \"name\": \"CITI BANK\",\n            \"payment_type\": \"installment\",\n            \"payment_request_type\": \"redirect_url\",\n            \"payment_gateway\": \"CCPP\",\n            \"is_active\": true,\n            \"logo\": {\n                \"file_id\": \"6549d6fbfbeb5b27ed26aa66\",\n                \"url\": \"https://media.thetouchexclusive.com/20231107/unnamed_1699337979122.jpg\"\n            },\n            \"created_at\": \"2023-11-07T06:19:42.214Z\",\n            \"updated_at\": \"2023-11-07T06:20:29.679Z\",\n            \"created_by\": \"admin@harmonyx.co\",\n            \"installment_plans\": [\n                {\n                    \"id\": \"6549d72d0205ef6e25ebf27e\",\n                    \"payment_gateway\": \"CCPP\",\n                    \"payment_method_id\": \"6549d6fe0205ef6e25ebf275\",\n                    \"term\": 4,\n                    \"rate\": 0,\n                    \"minimum_price\": 5000,\n                    \"is_active\": true,\n                    \"created_at\": \"2023-11-07T06:20:29.659Z\",\n                    \"updated_at\": \"2023-11-07T06:20:29.659Z\",\n                    \"created_by\": \"admin@harmonyx.co\",\n                    \"pay_per_month\": 2353.125\n                },\n                {\n                    \"id\": \"6549d72d0205ef6e25ebf280\",\n                    \"payment_gateway\": \"CCPP\",\n                    \"payment_method_id\": \"6549d6fe0205ef6e25ebf275\",\n                    \"term\": 6,\n                    \"rate\": 0,\n                    \"minimum_price\": 5000,\n                    \"is_active\": true,\n                    \"created_at\": \"2023-11-07T06:20:29.659Z\",\n                    \"updated_at\": \"2023-11-07T06:20:29.659Z\",\n                    \"created_by\": \"admin@harmonyx.co\",\n                    \"pay_per_month\": 1568.75\n                }\n            ]\n        }\n    ]\n}"
+				}
+			]
+		},
+		{
+			"name": "[Web][Checkout] - Place Order",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "app-id",
+						"value": "{{app_id}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"delivery\": {\n        \"delivery\": {\n            \"billing_address\": {\n                \"address\": \"-aaa\",\n                \"country_id\": \"6393083a8b38b57eeaeeb908\",\n                \"region_id\": \"6393083a8b38b57eeaeeb90d\",\n                \"sub_district_id\": \"6393083a8b38b57eeaeebd89\",\n                \"district_id\": \"6393083a8b38b57eeaeeb985\",\n                \"province_id\": \"6393083a8b38b57eeaeeb919\",\n                \"sub_district_name\": \"บางซื่อ\",\n                \"district_name\": \"เขตบางซื่อ\",\n                \"province_name\": \"กรุงเทพมหานคร\",\n                \"postcode\": \"10800\"\n            },\n            \"shippingAddress\": {}\n        },\n        \"customer_info\": {\n            \"id\": \"66f240dffc9fd1d7926e0e9d\",\n            \"first_name\": \"ภควัท\",\n            \"last_name\": \"เทสnoti\",\n            \"email\": \"pakawat+1@harmonyx.co\",\n            \"phone_number\": \"0926261441\",\n            \"line_id\": \"-\",\n            \"branch\": \"สาขาเซ็นทรัล อีสต์วิลล์ เลียบด่วน-รามอินทรา\",\n            \"receive_tax_invoice_flag\": false\n        },\n        \"couponCode\": []\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{cart_host}}/api/checkout/place-order/{{cartId}}",
+					"host": [
+						"{{cart_host}}"
+					],
+					"path": [
+						"api",
+						"checkout",
+						"place-order",
+						"{{cartId}}"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Place Order",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"delivery\": {\n        \"billingAddress\": {\n            \"address\": \"372\",\n            \"countryId\": \"6393083a8b38b57eeaeeb908\",\n            \"country\": \"ประเทศไทย\",\n            \"regionId\": \"6393083a8b38b57eeaeeb90d\",\n            \"provinceId\": \"6393083a8b38b57eeaeeb91a\",\n            \"districtId\": \"6393083a8b38b57eeaeeb99b\",\n            \"subDistrictId\": \"6393083a8b38b57eeaeebdc2\",\n            \"region\": \"ภาคกลาง\",\n            \"provinceName\": \"สมุทรปราการ\",\n            \"districtName\": \"เมืองสมุทรปราการ\",\n            \"subDistrictName\": \"สำโรงเหนือ\",\n            \"postcode\": \"10270\"\n        },\n        \"shippingAddress\": {}\n    },\n    \"payment\": {\n        \"id\": \"64898be6b662da0e62d0dd6d\",\n        \"name\": \"CCPP\",\n        \"paymentType\": \"installment\",\n        \"installment\": 10,\n        \"additional\": {\n            \"term\": 10\n        }\n    },\n    \"customerInfo\": {\n        \"receiveTaxInvoiceFlag\": false,\n        \"taxInvoiceType\": \"individual\",\n        \"firstName\": \"Wachiraporn\",\n        \"lastName\": \"Mapatang\",\n        \"email\": \"ikatmapatang@gmail.com\",\n        \"phoneNumber\": \"0844096434\",\n        \"lineId\": \"-\",\n        \"termConditionFlag\": true,\n        \"branch\": \"สาขาเซ็นทรัล อีสต์วิลล์ เลียบด่วน-รามอินทรา\",\n        \"socialMediaChannel\": \"Facebook ads\",\n        \"couponChannel\": \"SMS\"\n    },\n    \"couponCode\": []\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{cart_host}}/api/checkout/place-order/:cart_id",
+							"host": [
+								"{{cart_host}}"
+							],
+							"path": [
+								"api",
+								"checkout",
+								"place-order",
+								":cart_id"
+							],
+							"variable": [
+								{
+									"key": "cart_id",
+									"value": "66e00445a2888e8c775c04e3"
+								}
+							]
+						}
+					},
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json",
+							"description": "",
+							"type": "text"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": \"OK\",\n    \"data\": {\n        \"checkout_content\": {\n            \"count\": 2,\n            \"customer_id\": \"e6fa52a5-801b-4fe8-94cd-fe1d4bc9cb0a\",\n            \"cart_id\": \"66e00445a2888e8c775c04e3\",\n            \"items\": [\n                {\n                    \"product_id\": \"SKU202301000082\",\n                    \"quantity\": 1,\n                    \"product\": {\n                        \"product_id\": \"SKU202301000082\",\n                        \"parent_id\": \"PRD202301000015\",\n                        \"gallery_image\": [\n                            {\n                                \"id\": \"63c6c1d293d3594ffa5cc99d\",\n                                \"url\": \"https://media.thetouchexclusive.com/Deep%20Infusion_1673970130300.png\"\n                            }\n                        ],\n                        \"type\": \"simple\",\n                        \"item_type\": \"VIRTUAL\",\n                        \"product_name\": \"Deep Infusion\",\n                        \"category_ids\": [\n                            \"CAT202110000123\"\n                        ],\n                        \"category_names\": [\n                            \"Basic Course\"\n                        ],\n                        \"sku\": \"DI-PW\",\n                        \"standard_price\": 6412.5,\n                        \"market_price\": 7500,\n                        \"attributes\": [],\n                        \"total_discount_percent\": 14.499999999999998,\n                        \"discount_max_percent\": 35,\n                        \"discount_max_amount\": null,\n                        \"discount_max_agent_percent\": 10,\n                        \"discount_max_agent_amount\": null,\n                        \"commission_percent\": null,\n                        \"commission_amount\": null,\n                        \"discount_percent\": 0,\n                        \"discount_agent_percent\": 0,\n                        \"first_commission_person\": null\n                    },\n                    \"option_products\": [],\n                    \"option_ids\": [],\n                    \"serial\": [],\n                    \"shipping_fee\": 0,\n                    \"vat\": 490.6542,\n                    \"price_exclude_vat\": 7009.3458,\n                    \"discount_product\": 1087.5,\n                    \"discount_promotion\": 0,\n                    \"discount_shipping_fee\": 0,\n                    \"market_price\": 7500,\n                    \"special_price\": 0,\n                    \"standard_price\": 6412.5,\n                    \"total_shipping_fee\": 0,\n                    \"total_standard_price\": 6412.5,\n                    \"total_special_price\": 0,\n                    \"total_discount\": 1087.5,\n                    \"total_market_price\": 7500,\n                    \"total_vat\": 419.5093,\n                    \"total_price_exclude_vat\": 5992.9907,\n                    \"total_price\": 6412.5,\n                    \"total_option_price\": 0,\n                    \"total_discount_product\": 1087.5,\n                    \"total_discount_promotion\": 0,\n                    \"total_discount_shipping_fee\": 0,\n                    \"is_selected\": true,\n                    \"is_available\": true,\n                    \"is_not_exist\": false,\n                    \"additional\": {\n                        \"discount_amount\": 750,\n                        \"discount_agent_amount\": 337.5\n                    },\n                    \"total_operation_price\": 0\n                },\n                {\n                    \"product_id\": \"SKU202212000010\",\n                    \"quantity\": 1,\n                    \"product\": {\n                        \"product_id\": \"SKU202212000010\",\n                        \"parent_id\": \"PRD202212000004\",\n                        \"gallery_image\": [\n                            {\n                                \"id\": \"63ad377d84dfae4886657b73\",\n                                \"url\": \"https://media.thetouchexclusive.com/products/image/1-UPL.jpg\"\n                            }\n                        ],\n                        \"type\": \"simple\",\n                        \"item_type\": \"VIRTUAL\",\n                        \"product_name\": \"Ultimate Intensive Pulse Light\",\n                        \"category_ids\": [\n                            \"CAT202110000132\"\n                        ],\n                        \"category_names\": [\n                            \"LASER Course\"\n                        ],\n                        \"sku\": \"UPL-หน้าอก\",\n                        \"standard_price\": 3000,\n                        \"market_price\": 3000,\n                        \"attributes\": [\n                            {\n                                \"attribute_code\": \"att_202403000050\",\n                                \"value\": 2,\n                                \"id\": \"b7be3283-a9b9-4d82-ae84-a94b03ccec72\",\n                                \"option\": {\n                                    \"position\": 0,\n                                    \"attribute_label\": \"UPL\",\n                                    \"attribute_optionlabel\": \"UPL หน้า\",\n                                    \"color\": null\n                                }\n                            }\n                        ],\n                        \"total_discount_percent\": 0,\n                        \"discount_max_percent\": 35,\n                        \"discount_max_amount\": null,\n                        \"discount_max_agent_percent\": 10,\n                        \"discount_max_agent_amount\": null,\n                        \"commission_percent\": null,\n                        \"commission_amount\": null,\n                        \"discount_percent\": 0,\n                        \"discount_agent_percent\": 0,\n                        \"first_commission_person\": null\n                    },\n                    \"option_products\": [],\n                    \"option_ids\": [],\n                    \"serial\": [],\n                    \"shipping_fee\": 0,\n                    \"vat\": 196.2617,\n                    \"price_exclude_vat\": 2803.7383,\n                    \"discount_product\": 0,\n                    \"discount_promotion\": 0,\n                    \"discount_shipping_fee\": 0,\n                    \"market_price\": 3000,\n                    \"special_price\": 0,\n                    \"standard_price\": 3000,\n                    \"total_shipping_fee\": 0,\n                    \"total_standard_price\": 3000,\n                    \"total_special_price\": 0,\n                    \"total_discount\": 0,\n                    \"total_market_price\": 3000,\n                    \"total_vat\": 196.2617,\n                    \"total_price_exclude_vat\": 2803.7383,\n                    \"total_price\": 3000,\n                    \"total_option_price\": 0,\n                    \"total_discount_product\": 0,\n                    \"total_discount_promotion\": 0,\n                    \"total_discount_shipping_fee\": 0,\n                    \"is_selected\": true,\n                    \"is_available\": true,\n                    \"is_not_exist\": false,\n                    \"additional\": {\n                        \"discount_amount\": 0,\n                        \"discount_agent_amount\": 0\n                    },\n                    \"total_operation_price\": 0\n                }\n            ],\n            \"payment\": {\n                \"id\": \"64898be6b662da0e62d0dd6d\",\n                \"name\": \"CCPP\",\n                \"payment_type\": \"installment\",\n                \"installment\": 10,\n                \"additional\": {\n                    \"term\": 10\n                }\n            },\n            \"delivery\": {\n                \"billing_address\": {\n                    \"address\": \"372\",\n                    \"country_id\": \"6393083a8b38b57eeaeeb908\",\n                    \"region_id\": \"6393083a8b38b57eeaeeb90d\",\n                    \"sub_district_id\": \"6393083a8b38b57eeaeebdc2\",\n                    \"district_id\": \"6393083a8b38b57eeaeeb99b\",\n                    \"province_id\": \"6393083a8b38b57eeaeeb91a\",\n                    \"sub_district_name\": \"สำโรงเหนือ\",\n                    \"district_name\": \"เมืองสมุทรปราการ\",\n                    \"province_name\": \"สมุทรปราการ\",\n                    \"postcode\": \"10270\"\n                },\n                \"shipping_address\": {}\n            },\n            \"total_market_price\": 10500,\n            \"total_discount\": 1087.5,\n            \"total_payable\": 9412.5,\n            \"total_vat\": 615.771,\n            \"total_option_price\": 0,\n            \"total_price\": 9412.5,\n            \"order_id\": \"ODR6709000022\",\n            \"order_status\": \"pending\",\n            \"coupon_code\": [],\n            \"applied_rules\": [],\n            \"customer_info\": {\n                \"id\": \"66e00aaee4a5c6098d3bf676\",\n                \"first_name\": \"Wachiraporn\",\n                \"last_name\": \"Mapatang\",\n                \"email\": \"ikatmapatang@gmail.com\",\n                \"phone_number\": \"0844096434\",\n                \"line_id\": \"-\",\n                \"branch\": \"สาขาเซ็นทรัล อีสต์วิลล์ เลียบด่วน-รามอินทรา\",\n                \"coupon_channel\": \"SMS\",\n                \"social_media_channel\": \"Facebook ads\",\n                \"receive_tax_invoice_flag\": false\n            },\n            \"created_at\": \"2024-09-11T04:42:06.235Z\",\n            \"updated_at\": \"2024-09-11T04:42:06.385Z\"\n        },\n        \"payment_request\": {\n            \"payment_request_type\": \"redirect_url\",\n            \"additional\": {\n                \"payment_token\": \"kSAops9Zwhos8hSTSeLTUehwmoB+sA6TpV2e1dw+p0c0Bu1T49hZyUfuJZlw+oJoiamBb8QMIW7n/S8h2CbZD7DveG/HJc8Wxci+FffnJbp8MqJ455xIXBjMTTCWeafv\",\n                \"redirect_url\": \"https://sandbox-pgw-ui.2c2p.com/payment/4.1/#/token/kSAops9Zwhos8hSTSeLTUehwmoB%2bsA6TpV2e1dw%2bp0c0Bu1T49hZyUfuJZlw%2boJoiamBb8QMIW7n%2fS8h2CbZD7DveG%2fHJc8Wxci%2bFffnJbp8MqJ455xIXBjMTTCWeafv\",\n                \"payment_ref_id\": \"010029_ODR6709000022\",\n                \"transaction_id\": \"66e11f9ebf47228b22286c6f\"\n            }\n        },\n        \"error_message\": {\n            \"delivery\": \"\",\n            \"payment\": \"\",\n            \"order_limit\": \"\",\n            \"coupon\": \"\"\n        },\n        \"is_error\": false,\n        \"payment_methods\": [\n            {\n                \"id\": \"63f48b5128db0dc0f5fff03e\",\n                \"name\": \"KTC\",\n                \"payment_type\": \"credit_card\",\n                \"payment_request_type\": \"post_form\",\n                \"merchant_data\": {\n                    \"pay_type\": \"N\",\n                    \"pay_method\": \"CC\",\n                    \"curr_code\": \"764\",\n                    \"merchant_id\": \"991305344\",\n                    \"tx_type\": \"Retail\",\n                    \"promotion_type\": \"00\"\n                },\n                \"is_active\": true,\n                \"payment_gateway\": \"KTC\",\n                \"logo\": {\n                    \"file_id\": \"63ad4e3884dfae4886657cf2\",\n                    \"url\": \"https://media.thetouchexclusive.com/products/image/3-OXY.jpg\"\n                },\n                \"installment_plans\": []\n            },\n            {\n                \"id\": \"63f5d06c2b63aa99ebc3a959\",\n                \"name\": \"KBANK offline\",\n                \"payment_type\": \"offline_payment\",\n                \"payment_request_type\": \"slip\",\n                \"is_active\": true,\n                \"payment_gateway\": \"KBANK\",\n                \"logo\": {\n                    \"file_id\": \"63ad4e3884dfae4886657cf2\",\n                    \"url\": \"https://media.thetouchexclusive.com/products/image/3-OXY.jpg\"\n                },\n                \"installment_plans\": []\n            },\n            {\n                \"id\": \"63f5f67d816afc13d93ef840\",\n                \"name\": \"KBANK credit\",\n                \"payment_type\": \"credit_card\",\n                \"payment_request_type\": \"redirect_url\",\n                \"merchant_data\": {\n                    \"banking\": \"KBANK\"\n                },\n                \"is_active\": true,\n                \"payment_gateway\": \"KBANK\",\n                \"logo\": {\n                    \"file_id\": \"63ad4e3884dfae4886657cf2\",\n                    \"url\": \"https://media.thetouchexclusive.com/products/image/3-OXY.jpg\"\n                },\n                \"installment_plans\": []\n            },\n            {\n                \"id\": \"64215f8c32c3e47ea8684bf0\",\n                \"name\": \"KBANK QR\",\n                \"payment_type\": \"qr\",\n                \"payment_request_type\": \"qr\",\n                \"merchant_data\": {\n                    \"banking_no\": \"111-111-111-11\",\n                    \"account_name\": \"The Touch Beauty\"\n                },\n                \"is_active\": true,\n                \"payment_gateway\": \"KBANK\",\n                \"logo\": {\n                    \"url\": null\n                },\n                \"installment_plans\": []\n            },\n            {\n                \"id\": \"645b4066506d239682ae38be\",\n                \"payment_type\": \"bank_transfer\",\n                \"payment_request_type\": \"slip\",\n                \"merchant_data\": {\n                    \"banking_name\": \"ธนาคารกสิกรไทย\",\n                    \"banking_no\": \"1525252525\",\n                    \"account_name\": \"ddddddd\"\n                },\n                \"is_active\": true,\n                \"payment_gateway\": null,\n                \"logo\": {\n                    \"file_id\": \"645b4065078fef7cb41371fa\",\n                    \"url\": \"https://media.thetouchexclusive.com/20230510/images_1683701861008.png\"\n                },\n                \"installment_plans\": []\n            },\n            {\n                \"id\": \"64898bbbb662da0e62d0dd61\",\n                \"name\": \"BAY3\",\n                \"payment_type\": \"installment\",\n                \"payment_request_type\": \"post_form\",\n                \"is_active\": true,\n                \"payment_gateway\": \"BAY\",\n                \"logo\": {\n                    \"file_id\": \"64898bb9f71eb3d142889327\",\n                    \"url\": \"https://media.thetouchexclusive.com/20230614/bank-of-ayudhya-public-company-limited--600_1686735801356.png\"\n                },\n                \"installment_plans\": [\n                    {\n                        \"id\": \"66163891f7a08be7a0dcc92a\",\n                        \"payment_gateway\": \"BAY\",\n                        \"payment_method_id\": \"64898bbbb662da0e62d0dd61\",\n                        \"term\": 3,\n                        \"rate\": 0,\n                        \"minimum_price\": 5000,\n                        \"config\": {\n                            \"card_type\": \"creditcard\",\n                            \"marketing_code\": \"446008\",\n                            \"mid\": \"272253\"\n                        },\n                        \"is_active\": true,\n                        \"created_at\": \"2024-04-10T06:58:25.080Z\",\n                        \"updated_at\": \"2024-04-10T06:58:25.080Z\",\n                        \"created_by\": \"admin@harmonyx.co\",\n                        \"pay_per_month\": 0\n                    }\n                ]\n            },\n            {\n                \"id\": \"64898be6b662da0e62d0dd6d\",\n                \"name\": \"SCB\",\n                \"payment_type\": \"installment\",\n                \"payment_request_type\": \"redirect_url\",\n                \"is_active\": true,\n                \"payment_gateway\": \"CCPP\",\n                \"logo\": {\n                    \"file_id\": \"64898be4f71eb3d142889334\",\n                    \"url\": \"https://media.thetouchexclusive.com/20230614/scb_1686735844248.jpg\"\n                },\n                \"installment_plans\": [\n                    {\n                        \"id\": \"6513ab9746ca9c0033afc8e6\",\n                        \"payment_gateway\": \"CCPP\",\n                        \"payment_method_id\": \"64898be6b662da0e62d0dd6d\",\n                        \"term\": 3,\n                        \"rate\": 0,\n                        \"minimum_price\": 5000,\n                        \"is_active\": true,\n                        \"created_at\": \"2023-09-27T04:12:07.918Z\",\n                        \"updated_at\": \"2023-09-27T04:12:07.918Z\",\n                        \"created_by\": \"admin@harmonyx.co\",\n                        \"pay_per_month\": 0\n                    },\n                    {\n                        \"id\": \"6513ab9746ca9c0033afc8e8\",\n                        \"payment_gateway\": \"CCPP\",\n                        \"payment_method_id\": \"64898be6b662da0e62d0dd6d\",\n                        \"term\": 4,\n                        \"rate\": 0,\n                        \"minimum_price\": 5000,\n                        \"is_active\": true,\n                        \"created_at\": \"2023-09-27T04:12:07.919Z\",\n                        \"updated_at\": \"2023-09-27T04:12:07.919Z\",\n                        \"created_by\": \"admin@harmonyx.co\",\n                        \"pay_per_month\": 0\n                    },\n                    {\n                        \"id\": \"6513ab9746ca9c0033afc8ea\",\n                        \"payment_gateway\": \"CCPP\",\n                        \"payment_method_id\": \"64898be6b662da0e62d0dd6d\",\n                        \"term\": 6,\n                        \"rate\": 0,\n                        \"minimum_price\": 5000,\n                        \"is_active\": true,\n                        \"created_at\": \"2023-09-27T04:12:07.919Z\",\n                        \"updated_at\": \"2023-09-27T04:12:07.919Z\",\n                        \"created_by\": \"admin@harmonyx.co\",\n                        \"pay_per_month\": 0\n                    },\n                    {\n                        \"id\": \"6513ab9746ca9c0033afc8ec\",\n                        \"payment_gateway\": \"CCPP\",\n                        \"payment_method_id\": \"64898be6b662da0e62d0dd6d\",\n                        \"term\": 10,\n                        \"rate\": 0,\n                        \"minimum_price\": 5000,\n                        \"is_active\": true,\n                        \"created_at\": \"2023-09-27T04:12:07.919Z\",\n                        \"updated_at\": \"2023-09-27T04:12:07.919Z\",\n                        \"created_by\": \"admin@harmonyx.co\",\n                        \"pay_per_month\": 0\n                    }\n                ]\n            },\n            {\n                \"id\": \"64898d12b662da0e62d0ddc5\",\n                \"name\": \"KBANK\",\n                \"payment_type\": \"installment\",\n                \"payment_request_type\": \"redirect_url\",\n                \"is_active\": true,\n                \"payment_gateway\": \"KBANK\",\n                \"logo\": {\n                    \"file_id\": \"64898d11f71eb3d1428894d5\",\n                    \"url\": \"https://media.thetouchexclusive.com/20230614/564000004884401_1686736145242.jpg\"\n                },\n                \"installment_plans\": [\n                    {\n                        \"id\": \"64ae62e0a08f32680dcd9a49\",\n                        \"payment_gateway\": \"KBANK\",\n                        \"payment_method_id\": \"64898d12b662da0e62d0ddc5\",\n                        \"term\": 4,\n                        \"rate\": 0.15,\n                        \"minimum_price\": 2500,\n                        \"is_active\": true,\n                        \"created_at\": \"2023-07-12T08:22:56.736Z\",\n                        \"updated_at\": \"2023-07-12T08:22:56.736Z\",\n                        \"created_by\": \"admin@harmonyx.co\",\n                        \"pay_per_month\": 0\n                    },\n                    {\n                        \"id\": \"64ae62e0a08f32680dcd9a4b\",\n                        \"payment_gateway\": \"KBANK\",\n                        \"payment_method_id\": \"64898d12b662da0e62d0ddc5\",\n                        \"term\": 6,\n                        \"rate\": 0.11,\n                        \"minimum_price\": 2500,\n                        \"is_active\": true,\n                        \"created_at\": \"2023-07-12T08:22:56.737Z\",\n                        \"updated_at\": \"2023-07-12T08:22:56.737Z\",\n                        \"created_by\": \"admin@harmonyx.co\",\n                        \"pay_per_month\": 0\n                    },\n                    {\n                        \"id\": \"64898d44b662da0e62d0ddda\",\n                        \"payment_gateway\": \"KBANK\",\n                        \"payment_method_id\": \"64898d12b662da0e62d0ddc5\",\n                        \"term\": 10,\n                        \"rate\": 0,\n                        \"minimum_price\": 5000,\n                        \"config\": {\n                            \"smart_pay_id\": \"0001\"\n                        },\n                        \"is_active\": true,\n                        \"created_at\": \"2023-06-14T09:49:56.665Z\",\n                        \"updated_at\": \"2023-06-14T09:49:56.665Z\",\n                        \"created_by\": \"admin@harmonyx.co\",\n                        \"pay_per_month\": 0\n                    }\n                ]\n            },\n            {\n                \"id\": \"64898d2fb662da0e62d0ddd1\",\n                \"name\": \"KTC\",\n                \"payment_type\": \"installment\",\n                \"payment_request_type\": \"post_form\",\n                \"merchant_data\": {\n                    \"tx_type\": \"Flexi\",\n                    \"curr_code\": \"764\",\n                    \"pay_type\": \"N\",\n                    \"pay_method\": \"CC\",\n                    \"promotion_type\": \"01\"\n                },\n                \"is_active\": true,\n                \"payment_gateway\": \"KTC\",\n                \"logo\": {\n                    \"file_id\": \"64898d2df71eb3d1428894e2\",\n                    \"url\": \"https://media.thetouchexclusive.com/20230614/ktc_logo_1686736173834.png\"\n                },\n                \"installment_plans\": [\n                    {\n                        \"id\": \"64898d52b662da0e62d0dde4\",\n                        \"payment_gateway\": \"KTC\",\n                        \"payment_method_id\": \"64898d2fb662da0e62d0ddd1\",\n                        \"term\": 10,\n                        \"rate\": 0,\n                        \"minimum_price\": 5000,\n                        \"is_active\": true,\n                        \"created_at\": \"2023-06-14T09:50:10.902Z\",\n                        \"updated_at\": \"2023-06-14T09:50:10.902Z\",\n                        \"created_by\": \"admin@harmonyx.co\",\n                        \"pay_per_month\": 0\n                    }\n                ]\n            },\n            {\n                \"id\": \"6502ebc7d0baa6ab32726dea\",\n                \"name\": \"KBANK NEW\",\n                \"payment_type\": \"installment\",\n                \"payment_request_type\": \"redirect_url\",\n                \"is_active\": true,\n                \"payment_gateway\": \"KBANK\",\n                \"logo\": {\n                    \"file_id\": \"6502ebc673691116638486c2\",\n                    \"url\": \"https://media.thetouchexclusive.com/20230914/download_1694690246115.jpg\"\n                },\n                \"installment_plans\": [\n                    {\n                        \"id\": \"6502ebf0d0baa6ab32726df3\",\n                        \"payment_gateway\": \"KBANK\",\n                        \"payment_method_id\": \"6502ebc7d0baa6ab32726dea\",\n                        \"term\": 3,\n                        \"rate\": 0,\n                        \"minimum_price\": 5000,\n                        \"config\": {\n                            \"smart_pay_id\": \"0001\"\n                        },\n                        \"is_active\": true,\n                        \"created_at\": \"2023-09-14T11:18:08.757Z\",\n                        \"updated_at\": \"2023-09-14T11:18:08.757Z\",\n                        \"created_by\": \"admin@harmonyx.co\",\n                        \"pay_per_month\": 0\n                    },\n                    {\n                        \"id\": \"6502ebf0d0baa6ab32726df5\",\n                        \"payment_gateway\": \"KBANK\",\n                        \"payment_method_id\": \"6502ebc7d0baa6ab32726dea\",\n                        \"term\": 6,\n                        \"rate\": 0,\n                        \"minimum_price\": 5000,\n                        \"config\": {\n                            \"smart_pay_id\": \"0001\"\n                        },\n                        \"is_active\": true,\n                        \"created_at\": \"2023-09-14T11:18:08.757Z\",\n                        \"updated_at\": \"2023-09-14T11:18:13.644Z\",\n                        \"created_by\": \"admin@harmonyx.co\",\n                        \"updated_by\": \"admin@harmonyx.co\",\n                        \"pay_per_month\": 0\n                    }\n                ]\n            },\n            {\n                \"id\": \"6549d6fe0205ef6e25ebf275\",\n                \"name\": \"CITI BANK\",\n                \"payment_type\": \"installment\",\n                \"payment_request_type\": \"redirect_url\",\n                \"is_active\": true,\n                \"payment_gateway\": \"CCPP\",\n                \"logo\": {\n                    \"file_id\": \"6549d6fbfbeb5b27ed26aa66\",\n                    \"url\": \"https://media.thetouchexclusive.com/20231107/unnamed_1699337979122.jpg\"\n                },\n                \"installment_plans\": [\n                    {\n                        \"id\": \"6549d72d0205ef6e25ebf27e\",\n                        \"payment_gateway\": \"CCPP\",\n                        \"payment_method_id\": \"6549d6fe0205ef6e25ebf275\",\n                        \"term\": 4,\n                        \"rate\": 0,\n                        \"minimum_price\": 5000,\n                        \"is_active\": true,\n                        \"created_at\": \"2023-11-07T06:20:29.659Z\",\n                        \"updated_at\": \"2023-11-07T06:20:29.659Z\",\n                        \"created_by\": \"admin@harmonyx.co\",\n                        \"pay_per_month\": 0\n                    },\n                    {\n                        \"id\": \"6549d72d0205ef6e25ebf280\",\n                        \"payment_gateway\": \"CCPP\",\n                        \"payment_method_id\": \"6549d6fe0205ef6e25ebf275\",\n                        \"term\": 6,\n                        \"rate\": 0,\n                        \"minimum_price\": 5000,\n                        \"is_active\": true,\n                        \"created_at\": \"2023-11-07T06:20:29.659Z\",\n                        \"updated_at\": \"2023-11-07T06:20:29.659Z\",\n                        \"created_by\": \"admin@harmonyx.co\",\n                        \"pay_per_month\": 0\n                    }\n                ]\n            }\n        ],\n        \"delivery_methods\": [],\n        \"available_coupons\": [],\n        \"link_pay_secret\": \"2bf12444-0bb6-4fe4-8c67-903f8d3196c0\"\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "Stub-Payment Request Installment",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-api-key",
+						"value": "skey_test_21759RNGxY3WHfL4GnTc5Oopgs3pwXFxZLXde"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"description\": \"beauty\",\n    \"amount\": \"12000\",\n    \"reference_order\": \"ORD000001\",\n    \"additional_data\": {\n        \"mid\": \"401945778841001\",\n        \"smartpay_id\": \"0001\",\n        \"tid\": \"25879777\",\n        \"term\": \"02\"\n    },\n    \"token\": \"tokn_test_21759ab40683feb41cef7f5243ec492e2a34c\",\n    \"mode\": \"token\",\n    \"source_type\": \"card\",\n    \"currency\": \"THB\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:6090/card/v2/charge",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "6090",
+					"path": [
+						"card",
+						"v2",
+						"charge"
+					]
+				},
+				"description": "Generated from cURL: curl --location 'https://dev-kpaymentgateway-services.kasikornbank.com/card/v2/charge' \\\n--header 'x-api-key: skey_test_21759RNGxY3WHfL4GnTc5Oopgs3pwXFxZLXde' \\\n--data '{\n    \"description\": \"beauty\",\n    \"amount\": \"12000\",\n    \"reference_order\": \"ORD000001\",\n    \"additional_data\": {\n        \"mid\": \"401945778841001\",\n        \"smartpay_id\": \"0001\",\n        \"tid\": \"25879777\",\n        \"term\": \"02\"\n    },\n    \"token\": \"tokn_test_21759ab40683feb41cef7f5243ec492e2a34c\",\n    \"mode\": \"token\",\n    \"source_type\": \"card\",\n    \"currency\": \"THB\"\n}'"
+			},
+			"response": []
+		},
+		{
+			"name": "Stub-Payment Hook Response (Credit Card/Installment)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-api-key",
+						"value": "skey_test_21759RNGxY3WHfL4GnTc5Oopgs3pwXFxZLXde"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": \"chrg_test_2156099ac14daf725480682c9df2fbda65600\",\n    \"object\": \"charge\",\n    \"amount\": 5000,\n    \"currency\": \"THB\",\n    \"transactionState\": \"Settled\",\n    \"source\": {\n        \"id\": \"card_test_21560bb9591ed886d82e232f853ae8e6e0080\",\n        \"object\": \"card\",\n        \"brand\": \"mastercard\",\n        \"cardMasking\": \"523962******0264\",\n        \"issuerBank\": \"KASIKORNBANK PUBLIC COMPANY LIMITED\"\n    },\n    \"created\": \"20230613135745000\",\n    \"status\": \"success\",\n    \"livemode\": false,\n    \"failureCode\": null,\n    \"failureMessage\": null,\n    \"description\": \"beauty\",\n    \"mpi\": {\n        \"eci\": \"02\",\n        \"xid\": \"4040404040404040404040404040404040404040\",\n        \"cavv\": \"c60468d478f60000000000000000000000000000\",\n        \"kbankMpi\": true\n    },\n    \"checksum\": \"c1e4798f48be9ea6793abe0422b6753e6c204ce4e19a725cbeb3ec7b7f333933\",\n    \"redirectUrl\": \"https://dev-kpaymentgateway-services.kasikornbank.com/KPGW-Auth3d-Webapi/Authorize/3ds/Client/auth_test_27825e5388ea840c29ce6a9d3fbf63bed\",\n    \"settlementInfo\": null,\n    \"refundInfo\": null,\n    \"approvalCode\": \"012345\",\n    \"campaignId\": null,\n    \"ref1\": null,\n    \"ref2\": null,\n    \"ref3\": null,\n    \"referenceOrder\": \"ODR6709000051\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:6092/api/payment/kbank/response",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "6092",
+					"path": [
+						"api",
+						"payment",
+						"kbank",
+						"response"
+					]
+				},
+				"description": "Generated from cURL: curl --location 'https://dev-kpaymentgateway-services.kasikornbank.com/card/v2/charge' \\\n--header 'x-api-key: skey_test_21759RNGxY3WHfL4GnTc5Oopgs3pwXFxZLXde' \\\n--data '{\n    \"description\": \"beauty\",\n    \"amount\": \"12000\",\n    \"reference_order\": \"ORD000001\",\n    \"additional_data\": {\n        \"mid\": \"401945778841001\",\n        \"smartpay_id\": \"0001\",\n        \"tid\": \"25879777\",\n        \"term\": \"02\"\n    },\n    \"token\": \"tokn_test_21759ab40683feb41cef7f5243ec492e2a34c\",\n    \"mode\": \"token\",\n    \"source_type\": \"card\",\n    \"currency\": \"THB\"\n}'"
+			},
+			"response": []
+		},
+		{
+			"name": "[Web][Order] - Get Order",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{cart_host}}/api/order/{{order_id}}",
+					"host": [
+						"{{cart_host}}"
+					],
+					"path": [
+						"api",
+						"order",
+						"{{order_id}}"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "[Order] - Get Order",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{cart_host}}/api/order/:orderId",
+							"host": [
+								"{{cart_host}}"
+							],
+							"path": [
+								"api",
+								"order",
+								":orderId"
+							],
+							"variable": [
+								{
+									"key": "orderId",
+									"value": "ODR6709000022"
+								}
+							]
+						}
+					},
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json",
+							"description": "",
+							"type": "text"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": \"OK\",\n    \"data\": {\n        \"id\": \"66e11f9e506ccb2e966bd721\",\n        \"order_id\": \"ODR6709000022\",\n        \"order_items\": [\n            {\n                \"seq_no\": 1,\n                \"order_id\": \"ODR6709000022\",\n                \"product_id\": \"SKU202301000082\",\n                \"quantity\": 1,\n                \"product\": {\n                    \"product_id\": \"SKU202301000082\",\n                    \"parent_id\": \"PRD202301000015\",\n                    \"gallery_image\": [\n                        {\n                            \"id\": \"63c6c1d293d3594ffa5cc99d\",\n                            \"url\": \"https://media.thetouchexclusive.com/Deep%20Infusion_1673970130300.png\"\n                        }\n                    ],\n                    \"type\": \"simple\",\n                    \"item_type\": \"VIRTUAL\",\n                    \"product_name\": \"Deep Infusion\",\n                    \"category_ids\": [\n                        \"CAT202110000123\"\n                    ],\n                    \"category_names\": [\n                        \"Basic Course\"\n                    ],\n                    \"sku\": \"DI-PW\",\n                    \"standard_price\": 6412.5,\n                    \"market_price\": 7500,\n                    \"attributes\": [],\n                    \"total_discount_percent\": 14.499999999999998,\n                    \"discount_max_percent\": 35,\n                    \"discount_max_amount\": null,\n                    \"discount_max_agent_percent\": 10,\n                    \"discount_max_agent_amount\": null,\n                    \"commission_percent\": null,\n                    \"commission_amount\": null,\n                    \"discount_percent\": 0,\n                    \"discount_agent_percent\": 0,\n                    \"first_commission_person\": null\n                },\n                \"option_products\": [],\n                \"option_ids\": [],\n                \"serial\": [],\n                \"shipping_fee\": 0,\n                \"vat\": 490.6542,\n                \"price_exclude_vat\": 7009.3458,\n                \"discount_product\": 1087.5,\n                \"discount_promotion\": 0,\n                \"discount_shipping_fee\": 0,\n                \"market_price\": 7500,\n                \"special_price\": 0,\n                \"standard_price\": 6412.5,\n                \"total_shipping_fee\": 0,\n                \"total_standard_price\": 6412.5,\n                \"total_special_price\": 0,\n                \"total_discount\": 1087.5,\n                \"total_market_price\": 7500,\n                \"total_vat\": 419.5093,\n                \"total_price_exclude_vat\": 5992.9907,\n                \"total_price\": 6412.5,\n                \"total_option_price\": 0,\n                \"total_discount_product\": 1087.5,\n                \"total_discount_promotion\": 0,\n                \"total_discount_shipping_fee\": 0,\n                \"additional\": {\n                    \"discount_amount\": 750,\n                    \"discount_agent_amount\": 337.5\n                },\n                \"total_operation_price\": 0\n            },\n            {\n                \"seq_no\": 2,\n                \"order_id\": \"ODR6709000022\",\n                \"product_id\": \"SKU202212000010\",\n                \"quantity\": 1,\n                \"product\": {\n                    \"product_id\": \"SKU202212000010\",\n                    \"parent_id\": \"PRD202212000004\",\n                    \"gallery_image\": [\n                        {\n                            \"id\": \"63ad377d84dfae4886657b73\",\n                            \"url\": \"https://media.thetouchexclusive.com/products/image/1-UPL.jpg\"\n                        }\n                    ],\n                    \"type\": \"simple\",\n                    \"item_type\": \"VIRTUAL\",\n                    \"product_name\": \"Ultimate Intensive Pulse Light\",\n                    \"category_ids\": [\n                        \"CAT202110000132\"\n                    ],\n                    \"category_names\": [\n                        \"LASER Course\"\n                    ],\n                    \"sku\": \"UPL-หน้าอก\",\n                    \"standard_price\": 3000,\n                    \"market_price\": 3000,\n                    \"attributes\": [\n                        {\n                            \"attribute_code\": \"att_202403000050\",\n                            \"attribute_optionlabel\": \"UPL หน้า\",\n                            \"value\": 2,\n                            \"id\": \"b7be3283-a9b9-4d82-ae84-a94b03ccec72\",\n                            \"option\": {\n                                \"position\": 0,\n                                \"attribute_label\": \"UPL\",\n                                \"attribute_optionlabel\": \"UPL หน้า\",\n                                \"color\": null\n                            }\n                        }\n                    ],\n                    \"total_discount_percent\": 0,\n                    \"discount_max_percent\": 35,\n                    \"discount_max_amount\": null,\n                    \"discount_max_agent_percent\": 10,\n                    \"discount_max_agent_amount\": null,\n                    \"commission_percent\": null,\n                    \"commission_amount\": null,\n                    \"discount_percent\": 0,\n                    \"discount_agent_percent\": 0,\n                    \"first_commission_person\": null\n                },\n                \"option_products\": [],\n                \"option_ids\": [],\n                \"serial\": [],\n                \"shipping_fee\": 0,\n                \"vat\": 196.2617,\n                \"price_exclude_vat\": 2803.7383,\n                \"discount_product\": 0,\n                \"discount_promotion\": 0,\n                \"discount_shipping_fee\": 0,\n                \"market_price\": 3000,\n                \"special_price\": 0,\n                \"standard_price\": 3000,\n                \"total_shipping_fee\": 0,\n                \"total_standard_price\": 3000,\n                \"total_special_price\": 0,\n                \"total_discount\": 0,\n                \"total_market_price\": 3000,\n                \"total_vat\": 196.2617,\n                \"total_price_exclude_vat\": 2803.7383,\n                \"total_price\": 3000,\n                \"total_option_price\": 0,\n                \"total_discount_product\": 0,\n                \"total_discount_promotion\": 0,\n                \"total_discount_shipping_fee\": 0,\n                \"additional\": {\n                    \"discount_amount\": 0,\n                    \"discount_agent_amount\": 0\n                },\n                \"total_operation_price\": 0\n            }\n        ],\n        \"order_payment\": {\n            \"payment_status\": \"confirm\",\n            \"payment_method\": {\n                \"id\": \"64898be6b662da0e62d0dd6d\",\n                \"name\": \"SCB\",\n                \"payment_type\": \"installment\",\n                \"payment_request_type\": \"redirect_url\",\n                \"is_active\": true,\n                \"payment_gateway\": \"CCPP\",\n                \"logo\": {\n                    \"file_id\": \"64898be4f71eb3d142889334\",\n                    \"url\": \"https://media.thetouchexclusive.com/20230614/scb_1686735844248.jpg\"\n                },\n                \"installment_plans\": [\n                    {\n                        \"id\": \"6513ab9746ca9c0033afc8e6\",\n                        \"payment_gateway\": \"CCPP\",\n                        \"payment_method_id\": \"64898be6b662da0e62d0dd6d\",\n                        \"term\": 3,\n                        \"rate\": 0,\n                        \"minimum_price\": 5000,\n                        \"is_active\": true,\n                        \"created_at\": \"2023-09-27T04:12:07.918Z\",\n                        \"updated_at\": \"2023-09-27T04:12:07.918Z\",\n                        \"created_by\": \"admin@harmonyx.co\",\n                        \"pay_per_month\": 0\n                    },\n                    {\n                        \"id\": \"6513ab9746ca9c0033afc8e8\",\n                        \"payment_gateway\": \"CCPP\",\n                        \"payment_method_id\": \"64898be6b662da0e62d0dd6d\",\n                        \"term\": 4,\n                        \"rate\": 0,\n                        \"minimum_price\": 5000,\n                        \"is_active\": true,\n                        \"created_at\": \"2023-09-27T04:12:07.919Z\",\n                        \"updated_at\": \"2023-09-27T04:12:07.919Z\",\n                        \"created_by\": \"admin@harmonyx.co\",\n                        \"pay_per_month\": 0\n                    },\n                    {\n                        \"id\": \"6513ab9746ca9c0033afc8ea\",\n                        \"payment_gateway\": \"CCPP\",\n                        \"payment_method_id\": \"64898be6b662da0e62d0dd6d\",\n                        \"term\": 6,\n                        \"rate\": 0,\n                        \"minimum_price\": 5000,\n                        \"is_active\": true,\n                        \"created_at\": \"2023-09-27T04:12:07.919Z\",\n                        \"updated_at\": \"2023-09-27T04:12:07.919Z\",\n                        \"created_by\": \"admin@harmonyx.co\",\n                        \"pay_per_month\": 0\n                    },\n                    {\n                        \"id\": \"6513ab9746ca9c0033afc8ec\",\n                        \"payment_gateway\": \"CCPP\",\n                        \"payment_method_id\": \"64898be6b662da0e62d0dd6d\",\n                        \"term\": 10,\n                        \"rate\": 0,\n                        \"minimum_price\": 5000,\n                        \"is_active\": true,\n                        \"created_at\": \"2023-09-27T04:12:07.919Z\",\n                        \"updated_at\": \"2023-09-27T04:12:07.919Z\",\n                        \"created_by\": \"admin@harmonyx.co\",\n                        \"pay_per_month\": 0\n                    }\n                ]\n            },\n            \"request_type\": \"redirect_url\",\n            \"payment_request_data\": {\n                \"request_data\": {\n                    \"payment_token\": \"kSAops9Zwhos8hSTSeLTUehwmoB+sA6TpV2e1dw+p0c0Bu1T49hZyUfuJZlw+oJoiamBb8QMIW7n/S8h2CbZD7DveG/HJc8Wxci+FffnJbp8MqJ455xIXBjMTTCWeafv\",\n                    \"redirect_url\": \"https://sandbox-pgw-ui.2c2p.com/payment/4.1/#/token/kSAops9Zwhos8hSTSeLTUehwmoB%2bsA6TpV2e1dw%2bp0c0Bu1T49hZyUfuJZlw%2boJoiamBb8QMIW7n%2fS8h2CbZD7DveG%2fHJc8Wxci%2bFffnJbp8MqJ455xIXBjMTTCWeafv\",\n                    \"payment_ref_id\": \"010029_ODR6709000022\",\n                    \"transaction_id\": \"66e11f9ebf47228b22286c6f\"\n                }\n            },\n            \"installment\": 10,\n            \"additional\": {\n                \"term\": 10\n            }\n        },\n        \"cart_id\": \"66e00445a2888e8c775c04e3\",\n        \"order_status\": \"success\",\n        \"customer_type\": \"customer\",\n        \"customer_id\": \"e6fa52a5-801b-4fe8-94cd-fe1d4bc9cb0a\",\n        \"account_code\": \"BA00000309\",\n        \"customer_info\": {\n            \"id\": \"66e00aaee4a5c6098d3bf676\",\n            \"first_name\": \"Wachiraporn\",\n            \"last_name\": \"Mapatang\",\n            \"email\": \"ikatmapatang@gmail.com\",\n            \"phone_number\": \"0844096434\",\n            \"line_id\": \"-\",\n            \"branch\": \"สาขาเซ็นทรัล อีสต์วิลล์ เลียบด่วน-รามอินทรา\",\n            \"coupon_channel\": \"SMS\",\n            \"social_media_channel\": \"Facebook ads\",\n            \"receive_tax_invoice_flag\": false\n        },\n        \"item_count\": 2,\n        \"total_market_price\": 10500,\n        \"total_discount\": 1087.5,\n        \"total_vat\": 615.771,\n        \"total_exclude_vat\": null,\n        \"total_price\": 9412.5,\n        \"total_payable\": 9412.5,\n        \"total_option_price\": 0,\n        \"total_standard_price\": 9412.5,\n        \"total_special_price\": 0,\n        \"total_price_exclude_vat\": 8796.729,\n        \"total_discount_product\": 1087.5,\n        \"total_discount_promotion\": 0,\n        \"total_discount_shipping_fee\": 0,\n        \"total_shipping_fee\": 0,\n        \"created_at\": \"2024-09-11T04:42:06.235Z\",\n        \"updated_at\": \"2024-09-11T04:47:29.009Z\",\n        \"link_pay_key\": \"2bf12444-0bb6-4fe4-8c67-903f8d3196c0\",\n        \"checkout_content\": {\n            \"count\": 2,\n            \"customer_id\": \"e6fa52a5-801b-4fe8-94cd-fe1d4bc9cb0a\",\n            \"cart_id\": \"66e00445a2888e8c775c04e3\",\n            \"items\": [\n                {\n                    \"product_id\": \"SKU202301000082\",\n                    \"quantity\": 1,\n                    \"product\": {\n                        \"product_id\": \"SKU202301000082\",\n                        \"parent_id\": \"PRD202301000015\",\n                        \"gallery_image\": [\n                            {\n                                \"id\": \"63c6c1d293d3594ffa5cc99d\",\n                                \"url\": \"https://media.thetouchexclusive.com/Deep%20Infusion_1673970130300.png\"\n                            }\n                        ],\n                        \"type\": \"simple\",\n                        \"item_type\": \"VIRTUAL\",\n                        \"product_name\": \"Deep Infusion\",\n                        \"category_ids\": [\n                            \"CAT202110000123\"\n                        ],\n                        \"category_names\": [\n                            \"Basic Course\"\n                        ],\n                        \"sku\": \"DI-PW\",\n                        \"standard_price\": 6412.5,\n                        \"market_price\": 7500,\n                        \"attributes\": [],\n                        \"total_discount_percent\": 14.499999999999998,\n                        \"discount_max_percent\": 35,\n                        \"discount_max_amount\": null,\n                        \"discount_max_agent_percent\": 10,\n                        \"discount_max_agent_amount\": null,\n                        \"commission_percent\": null,\n                        \"commission_amount\": null,\n                        \"discount_percent\": 0,\n                        \"discount_agent_percent\": 0,\n                        \"first_commission_person\": null\n                    },\n                    \"option_products\": [],\n                    \"option_ids\": [],\n                    \"serial\": [],\n                    \"shipping_fee\": 0,\n                    \"vat\": 490.6542,\n                    \"price_exclude_vat\": 7009.3458,\n                    \"discount_product\": 1087.5,\n                    \"discount_promotion\": 0,\n                    \"discount_shipping_fee\": 0,\n                    \"market_price\": 7500,\n                    \"special_price\": 0,\n                    \"standard_price\": 6412.5,\n                    \"total_shipping_fee\": 0,\n                    \"total_standard_price\": 6412.5,\n                    \"total_special_price\": 0,\n                    \"total_discount\": 1087.5,\n                    \"total_market_price\": 7500,\n                    \"total_vat\": 419.5093,\n                    \"total_price_exclude_vat\": 5992.9907,\n                    \"total_price\": 6412.5,\n                    \"total_option_price\": 0,\n                    \"total_discount_product\": 1087.5,\n                    \"total_discount_promotion\": 0,\n                    \"total_discount_shipping_fee\": 0,\n                    \"is_selected\": true,\n                    \"is_available\": true,\n                    \"is_not_exist\": false,\n                    \"additional\": {\n                        \"discount_amount\": 750,\n                        \"discount_agent_amount\": 337.5\n                    },\n                    \"total_operation_price\": 0\n                },\n                {\n                    \"product_id\": \"SKU202212000010\",\n                    \"quantity\": 1,\n                    \"product\": {\n                        \"product_id\": \"SKU202212000010\",\n                        \"parent_id\": \"PRD202212000004\",\n                        \"gallery_image\": [\n                            {\n                                \"id\": \"63ad377d84dfae4886657b73\",\n                                \"url\": \"https://media.thetouchexclusive.com/products/image/1-UPL.jpg\"\n                            }\n                        ],\n                        \"type\": \"simple\",\n                        \"item_type\": \"VIRTUAL\",\n                        \"product_name\": \"Ultimate Intensive Pulse Light\",\n                        \"category_ids\": [\n                            \"CAT202110000132\"\n                        ],\n                        \"category_names\": [\n                            \"LASER Course\"\n                        ],\n                        \"sku\": \"UPL-หน้าอก\",\n                        \"standard_price\": 3000,\n                        \"market_price\": 3000,\n                        \"attributes\": [\n                            {\n                                \"attribute_code\": \"att_202403000050\",\n                                \"value\": 2,\n                                \"id\": \"b7be3283-a9b9-4d82-ae84-a94b03ccec72\",\n                                \"option\": {\n                                    \"position\": 0,\n                                    \"attribute_label\": \"UPL\",\n                                    \"attribute_optionlabel\": \"UPL หน้า\",\n                                    \"color\": null\n                                }\n                            }\n                        ],\n                        \"total_discount_percent\": 0,\n                        \"discount_max_percent\": 35,\n                        \"discount_max_amount\": null,\n                        \"discount_max_agent_percent\": 10,\n                        \"discount_max_agent_amount\": null,\n                        \"commission_percent\": null,\n                        \"commission_amount\": null,\n                        \"discount_percent\": 0,\n                        \"discount_agent_percent\": 0,\n                        \"first_commission_person\": null\n                    },\n                    \"option_products\": [],\n                    \"option_ids\": [],\n                    \"serial\": [],\n                    \"shipping_fee\": 0,\n                    \"vat\": 196.2617,\n                    \"price_exclude_vat\": 2803.7383,\n                    \"discount_product\": 0,\n                    \"discount_promotion\": 0,\n                    \"discount_shipping_fee\": 0,\n                    \"market_price\": 3000,\n                    \"special_price\": 0,\n                    \"standard_price\": 3000,\n                    \"total_shipping_fee\": 0,\n                    \"total_standard_price\": 3000,\n                    \"total_special_price\": 0,\n                    \"total_discount\": 0,\n                    \"total_market_price\": 3000,\n                    \"total_vat\": 196.2617,\n                    \"total_price_exclude_vat\": 2803.7383,\n                    \"total_price\": 3000,\n                    \"total_option_price\": 0,\n                    \"total_discount_product\": 0,\n                    \"total_discount_promotion\": 0,\n                    \"total_discount_shipping_fee\": 0,\n                    \"is_selected\": true,\n                    \"is_available\": true,\n                    \"is_not_exist\": false,\n                    \"additional\": {\n                        \"discount_amount\": 0,\n                        \"discount_agent_amount\": 0\n                    },\n                    \"total_operation_price\": 0\n                }\n            ],\n            \"payment\": {\n                \"id\": \"64898be6b662da0e62d0dd6d\",\n                \"name\": \"CCPP\",\n                \"payment_type\": \"installment\",\n                \"installment\": 10,\n                \"additional\": {\n                    \"term\": 10\n                }\n            },\n            \"delivery\": {\n                \"billing_address\": {\n                    \"address\": \"372\",\n                    \"country_id\": \"6393083a8b38b57eeaeeb908\",\n                    \"region_id\": \"6393083a8b38b57eeaeeb90d\",\n                    \"sub_district_id\": \"6393083a8b38b57eeaeebdc2\",\n                    \"district_id\": \"6393083a8b38b57eeaeeb99b\",\n                    \"province_id\": \"6393083a8b38b57eeaeeb91a\",\n                    \"sub_district_name\": \"สำโรงเหนือ\",\n                    \"district_name\": \"เมืองสมุทรปราการ\",\n                    \"province_name\": \"สมุทรปราการ\",\n                    \"postcode\": \"10270\"\n                }\n            },\n            \"total_market_price\": 10500,\n            \"total_discount\": 1087.5,\n            \"total_payable\": 9412.5,\n            \"total_vat\": 615.771,\n            \"total_option_price\": 0,\n            \"total_price\": 9412.5,\n            \"coupon_code\": [],\n            \"applied_rules\": [],\n            \"customer_info\": {\n                \"id\": \"66e00aaee4a5c6098d3bf676\",\n                \"first_name\": \"Wachiraporn\",\n                \"last_name\": \"Mapatang\",\n                \"email\": \"ikatmapatang@gmail.com\",\n                \"phone_number\": \"0844096434\",\n                \"line_id\": \"-\",\n                \"branch\": \"สาขาเซ็นทรัล อีสต์วิลล์ เลียบด่วน-รามอินทรา\",\n                \"coupon_channel\": \"SMS\",\n                \"social_media_channel\": \"Facebook ads\",\n                \"receive_tax_invoice_flag\": false\n            }\n        },\n        \"total_operation_price\": 0,\n        \"applied_rules\": [],\n        \"order_addresses\": [\n            {\n                \"address_type\": \"shipping\",\n                \"country_name\": null,\n                \"region_name\": null,\n                \"province_name\": null,\n                \"sub_district_name\": null,\n                \"district_name\": null\n            }\n        ]\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "Reset ENV Bypass OTP",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-api-key",
+						"value": "skey_test_21759RNGxY3WHfL4GnTc5Oopgs3pwXFxZLXde"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"AUTH_SMS_PASSWORDLESS_FORCED\": null,\n    \"AUTH_SMS_PASSWORDLESS_BYPASS\": null\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api-dev.beauti.one/auth/change-env",
+					"protocol": "https",
+					"host": [
+						"api-dev",
+						"beauti",
+						"one"
+					],
+					"path": [
+						"auth",
+						"change-env"
+					]
+				},
+				"description": "Generated from cURL: curl --location 'https://dev-kpaymentgateway-services.kasikornbank.com/card/v2/charge' \\\n--header 'x-api-key: skey_test_21759RNGxY3WHfL4GnTc5Oopgs3pwXFxZLXde' \\\n--data '{\n    \"description\": \"beauty\",\n    \"amount\": \"12000\",\n    \"reference_order\": \"ORD000001\",\n    \"additional_data\": {\n        \"mid\": \"401945778841001\",\n        \"smartpay_id\": \"0001\",\n        \"tid\": \"25879777\",\n        \"term\": \"02\"\n    },\n    \"token\": \"tokn_test_21759ab40683feb41cef7f5243ec492e2a34c\",\n    \"mode\": \"token\",\n    \"source_type\": \"card\",\n    \"currency\": \"THB\"\n}'"
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "data.cart_id",
+			"value": ""
+		},
+		{
+			"key": "cartId",
+			"value": "66e00445a2888e8c775c04e3"
+		}
+	]
+}
