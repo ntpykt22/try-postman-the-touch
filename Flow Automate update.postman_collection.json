@@ -501,6 +501,8 @@
 							"pm.collectionVariables.set(\"cartId\", jsonData.data.cart_id);",
 							"console.log(\"cartId:\", jsonData.data.cart_id);",
 							"",
+							"var cartId = jsonData.data.cart_id;",
+							"",
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
 							"});",
@@ -515,7 +517,7 @@
 							"});",
 							"",
 							"pm.test(\"ตรวจสอบ cart_id เท่ากันกับ \" + jsonData.data.cart_id , function () {",
-							"    pm.expect(jsonData.data.cart_id).to.eql(\"66e010b6a2888e8c775c05b1\");",
+							"    pm.expect(jsonData.data.cart_id).to.eql(cartId);",
 							"});",
 							"",
 							"pm.test(\"ตรวจสอบ customer_id เท่ากันกับ \" + jsonData.data.customer_id , function () {",
@@ -671,6 +673,10 @@
 							"var receivedproduct_id = jsonData.data.cart_items[0].product_id;",
 							"var receivedproduct_qty = jsonData.data.cart_items[0].quantity;",
 							"var total_stnd_price = jsonData.data.total_standard_price",
+							"",
+							"// เก็บตัวแปร total_pirce",
+							"pm.collectionVariables.set(\"totalamount\", jsonData.data.total_price);",
+							"console.log(\"totalamount:\", jsonData.data.total_price);",
 							"",
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(201);",
@@ -915,11 +921,31 @@
 		},
 		{
 			"name": "[Web][Payment] - Get Payment Method by Amount (Select 2p2c 10m)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"ตรวจสอบสถานะ status เท่ากันกับ OK\", function () {",
+							"    pm.expect(jsonData.status).to.eql(\"OK\");",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{payment_host}}/api/payment/methods?amount=6000",
+					"raw": "{{payment_host}}/api/payment/methods?{{totalamount}}",
 					"host": [
 						"{{payment_host}}"
 					],
@@ -930,8 +956,8 @@
 					],
 					"query": [
 						{
-							"key": "amount",
-							"value": "6000"
+							"key": "{{totalamount}}",
+							"value": null
 						}
 					]
 				}
@@ -980,6 +1006,34 @@
 		},
 		{
 			"name": "[Web][Checkout] - Place Order",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"",
+							"// Set orderId as collection variable",
+							"pm.collectionVariables.set(\"orderId\", jsonData.data.checkout_content.order_id);",
+							"console.log(\"orderId:\", jsonData.data.checkout_content.order_id);",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"pm.test(\"Check if status is OK\", function () {",
+							"    pm.expect(jsonData.status).to.eql(\"OK\");",
+							"});",
+							"pm.test(\"Check if customer_id is ad5d787d-761b-460f-ae29-0825bad90385\", function () {",
+							"    pm.expect(jsonData.data.checkout_content.customer_id).to.eql(\"ad5d787d-761b-460f-ae29-0825bad90385\");",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
 			"request": {
 				"auth": {
 					"type": "bearer",
@@ -1070,42 +1124,6 @@
 			]
 		},
 		{
-			"name": "Stub-Payment Request Installment",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "x-api-key",
-						"value": "skey_test_21759RNGxY3WHfL4GnTc5Oopgs3pwXFxZLXde"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"description\": \"beauty\",\n    \"amount\": \"12000\",\n    \"reference_order\": \"ORD000001\",\n    \"additional_data\": {\n        \"mid\": \"401945778841001\",\n        \"smartpay_id\": \"0001\",\n        \"tid\": \"25879777\",\n        \"term\": \"02\"\n    },\n    \"token\": \"tokn_test_21759ab40683feb41cef7f5243ec492e2a34c\",\n    \"mode\": \"token\",\n    \"source_type\": \"card\",\n    \"currency\": \"THB\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "https://localhost:6090/card/v2/charge",
-					"protocol": "https",
-					"host": [
-						"localhost"
-					],
-					"port": "6090",
-					"path": [
-						"card",
-						"v2",
-						"charge"
-					]
-				},
-				"description": "Generated from cURL: curl --location 'https://dev-kpaymentgateway-services.kasikornbank.com/card/v2/charge' \\\n--header 'x-api-key: skey_test_21759RNGxY3WHfL4GnTc5Oopgs3pwXFxZLXde' \\\n--data '{\n    \"description\": \"beauty\",\n    \"amount\": \"12000\",\n    \"reference_order\": \"ORD000001\",\n    \"additional_data\": {\n        \"mid\": \"401945778841001\",\n        \"smartpay_id\": \"0001\",\n        \"tid\": \"25879777\",\n        \"term\": \"02\"\n    },\n    \"token\": \"tokn_test_21759ab40683feb41cef7f5243ec492e2a34c\",\n    \"mode\": \"token\",\n    \"source_type\": \"card\",\n    \"currency\": \"THB\"\n}'"
-			},
-			"response": []
-		},
-		{
 			"name": "Stub-Payment Hook Response (Credit Card/Installment)",
 			"request": {
 				"method": "POST",
@@ -1117,7 +1135,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"id\": \"chrg_test_2156099ac14daf725480682c9df2fbda65600\",\n    \"object\": \"charge\",\n    \"amount\": 5000,\n    \"currency\": \"THB\",\n    \"transactionState\": \"Settled\",\n    \"source\": {\n        \"id\": \"card_test_21560bb9591ed886d82e232f853ae8e6e0080\",\n        \"object\": \"card\",\n        \"brand\": \"mastercard\",\n        \"cardMasking\": \"523962******0264\",\n        \"issuerBank\": \"KASIKORNBANK PUBLIC COMPANY LIMITED\"\n    },\n    \"created\": \"20230613135745000\",\n    \"status\": \"success\",\n    \"livemode\": false,\n    \"failureCode\": null,\n    \"failureMessage\": null,\n    \"description\": \"beauty\",\n    \"mpi\": {\n        \"eci\": \"02\",\n        \"xid\": \"4040404040404040404040404040404040404040\",\n        \"cavv\": \"c60468d478f60000000000000000000000000000\",\n        \"kbankMpi\": true\n    },\n    \"checksum\": \"c1e4798f48be9ea6793abe0422b6753e6c204ce4e19a725cbeb3ec7b7f333933\",\n    \"redirectUrl\": \"https://dev-kpaymentgateway-services.kasikornbank.com/KPGW-Auth3d-Webapi/Authorize/3ds/Client/auth_test_27825e5388ea840c29ce6a9d3fbf63bed\",\n    \"settlementInfo\": null,\n    \"refundInfo\": null,\n    \"approvalCode\": \"012345\",\n    \"campaignId\": null,\n    \"ref1\": null,\n    \"ref2\": null,\n    \"ref3\": null,\n    \"referenceOrder\": \"ODR6709000051\"\n}",
+					"raw": "{\n\n    \"transactionState\": \"Settled\",\n    \"referenceOrder\": \"{{orderId}}\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -1125,12 +1143,10 @@
 					}
 				},
 				"url": {
-					"raw": "https://localhost:6092/api/payment/kbank/response",
-					"protocol": "https",
+					"raw": "{{payment_host}}/api/payment/kbank/response",
 					"host": [
-						"localhost"
+						"{{payment_host}}"
 					],
-					"port": "6092",
 					"path": [
 						"api",
 						"payment",
@@ -1144,6 +1160,26 @@
 		},
 		{
 			"name": "[Web][Order] - Get Order",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"ตรวจสอบสถานะ status เท่ากันกับ OK\", function () {",
+							"    pm.expect(jsonData.status).to.eql(\"OK\");",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -1170,14 +1206,14 @@
 					}
 				},
 				"url": {
-					"raw": "{{cart_host}}/api/order/{{order_id}}",
+					"raw": "{{cart_host}}/api/order/{{orderId}}",
 					"host": [
 						"{{cart_host}}"
 					],
 					"path": [
 						"api",
 						"order",
-						"{{order_id}}"
+						"{{orderId}}"
 					]
 				}
 			},
@@ -1231,7 +1267,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"AUTH_SMS_PASSWORDLESS_FORCED\": null,\n    \"AUTH_SMS_PASSWORDLESS_BYPASS\": null\n}",
+					"raw": "{\n    \"AUTH_SMS_PASSWORDLESS_FORCED\": \"\",\n    \"AUTH_SMS_PASSWORDLESS_BYPASS\": false\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -1264,6 +1300,14 @@
 		{
 			"key": "cartId",
 			"value": "66e00445a2888e8c775c04e3"
+		},
+		{
+			"key": "totalamount",
+			"value": ""
+		},
+		{
+			"key": "orderId",
+			"value": ""
 		}
 	]
 }
