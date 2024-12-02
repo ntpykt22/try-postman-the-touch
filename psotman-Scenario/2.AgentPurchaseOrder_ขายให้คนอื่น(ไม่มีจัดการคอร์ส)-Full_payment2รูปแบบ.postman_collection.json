@@ -1,10 +1,9 @@
 {
 	"info": {
-		"_postman_id": "d5df335f-474a-4f9c-95ef-586318338233",
-		"name": "4.ConsultPurchaseOrderขายให้คนอื่น(มีจัดการคอร์ส)- Full payment2รูปแบบ",
+		"_postman_id": "27bd17f8-72a6-43de-b5f2-96192da24feb",
+		"name": "2.AgentPurchaseOrderขายให้คนอื่น(ไม่มีจัดการคอร์ส)- Full payment2รูปแบบ",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "29975143",
-		"_collection_link": "https://gold-meteor-938872.postman.co/workspace/Automate-The-touch-~6fe6b753-8160-4331-bae1-1c9e857d848d/collection/29975143-d5df335f-474a-4f9c-95ef-586318338233?action=share&source=collection_link&creator=29975143"
+		"_exporter_id": "35987594"
 	},
 	"item": [
 		{
@@ -109,7 +108,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"phoneNumber\": \"+66957771111\"\n}",
+					"raw": "{\n    \"phoneNumber\": \"+66926261441\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -238,8 +237,8 @@
 						"exec": [
 							"const jsonData = pm.response.json();",
 							"",
-							"",
-							"pm.test(\"Parse the response JSON and set access_token environment variable\", function () {",
+							"pm.test(\"Response has Access Token\", function () {",
+							"    pm.expect(jsonData.data.access_token).not.null;",
 							"    pm.environment.set(\"access_token\", jsonData.data.access_token);",
 							"});",
 							"",
@@ -249,10 +248,6 @@
 							"",
 							"pm.test(\"ตรวจสอบสถานะ status เท่ากันกับ OK\", function () {",
 							"    pm.expect(jsonData.status).to.eql(\"OK\");",
-							"});",
-							"",
-							"pm.test(\"ตรวจสอบ access_token ไม่เท่ากันกับ null \", function () {",
-							"    pm.expect(jsonData.data.access_token).to.be.not.null;",
 							"});",
 							"",
 							"pm.test(\"ตรวจสอบ token expire เท่ากันกับ 259200\", function () {",
@@ -291,7 +286,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"phoneNumber\": \"+66957771111\",\n    \"otp\": \"123456\"\n}",
+					"raw": "{\n    \"phoneNumber\": \"+66926261441\",\n    \"otp\": \"123456\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -701,9 +696,10 @@
 							"if (jsonData.data && jsonData.data.cart_items) {",
 							"    ",
 							"    // ตรวจสอบว่า type ของ item ใน cart_items เป็น \"product\"",
-							"  pm.test(\"All items in cart_items are of type 'product'\", function () {",
+							"    pm.test(\"All items in cart_items are of type 'product'\", function () {",
 							"        jsonData.data.cart_items.forEach(function(item) {",
-							"    var isValidItemType = item.type === \"product\" || item.type === \"promotion\" || item.type === \"vip_voucher\";    pm.expect(isValidItemType).to.be.true;  });",
+							"            pm.expect(item.type).to.eql(\"product\");",
+							"        });",
 							"    });",
 							"",
 							"    // เก็บค่า product_id และ quantity ของรายการใน cart_items ไว้ใน Environment Variables",
@@ -848,9 +844,10 @@
 							"if (jsonData.data && jsonData.data.cart_items) {",
 							"    ",
 							"    // ตรวจสอบว่า type ของ item ใน cart_items เป็น \"product\"",
-							"pm.test(\"All items in cart_items are of type 'product'\", function () {",
+							"    pm.test(\"All items in cart_items are of type 'product'\", function () {",
 							"        jsonData.data.cart_items.forEach(function(item) {",
-							"    var isValidItemType = item.type === \"product\" || item.type === \"promotion\" || item.type === \"vip_voucher\";    pm.expect(isValidItemType).to.be.true;  });",
+							"            pm.expect(item.type).to.eql(\"product\");",
+							"        });",
 							"    });",
 							"",
 							"    // เก็บค่า product_id และ quantity ของรายการใน cart_items ไว้ใน Environment Variables",
@@ -985,9 +982,10 @@
 							"if (jsonData.data && jsonData.data.cart_items) {",
 							"    ",
 							"    // ตรวจสอบว่า type ของ item ใน cart_items เป็น \"product\"",
-							"pm.test(\"All items in cart_items are of type 'product'\", function () {",
+							"    pm.test(\"All items in cart_items are of type 'product'\", function () {",
 							"        jsonData.data.cart_items.forEach(function(item) {",
-							"    var isValidItemType = item.type === \"product\" || item.type === \"promotion\" || item.type === \"vip_voucher\";    pm.expect(isValidItemType).to.be.true;  });",
+							"            pm.expect(item.type).to.eql(\"product\");",
+							"        });",
 							"    });",
 							"",
 							"    // เก็บค่า product_id และ quantity ของรายการใน cart_items ไว้ใน Environment Variables",
@@ -1122,9 +1120,10 @@
 							"if (jsonData.data && jsonData.data.cart_items) {",
 							"    ",
 							"    // ตรวจสอบว่า type ของ item ใน cart_items เป็น \"product and promotion \"",
-							"pm.test(\"All items in cart_items are of type 'product'\", function () {",
+							"    pm.test(\"All items in cart_items are of type 'product'\", function () {",
 							"        jsonData.data.cart_items.forEach(function(item) {",
-							"    var isValidItemType = item.type === \"product\" || item.type === \"promotion\" || item.type === \"vip_voucher\";    pm.expect(isValidItemType).to.be.true;  });",
+							"    var isValidItemType = item.type === \"product\" || item.type === \"promotion\"|| item.type === \"vip_voucher\";",
+							"    pm.expect(isValidItemType).to.be.true;  });",
 							"    });",
 							"",
 							"    // เก็บค่า product_id และ quantity ของรายการใน cart_items ไว้ใน Environment Variables",
@@ -1833,7 +1832,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"itemIds\": [\n        \"VOUCHER202411000463\",\n        \"VOUCHER202410000458\",\n        \"PROMO202411000174\",\n        \"PROMO202411000164\",\n        \"SKU202411000532\",\n        \"SKU202410000498\",\n        \"SKU202411000545\",\n        \"SKU202409000443\"\n\n    ]\n}",
+					"raw": "{\n    \"itemIds\": [\n        \"VOUCHER202411000463\",\n        \"VOUCHER202410000458\",\n        \"PROMO202411000174\",\n        \"PROMO202411000164\",\n        \"SKU202411000532\",\n        \"SKU202410000498\",\n        \"SKU202411000545\"\n    ]\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -2342,7 +2341,7 @@
 					"script": {
 						"exec": [
 							"// เก็บค่า request body ที่จะส่งออกไปใน Environment Variable",
-							"pm.environment.set(\"requestBody\", JSON.stringify(pm.request.body.raw));",
+							"pm.environment.set(\"requestBody\", pm.request.body.raw);",
 							""
 						],
 						"type": "text/javascript",
@@ -2362,8 +2361,17 @@
 							"",
 							"// ตรวจสอบว่า response ตรงกับ request body หรือไม่",
 							"pm.test(\"Response matches the request body\", function () {",
-							"    pm.expect(jsonData.data.delivery.billing_address).to.eql(savedRequestBody.delivery);",
-							"    pm.expect(jsonData.data.customer_info).to.eql(savedRequestBody.customer_info);",
+							"    var customerInfoResponse = jsonData.data.customer_info",
+							"    var customerInfoRequest= savedRequestBody.customerInfo;",
+							"    pm.expect(customerInfoResponse.first_name).to.eql(customerInfoRequest.firstName);",
+							"    pm.expect(customerInfoResponse.last_name).to.eql(customerInfoRequest.lastName);",
+							"    pm.expect(customerInfoResponse.email).to.eql(customerInfoRequest.email);",
+							"    pm.expect(customerInfoResponse.phone_number).to.eql(customerInfoRequest.phoneNumber);",
+							"    pm.expect(customerInfoResponse.line_id).to.eql(customerInfoRequest.lineId);",
+							"    pm.expect(customerInfoResponse.branch).to.eql(customerInfoRequest.branch);",
+							"    pm.expect(customerInfoResponse.branch_id).to.eql(customerInfoRequest.branchId);",
+							"    pm.expect(customerInfoResponse.coupon_channel).to.eql(customerInfoRequest.couponChannel);",
+							"    pm.expect(customerInfoResponse.receive_tax_invoice_flag).to.eql(customerInfoRequest.receiveTaxInvoiceFlag);",
 							"});",
 							"",
 							"pm.test(\"ตรวจสอบ status เท่ากันกับ OK\", function () {",
@@ -2382,121 +2390,6 @@
 				"body": {
 					"mode": "raw",
 					"raw": "{\n    \"method\": \"normal\",\n    \"orderPurpose\": \"for_customer\",\n    \"delivery\": {},\n    \"customerInfo\": {\n        \"firstName\": \"ณิชารีย์\",\n        \"lastName\": \"ใจดี\",\n        \"email\": \"zbmnichari@gmail.com\",\n        \"couponChannel\": \"Email\",\n        \"branch\": \"สาขาเซ็นทรัล ลาดพร้าว ชั้น 7\",\n        \"phoneNumber\": \"0654429141\",\n        \"lineId\": \"bmz\",\n        \"branchId\": \"63c56a44d3d7a29f68c25c6d\",\n        \"receiveTaxInvoiceFlag\": false,\n        \"termConditionFlag\": false\n    }\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{cart_host}}/api/v2/carts/{{cartId}}/checkout-content",
-					"host": [
-						"{{cart_host}}"
-					],
-					"path": [
-						"api",
-						"v2",
-						"carts",
-						"{{cartId}}",
-						"checkout-content"
-					]
-				}
-			},
-			"response": [
-				{
-					"name": "[Web][Checkout] - Checkout Item  (Customer Info) - กดถัดไป",
-					"originalRequest": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"delivery\": {\n        \"billing_address\": {\n            \"address\": \"372\",\n            \"country_id\": \"6393083a8b38b57eeaeeb908\",\n            \"country\": \"ประเทศไทย\",\n            \"region_id\": \"6393083a8b38b57eeaeeb90d\",\n            \"province_id\": \"6393083a8b38b57eeaeeb91a\",\n            \"district_id\": \"6393083a8b38b57eeaeeb99b\",\n            \"sub_district_id\": \"6393083a8b38b57eeaeebdc2\",\n            \"region\": \"ภาคกลาง\",\n            \"province_name\": \"สมุทรปราการ\",\n            \"district_name\": \"เมืองสมุทรปราการ\",\n            \"sub_district_name\": \"สำโรงเหนือ\",\n            \"postcode\": \"10270\"\n        },\n        \"shipping_address\": {}\n    },\n    \"customer_info\": {\n        \"receive_tax_invoice_flag\": false,\n        \"tax_invoice_type\": \"individual\",\n        \"first_name\": \"Wachiraporn\",\n        \"last_name\": \"Mapatang\",\n        \"email\": \"ikatmapatang@gmail.com\",\n        \"phone_number\": \"0844096434\",\n        \"line_id\": \"-\",\n        \"term_condition_flag\": true,\n        \"branch\": \"สาขาเซ็นทรัล อีสต์วิลล์ เลียบด่วน-รามอินทรา\",\n        \"social_media_channel\": \"Facebook ads\",\n        \"coupon_channel\": \"SMS\"\n    }\n}\n",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{cart_host}}/api/checkout/:cart_id",
-							"host": [
-								"{{cart_host}}"
-							],
-							"path": [
-								"api",
-								"checkout",
-								":cart_id"
-							],
-							"variable": [
-								{
-									"key": "cart_id",
-									"value": "66e00445a2888e8c775c04e3"
-								}
-							]
-						}
-					},
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "application/json",
-							"description": "",
-							"type": "text"
-						}
-					],
-					"cookie": [],
-					"body": "{\n    \"status\": \"OK\",\n    \"data\": {\n        \"order_purpose\": \"for_self\",\n        \"discount_customer_display_flag\": true,\n        \"checkout_content\": {\n            \"item_count\": 4,\n            \"total_special_price\": 0,\n            \"cart_id\": \"66e00445a2888e8c775c04e3\",\n            \"customer_id\": \"e6fa52a5-801b-4fe8-94cd-fe1d4bc9cb0a\",\n            \"items\": [\n                {\n                    \"item_sequence\": 4,\n                    \"type\": \"promotion\",\n                    \"item_id\": \"PROMO202301000001\",\n                    \"reference_item\": \"824624c1-665f-4426-a5d7-38531458ad98\",\n                    \"quantity\": 2,\n                    \"market_price\": 25000,\n                    \"purchase_price\": 24800,\n                    \"vat\": 1736,\n                    \"price_exclude_vat\": 23064,\n                    \"total_price\": 49600,\n                    \"total_price_exclude_vat\": 46128,\n                    \"total_vat\": 3472,\n                    \"promotions\": {\n                        \"promotion_id\": \"PROMO202301000001\",\n                        \"remaining_order_limit\": 1800,\n                        \"remaining_maximum_limit\": 10,\n                        \"promotion_name\": \"Zen PROMO\",\n                        \"promotion_label\": \"zen_promo2\",\n                        \"type\": \"single_promotion\",\n                        \"is_created_for_group_promotion_flag\": false,\n                        \"gallery_images\": [],\n                        \"promotion_present_video_url\": \"\",\n                        \"is_all_branch_flag\": true,\n                        \"branches\": [],\n                        \"sale_man_condition\": \"all\",\n                        \"customer_type\": \"all\",\n                        \"status\": \"published\",\n                        \"order_limit\": 1000,\n                        \"maximum_condition\": \"maximum_per_branch\",\n                        \"maximum_limit\": 10,\n                        \"original_total_price\": 4200,\n                        \"promotion_total_price\": 3000,\n                        \"promotion_last_price\": 3000,\n                        \"can_apply_other_courses_as_upgrade_discount\": true,\n                        \"can_apply_other_courses_as_downgrade\": true,\n                        \"can_apply_other_courses_as_change\": true,\n                        \"active_date\": \"2024-10-01\",\n                        \"expired_date\": null\n                    },\n                    \"is_selected\": true,\n                    \"is_available\": true,\n                    \"is_in_stock\": true,\n                    \"is_active\": true,\n                    \"is_limit_available\": true\n                },\n                {\n                    \"item_sequence\": 3,\n                    \"type\": \"vip_voucher\",\n                    \"reference_item\": \"f2a25154-828d-4df2-85e6-6426c8b1bebf\",\n                    \"item_id\": \"VIP202301000001\",\n                    \"market_price\": 100000,\n                    \"purchase_price\": 100000,\n                    \"voucher_credit_value\": 120000,\n                    \"voucher_credit_percent\": 0.2,\n                    \"product_special_discount\": 0,\n                    \"change_course_discount\": 0,\n                    \"vat\": 7000,\n                    \"price_exclude_vat\": 93000,\n                    \"total_price\": 100000,\n                    \"total_purchase_price\": 100000,\n                    \"total_price_exclude_vat\": 93000,\n                    \"total_vat\": 7000,\n                    \"vip_voucher\": {\n                        \"id\": \"49a2686b-da14-4fbf-a89d-0a959ce1718e\",\n                        \"voucher_id\": \"VIP202301000001\",\n                        \"voucher_name\": \"TERSGH\",\n                        \"gallery_images\": [\n                            {\n                                \"id\": \"67077127c6a78a74ca07aa15\",\n                                \"url\": \"https://media.thetouchexclusive.com/20241010/3-OXY%201%20(1)_1728540967116.png\"\n                            }\n                        ],\n                        \"voucher_present_video_url\": null,\n                        \"sku\": \"OXY001234\",\n                        \"status\": \"published\",\n                        \"type\": \"simple\",\n                        \"deleted_flag\": false,\n                        \"parent_id\": null,\n                        \"minimum_purchase\": \"1\",\n                        \"active_date\": \"2024-09-30T17:00:00.000Z\",\n                        \"expire_date\": null,\n                        \"short_description\": \"test\",\n                        \"description\": \"<p>tesst</p>\",\n                        \"condition_detail\": \"\",\n                        \"commission_percent\": \"0\",\n                        \"commission_amount\": null,\n                        \"can_be_upgrade_discount_for_other_courses\": false,\n                        \"can_be_downgrade_for_other_courses\": false,\n                        \"can_be_change_for_other_courses\": false,\n                        \"can_apply_other_courses_as_upgrade_discount\": false,\n                        \"can_apply_other_courses_as_downgrade\": false,\n                        \"can_apply_other_courses_as_change\": false,\n                        \"created_at\": \"2024-10-10T06:10:04.480Z\",\n                        \"updated_at\": \"2024-10-10T06:21:50.040Z\",\n                        \"created_by\": \"9f60712d-c0d6-4793-9486-8123aa7b6fab\",\n                        \"updated_by\": null,\n                        \"variant_option\": null\n                    },\n                    \"is_selected\": true,\n                    \"is_available\": true,\n                    \"is_in_stock\": true,\n                    \"is_active\": true,\n                    \"is_limit_available\": true\n                },\n                {\n                    \"item_sequence\": 2,\n                    \"type\": \"vip_voucher\",\n                    \"reference_item\": \"9b076647-2afa-4f18-91f5-149c3a6bc959\",\n                    \"item_id\": \"VIP202301000001\",\n                    \"market_price\": 100000,\n                    \"purchase_price\": 100000,\n                    \"voucher_credit_value\": 120000,\n                    \"voucher_credit_percent\": 0.2,\n                    \"product_special_discount\": 0,\n                    \"change_course_discount\": 0,\n                    \"vat\": 7000,\n                    \"price_exclude_vat\": 93000,\n                    \"total_price\": 100000,\n                    \"total_purchase_price\": 100000,\n                    \"total_price_exclude_vat\": 93000,\n                    \"total_vat\": 7000,\n                    \"vip_voucher\": {\n                        \"id\": \"49a2686b-da14-4fbf-a89d-0a959ce1718e\",\n                        \"voucher_id\": \"VIP202301000001\",\n                        \"voucher_name\": \"TERSGH\",\n                        \"gallery_images\": [\n                            {\n                                \"id\": \"67077127c6a78a74ca07aa15\",\n                                \"url\": \"https://media.thetouchexclusive.com/20241010/3-OXY%201%20(1)_1728540967116.png\"\n                            }\n                        ],\n                        \"voucher_present_video_url\": null,\n                        \"sku\": \"OXY001234\",\n                        \"status\": \"published\",\n                        \"type\": \"simple\",\n                        \"deleted_flag\": false,\n                        \"parent_id\": null,\n                        \"minimum_purchase\": \"1\",\n                        \"active_date\": \"2024-09-30T17:00:00.000Z\",\n                        \"expire_date\": null,\n                        \"short_description\": \"test\",\n                        \"description\": \"<p>tesst</p>\",\n                        \"condition_detail\": \"\",\n                        \"commission_percent\": \"0\",\n                        \"commission_amount\": null,\n                        \"can_be_upgrade_discount_for_other_courses\": false,\n                        \"can_be_downgrade_for_other_courses\": false,\n                        \"can_be_change_for_other_courses\": false,\n                        \"can_apply_other_courses_as_upgrade_discount\": false,\n                        \"can_apply_other_courses_as_downgrade\": false,\n                        \"can_apply_other_courses_as_change\": false,\n                        \"created_at\": \"2024-10-10T06:10:04.480Z\",\n                        \"updated_at\": \"2024-10-10T06:21:50.040Z\",\n                        \"created_by\": \"9f60712d-c0d6-4793-9486-8123aa7b6fab\",\n                        \"updated_by\": null,\n                        \"variant_option\": null\n                    },\n                    \"is_selected\": true,\n                    \"is_available\": true,\n                    \"is_in_stock\": true,\n                    \"is_active\": true,\n                    \"is_limit_available\": true\n                },\n                {\n                    \"item_sequence\": 1,\n                    \"type\": \"product\",\n                    \"reference_item\": \"8889ddc3-73ba-4d70-9043-60364105c5d2\",\n                    \"item_id\": \"SKU202301000082\",\n                    \"quantity\": 10,\n                    \"product\": {\n                        \"id\": \"e096ed16-7461-48b9-80f5-f803ef07487d\",\n                        \"product_id\": \"SKU202301000082\",\n                        \"status\": \"new\",\n                        \"type\": \"simple\",\n                        \"sku\": \"democb12\",\n                        \"quantity\": 1,\n                        \"course_type\": {\n                            \"id\": \"229660ef-77c6-4540-a8c1-139cbf49cd2f\",\n                            \"name\": \"Treatment\"\n                        },\n                        \"unit\": {\n                            \"id\": \"8996af0d-7c47-44d0-9984-dadeae86b4bd\",\n                            \"name\": \"ครั้ง\"\n                        },\n                        \"is_created_for_promotion_flag\": true,\n                        \"standard_price\": 20000,\n                        \"market_price\": 20000,\n                        \"special_price\": null,\n                        \"discount\": 0,\n                        \"gift_flag\": false,\n                        \"display_flag\": true,\n                        \"deleted_flag\": false,\n                        \"first_commission_person\": \"agent\",\n                        \"agent_level\": \"lightblue\",\n                        \"product_name\": \"Demo Cell booster สูตรฉ่ำวาว\",\n                        \"discount_max_percent\": 35,\n                        \"commission_amount\": 50,\n                        \"active_date\": \"2023-02-28T00:00:00.000Z\",\n                        \"expired_date\": \"2025-03-01T00:00:00.000Z\",\n                        \"product_present_video\": {\n                            \"url\": \"youtube.com\"\n                        },\n                        \"gallery_image\": [\n                            {\n                                \"id\": \"63ff0aeb23d0f8c1fb6ed758\",\n                                \"url\": \"https://media.thetouchexclusive.com/20230301/unnamed_1677658859001.jpg\"\n                            }\n                        ],\n                        \"attributes\": [],\n                        \"attribute_options\": {},\n                        \"category_names\": [\n                            \"Demo โปรแกรมหัตถการ\"\n                        ],\n                        \"category_ids\": [\n                            \"CAT202303000140\"\n                        ],\n                        \"children\": [],\n                        \"option_products\": [],\n                        \"total_discount_percent\": 0,\n                        \"price_exclude_vat\": 18691.5888,\n                        \"vat\": 1308.4112,\n                        \"discount_percent\": 0,\n                        \"discount_agent_percent\": 0\n                    },\n                    \"option_products\": [],\n                    \"option_ids\": [],\n                    \"serial\": [],\n                    \"shipping_fee\": 0,\n                    \"vat\": 490.6542,\n                    \"price_exclude_vat\": 7009.3458,\n                    \"discount_product\": 1087.5,\n                    \"discount_promotion\": 0,\n                    \"discount_shipping_fee\": 0,\n                    \"market_price\": 7500,\n                    \"special_price\": 0,\n                    \"purchase_price\": 6412.5,\n                    \"total_shipping_fee\": 0,\n                    \"total_purchase_price\": 6412.5,\n                    \"total_special_price\": 0,\n                    \"total_discount\": 1087.5,\n                    \"total_market_price\": 7500,\n                    \"total_vat\": 419.5093,\n                    \"total_price_exclude_vat\": 5992.9907,\n                    \"total_price\": 6412.5,\n                    \"total_option_price\": 0,\n                    \"total_discount_product\": 1087.5,\n                    \"total_discount_promotion\": 0,\n                    \"total_discount_shipping_fee\": 0,\n                    \"additional\": {\n                        \"discount_amount\": 750,\n                        \"discount_agent_amount\": 337.5\n                    },\n                    \"total_operation_price\": 0,\n                    \"is_selected\": true,\n                    \"is_available\": true,\n                    \"is_in_stock\": true,\n                    \"is_active\": true,\n                    \"is_limit_available\": true\n                }\n            ],\n            \"total_market_price\": 257500,\n            \"total_discount\": 1087.5,\n            \"total_discount_product\": 1087.5,\n            \"total_discount_promotion\": 0,\n            \"total_discount_shipping_fee\": 0,\n            \"total_shipping_fee\": 0,\n            \"total_vat\": 17891.5093,\n            \"total_price_exclude_vat\": 238120.9907,\n            \"total_price\": 256012.5,\n            \"total_payable\": 256012.5,\n            \"total_option_price\": 0,\n            \"coupon_code\": [],\n            \"applied_rules\": [],\n            \"total_operation_price\": 0\n        },\n        \"delivery\": {\n            \"billing_address\": {\n                \"address\": \"372\",\n                \"country_id\": \"6393083a8b38b57eeaeeb908\",\n                \"region_id\": \"6393083a8b38b57eeaeeb90d\",\n                \"sub_district_id\": \"6393083a8b38b57eeaeebdc2\",\n                \"district_id\": \"6393083a8b38b57eeaeeb99b\",\n                \"province_id\": \"6393083a8b38b57eeaeeb91a\",\n                \"sub_district_name\": \"สำโรงเหนือ\",\n                \"district_name\": \"เมืองสมุทรปราการ\",\n                \"province_name\": \"สมุทรปราการ\",\n                \"postcode\": \"10270\"\n            },\n            \"shipping_address\": {}\n        },\n        \"customer_info\": {\n            \"id\": \"66e00aaee4a5c6098d3bf676\",\n            \"first_name\": \"Wachiraporn\",\n            \"last_name\": \"Mapatang\",\n            \"email\": \"ikatmapatang@gmail.com\",\n            \"phone_number\": \"0844096434\",\n            \"line_id\": \"-\",\n            \"branch\": \"สาขาเซ็นทรัล อีสต์วิลล์ เลียบด่วน-รามอินทรา\",\n            \"coupon_channel\": \"SMS\",\n            \"social_media_channel\": \"Facebook ads\",\n            \"receive_tax_invoice_flag\": false\n        }\n    }\n}"
-				}
-			]
-		},
-		{
-			"name": "จัดการคอร์ส โดย Hidden course",
-			"event": [
-				{
-					"listen": "prerequest",
-					"script": {
-						"exec": [
-							"// เก็บค่า request body ที่จะส่งออกไปใน Environment Variable",
-							"pm.environment.set(\"requestBody\", JSON.stringify(pm.request.body.raw));",
-							""
-						],
-						"type": "text/javascript",
-						"packages": {}
-					}
-				},
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"// ดึงค่า request body ที่เก็บไว้ใน Environment Variable",
-							"var savedRequestBody = JSON.parse(pm.environment.get(\"requestBody\"));",
-							"console.log(\"savedRequestBody:\", savedRequestBody);",
-							"",
-							"// ดึงข้อมูลจาก response",
-							"var jsonData = pm.response.json();",
-							"",
-							"pm.test(\"ตรวจสอบ status เท่ากันกับ OK\", function () {",
-							"    pm.expect(jsonData.status).to.eql(\"OK\");",
-							"});",
-							""
-						],
-						"type": "text/javascript",
-						"packages": {}
-					}
-				}
-			],
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"discountCustomerDisplayFlag\": false,\n    \"promotionItems\": [\n        {\n            \"itemSequence\": 14,\n            \"promotionId\": \"PROMO202411000174\",\n            \"quantity\": 2,\n            \"promotionsProducts\": [\n                {\n                    \"productId\": \"SKU202411000540\",\n                    \"quantity\": 2,\n                    \"customerViewQuantity\": 0,\n                    \"isHiddenForCustomer\": true\n                }\n            ],\n            \"customerViewQuantity\": 2,\n            \"changeCourseDiscount\": 0,\n            \"isHiddenForCustomer\": true,\n            \"specialDiscount\": 0\n        },\n        {\n            \"itemSequence\": 13,\n            \"promotionId\": \"PROMO202411000164\",\n            \"quantity\": 2,\n            \"promotionsProducts\": [\n                {\n                    \"productId\": \"SKU202411000540\",\n                    \"quantity\": 8,\n                    \"customerViewQuantity\": 4,\n                    \"isHiddenForCustomer\": false\n                },\n                {\n                    \"productId\": \"SKU202409000442\",\n                    \"quantity\": 200,\n                    \"customerViewQuantity\": 50,\n                    \"isHiddenForCustomer\": false\n                }\n            ],\n            \"customerViewQuantity\": 2,\n            \"changeCourseDiscount\": 0,\n            \"isHiddenForCustomer\": false,\n            \"specialDiscount\": 0\n        }\n    ],\n    \"vipVoucherItems\": [\n        {\n            \"itemSequence\": 16,\n            \"vipVoucherId\": \"VOUCHER202411000463\",\n            \"changeCourseDiscount\": 0,\n            \"isHiddenForCustomer\": true,\n            \"specialDiscount\": 0\n        },\n        {\n            \"itemSequence\": 15,\n            \"vipVoucherId\": \"VOUCHER202410000458\",\n            \"changeCourseDiscount\": 0,\n            \"isHiddenForCustomer\": false,\n            \"specialDiscount\": 0\n        }\n    ],\n    \"items\": [\n        {\n            \"itemSequence\": 12,\n            \"productId\": \"SKU202411000532\",\n            \"quantity\": 2,\n            \"customerViewQuantity\": 1,\n            \"isHiddenForCustomer\": false,\n            \"specialDiscount\": 0,\n            \"changeCourseDiscount\": 0\n        },\n        {\n            \"itemSequence\": 11,\n            \"productId\": \"SKU202410000498\",\n            \"quantity\": 2,\n            \"customerViewQuantity\": 0,\n            \"isHiddenForCustomer\": true,\n            \"specialDiscount\": 0,\n            \"changeCourseDiscount\": 0\n        },\n        {\n            \"itemSequence\": 10,\n            \"productId\": \"SKU202411000545\",\n            \"quantity\": 2,\n            \"customerViewQuantity\": 0,\n            \"isHiddenForCustomer\": true,\n            \"specialDiscount\": 0,\n            \"changeCourseDiscount\": 0\n        },\n        {\n            \"itemSequence\": 9,\n            \"productId\": \"SKU202409000443\",\n            \"quantity\": 1,\n            \"customerViewQuantity\": 0,\n            \"isHiddenForCustomer\": true,\n            \"specialDiscount\": 0,\n            \"changeCourseDiscount\": 0\n        }\n    ],\n    \"additional\": {\n        \"consult\": [\n            {\n                \"accountType\": \"employee\",\n                \"employeeBranch\": \"สาขาเดอะมอล์ บางแค ชั้น 7\",\n                \"employeeId\": \"EM01010101\",\n                \"firstName\": \"Admin\",\n                \"id\": \"63febded19965c493c737f34\",\n                \"lastName\": \"The Touch\",\n                \"nickName\": \"Admin\",\n                \"status\": \"normal\",\n                \"tier\": \"agent\",\n                \"userId\": \"00c71455-f0f5-44ce-adfc-3c046ddd7fb6\",\n                \"accountCode\": \"BA05995995\",\n                \"email\": null,\n                \"idCard\": null,\n                \"emailVerified\": false,\n                \"phoneNumber\": null,\n                \"phoneNumberVerified\": false\n            },\n            {\n                \"accountType\": \"employee\",\n                \"employeeBranch\": \"สาขาเซ็นทรัล อีสต์วิลล์ เลียบด่วน-รามอินทรา\",\n                \"employeeId\": \"TCER10000\",\n                \"firstName\": \"Sirinut\",\n                \"id\": \"63ff0f65643024e750a1dd64\",\n                \"lastName\": \"Jaiderm\",\n                \"nickName\": \"Palm\",\n                \"status\": \"normal\",\n                \"tier\": \"agent\",\n                \"userId\": \"4a823506-1ee2-4486-9868-686ae2d6f3ff\",\n                \"accountCode\": \"BA00000010\",\n                \"email\": null,\n                \"idCard\": null,\n                \"emailVerified\": false,\n                \"phoneNumber\": null,\n                \"phoneNumberVerified\": false\n            },\n            {\n                \"accountType\": \"employee\",\n                \"employeeBranch\": \"สาขาเซ็นทรัล อีสต์วิลล์ เลียบด่วน-รามอินทรา\",\n                \"employeeId\": \"TC300\",\n                \"firstName\": \"วริทยา\",\n                \"id\": \"66f233d9e7f43c1d1e8f877d\",\n                \"lastName\": \"วาณิชย์สกุลเดช\",\n                \"nickName\": \"ข้าวฟ่าง\",\n                \"status\": \"normal\",\n                \"tier\": \"agent\",\n                \"userId\": \"dfaa9bab-3be1-49b0-aff3-71ff4c7cd76d\",\n                \"accountCode\": \"BA00000312\",\n                \"email\": null,\n                \"idCard\": null,\n                \"emailVerified\": false,\n                \"phoneNumber\": null,\n                \"phoneNumberVerified\": false\n            }\n        ]\n    }\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -2719,7 +2612,10 @@
 							"",
 							"pm.test(\"ตรวจสอบ status เท่ากันกับ OK\", function () {",
 							"    pm.expect(jsonData.status).to.eql(\"OK\");",
+							"});",
 							"",
+							"pm.test(\"Response has Order ID\", function () {",
+							"    pm.expect(jsonData.data.order_id).not.null;",
 							"    pm.environment.set(\"order_id\", jsonData.data.order_id);",
 							"});",
 							"",
@@ -2829,8 +2725,11 @@
 							"pm.test(\"ตรวจสอบ status เท่ากันกับ OK\", function () {",
 							"    pm.expect(jsonData.status).to.eql(\"OK\");",
 							"});",
-							"pm.environment.set(\"total_payable\", jsonData.data.total_payable);",
 							"",
+							"pm.test(\"Response has Total payable\", function () {",
+							"    pm.expect(jsonData.data.total_payable).not.null;",
+							"    pm.environment.set(\"total_payable\", jsonData.data.total_payable);",
+							"});",
 							""
 						],
 						"type": "text/javascript",
@@ -3054,6 +2953,35 @@
 			]
 		},
 		{
+			"name": "Request Consent OTP",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"phoneNumber\": \"0654429141\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{cart_host}}api/v2/orders/{{order_id}}/consent-otp",
+					"host": [
+						"{{cart_host}}api"
+					],
+					"path": [
+						"v2",
+						"orders",
+						"{{order_id}}",
+						"consent-otp"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "[Web][Payment] - Consent OTP",
 			"event": [
 				{
@@ -3079,15 +3007,12 @@
 					}
 				}
 			],
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
 			"request": {
-				"method": "GET",
+				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "",
+					"raw": "{\n    \"phoneNumber\": \"0654429141\",\n    \"otp\": \"204878\",\n    \"refNo\": \"X7AEYF\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -3095,20 +3020,16 @@
 					}
 				},
 				"url": {
-					"raw": "{{payment_host}}/api/payment/methods?amount={{total_payable}}",
+					"raw": "{{payment_host}}api/v2/orders/{{order_id}}/consent-otp/verify",
 					"host": [
-						"{{payment_host}}"
+						"{{payment_host}}api"
 					],
 					"path": [
-						"api",
-						"payment",
-						"methods"
-					],
-					"query": [
-						{
-							"key": "amount",
-							"value": "{{total_payable}}"
-						}
+						"v2",
+						"orders",
+						"{{order_id}}",
+						"consent-otp",
+						"verify"
 					]
 				}
 			},
