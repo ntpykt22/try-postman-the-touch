@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "859a8c4c-c3ac-4907-9568-9b8a3cdf70d1",
+		"_postman_id": "941a7d28-82bc-424d-890f-07221872d70d",
 		"name": "1.Agent PurchaseOrder ซื้อให้ตัวเอง (ไม่มีจัดการคอร์ส)- Full payment 1 รูปแบบ",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "35987594"
+		"_exporter_id": "27916980"
 	},
 	"item": [
 		{
@@ -669,7 +669,7 @@
 			]
 		},
 		{
-			"name": "เพิ่มสินค้าลงตะกร้าโดยเป็น Product",
+			"name": "เพิ่มสินค้าลงตะกร้าประเภท Product ชิ้นที่ 1",
 			"event": [
 				{
 					"listen": "test",
@@ -817,7 +817,7 @@
 			]
 		},
 		{
-			"name": "เพิ่มสินค้าลงตะกร้าโดยเป็น Product Copy",
+			"name": "เพิ่มสินค้าลงตะกร้าประเภท Product ชิ้นที่ 2",
 			"event": [
 				{
 					"listen": "test",
@@ -955,7 +955,7 @@
 			]
 		},
 		{
-			"name": "เพิ่มสินค้าลงตะกร้าโดยเป็น Product Copy",
+			"name": "เพิ่มสินค้าลงตะกร้าประเภท Product ชิ้นที่ 3",
 			"event": [
 				{
 					"listen": "test",
@@ -1093,7 +1093,7 @@
 			]
 		},
 		{
-			"name": "เพิ่มสินค้าลงตะกร้าโดยเป็น Product Copy 2",
+			"name": "เพิ่มสินค้าลงตะกร้าประเภท Promotion ชิ้นที่ 1",
 			"event": [
 				{
 					"listen": "test",
@@ -1231,7 +1231,7 @@
 			]
 		},
 		{
-			"name": "เพิ่มสินค้าลงตะกร้าโดยเป็น Product Copy 3",
+			"name": "เพิ่มสินค้าลงตะกร้าประเภท Promotion ชิ้นที่ 2",
 			"event": [
 				{
 					"listen": "test",
@@ -1369,7 +1369,7 @@
 			]
 		},
 		{
-			"name": "เพิ่มสินค้าลงตะกร้าโดยเป็น Product Copy 4",
+			"name": "เพิ่มสินค้าลงตะกร้าประเภท Vip_Voucher ชิ้นที่ 1",
 			"event": [
 				{
 					"listen": "test",
@@ -1507,7 +1507,7 @@
 			]
 		},
 		{
-			"name": "เพิ่มสินค้าลงตะกร้าโดยเป็น Product Copy 5",
+			"name": "เพิ่มสินค้าลงตะกร้าประเภท Vip_Voucher ชิ้นที่ 2",
 			"event": [
 				{
 					"listen": "test",
@@ -1645,7 +1645,7 @@
 			]
 		},
 		{
-			"name": "เพิ่มสินค้าลงตะกร้าโดยเป็น Product Copy 6",
+			"name": "เพิ่มสินค้าลงตะกร้าประเภท Vip_Voucher ชิ้นที่ 3",
 			"event": [
 				{
 					"listen": "test",
