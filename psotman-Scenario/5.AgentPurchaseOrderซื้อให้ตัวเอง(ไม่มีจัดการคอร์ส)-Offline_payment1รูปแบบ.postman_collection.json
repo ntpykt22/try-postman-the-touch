@@ -742,7 +742,13 @@
 					]
 				},
 				"method": "POST",
-				"header": [],
+				"header": [
+					{
+						"key": "x-api-key",
+						"value": "test",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "raw",
 					"raw": "{\n    \"id\": \"SKU202411000545\",\n    \"type\": \"product\",\n    \"quantity\": 2,\n    \"additional\": {\n        \"discountAmount\": 0,\n        \"discountAgentAmount\": 0\n    }\n}",
@@ -880,7 +886,13 @@
 			],
 			"request": {
 				"method": "POST",
-				"header": [],
+				"header": [
+					{
+						"key": "x-api-key",
+						"value": "test",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "raw",
 					"raw": "{\n    \"id\": \"SKU202410000498\",\n    \"type\": \"product\",\n    \"quantity\": 2,\n    \"additional\": {\n        \"discountAmount\": 0,\n        \"discountAgentAmount\": 0\n    }\n}",
@@ -1018,7 +1030,13 @@
 			],
 			"request": {
 				"method": "POST",
-				"header": [],
+				"header": [
+					{
+						"key": "x-api-key",
+						"value": "test",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "raw",
 					"raw": "{\n   \"id\": \"SKU202411000532\",\n    \"type\": \"product\",\n    \"quantity\": 2,\n    \"additional\": {\n        \"discountAmount\": 0,\n        \"discountAgentAmount\": 0\n    }\n}",
@@ -1156,7 +1174,13 @@
 			],
 			"request": {
 				"method": "POST",
-				"header": [],
+				"header": [
+					{
+						"key": "x-api-key",
+						"value": "test",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "raw",
 					"raw": "{\n    \"id\": \"PROMO202411000164\",\n    \"type\": \"promotion\",\n    \"quantity\": 2,\n    \"additional\": {\n        \"discountAmount\": \"\",\n        \"discountAgentAmount\": \"\"\n    }\n}",
@@ -1294,7 +1318,13 @@
 			],
 			"request": {
 				"method": "POST",
-				"header": [],
+				"header": [
+					{
+						"key": "x-api-key",
+						"value": "test",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "raw",
 					"raw": "{\n    \"id\": \"PROMO202411000174\",\n    \"type\": \"promotion\",\n    \"quantity\": 2,\n    \"additional\": {\n        \"discountAmount\": \"\",\n        \"discountAgentAmount\": \"\"\n    }\n}",
@@ -1432,7 +1462,13 @@
 			],
 			"request": {
 				"method": "POST",
-				"header": [],
+				"header": [
+					{
+						"key": "x-api-key",
+						"value": "test",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "raw",
 					"raw": "{\n   \"id\": \"VOUCHER202410000458\",\n    \"type\": \"vip_voucher\",\n    \"purchasePrice\": 100000\n    \n}",
@@ -1443,7 +1479,7 @@
 					}
 				},
 				"url": {
-					"raw": "{{cart_host}}/api/v2/carts/{{cartId}}/items",
+					"raw": "{{cart_host}}/api/v2/carts/{{cartId}}/items?onlySelected=true",
 					"host": [
 						"{{cart_host}}"
 					],
@@ -1453,6 +1489,12 @@
 						"carts",
 						"{{cartId}}",
 						"items"
+					],
+					"query": [
+						{
+							"key": "onlySelected",
+							"value": "true"
+						}
 					]
 				}
 			},
@@ -1570,7 +1612,13 @@
 			],
 			"request": {
 				"method": "POST",
-				"header": [],
+				"header": [
+					{
+						"key": "x-api-key",
+						"value": "test",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "raw",
 					"raw": "{\n   \"id\": \"VOUCHER202411000463\",\n    \"type\": \"vip_voucher\",\n    \"purchasePrice\": 100000\n    \n}",
@@ -1581,7 +1629,7 @@
 					}
 				},
 				"url": {
-					"raw": "{{cart_host}}/api/v2/carts/{{cartId}}/items",
+					"raw": "{{cart_host}}/api/v2/carts/{{cartId}}/items?onlySelected=true",
 					"host": [
 						"{{cart_host}}"
 					],
@@ -1591,6 +1639,12 @@
 						"carts",
 						"{{cartId}}",
 						"items"
+					],
+					"query": [
+						{
+							"key": "onlySelected",
+							"value": "true"
+						}
 					]
 				}
 			},
@@ -1707,7 +1761,13 @@
 			],
 			"request": {
 				"method": "POST",
-				"header": [],
+				"header": [
+					{
+						"key": "x-api-key",
+						"value": "test",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "raw",
 					"raw": "{\n    \"id\": \"SKU202409000443\",\n    \"type\": \"product\",\n    \"quantity\": 1,\n    \"additional\": {\n        \"discountAmount\": 0,\n        \"discountAgentAmount\": 0\n    }\n}",
