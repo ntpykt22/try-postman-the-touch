@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "483169b2-6447-44c7-afb0-87e28558e860",
-		"name": "4.ConsultPurchaseOrderขายให้คนอื่น(มีจัดการคอร์ส)- Full payment2รูปแบบ Copy",
+		"_postman_id": "1c0fb798-7c87-4a85-bd7f-11fd86214d4e",
+		"name": "4.ConsultPurchaseOrderขายให้คนอื่น(มีจัดการคอร์ส)- Full payment2รูปแบบ",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "35987594"
+		"_exporter_id": "27916980"
 	},
 	"item": [
 		{
@@ -2717,7 +2717,7 @@
 			]
 		},
 		{
-			"name": "(หน้า สรุปคำสั่งซื้อ+ ยืนยันยอดสั่งซื้อ) ก่อนกดชำระเงิน",
+			"name": "สรุปรายการคำสั่งซื้อก่อนยืนยันคำสั่งซื้อ",
 			"event": [
 				{
 					"listen": "test",
@@ -2853,7 +2853,7 @@
 			]
 		},
 		{
-			"name": "[Web][Checkout] - Place Order (กด ชำระเงิน)",
+			"name": "ยืนยันคำสั่งซื้อ",
 			"event": [
 				{
 					"listen": "test",
@@ -2973,7 +2973,7 @@
 			]
 		},
 		{
-			"name": "[Web][Order] - Get Order",
+			"name": "สรุปรายการคำสั่งซื้อก่อนชำระเงิน",
 			"event": [
 				{
 					"listen": "test",
@@ -3067,7 +3067,7 @@
 			]
 		},
 		{
-			"name": "[Web][Payment] - Get Payment Method by Amount",
+			"name": "แสดงวิธีการชำระเงินและประเภทการชำระเงิน",
 			"event": [
 				{
 					"listen": "test",
@@ -3296,7 +3296,7 @@
 			"response": []
 		},
 		{
-			"name": "[Web][Payment] - Consent OTP Copy",
+			"name": "ยืนยัน Consent OTP",
 			"event": [
 				{
 					"listen": "test",
@@ -3351,7 +3351,7 @@
 			"response": []
 		},
 		{
-			"name": "เลือกวิธีการชำระและประเภทการชำระ",
+			"name": "เลือกวิธีการชำระเงินเป็นโอนเงินเต็มจำนวนโดยแบ่งเป็น 2 ช่องทาง",
 			"event": [
 				{
 					"listen": "test",
@@ -3457,7 +3457,7 @@
 			]
 		},
 		{
-			"name": "ช่องทางที่ 1 โอนเงิน",
+			"name": "ช่องทางที่ 1 ชำระเงินผ่านธนาคารกสิกรไทยโดยการโอนเงิน",
 			"event": [
 				{
 					"listen": "test",
@@ -3650,7 +3650,7 @@
 			]
 		},
 		{
-			"name": "ช่องทางที่ 2 จ่ายแบบผ่อนชำระ KBANK",
+			"name": "ช่องทางที่ 2 ชำระเงินแบบผ่อนชำระผ่านธนาคารกสิกรไทย",
 			"event": [
 				{
 					"listen": "test",
@@ -3773,7 +3773,7 @@
 			]
 		},
 		{
-			"name": "ธนาคาร KBANK ยืนยันการชำระ",
+			"name": "ธนาคารกสิกรไทยยืนยันการชำระ",
 			"event": [
 				{
 					"listen": "test",
@@ -3837,7 +3837,7 @@
 			"response": []
 		},
 		{
-			"name": "[Web][Order] - Get Order",
+			"name": "สรุปรายการคำสั่งซื้อหลังชำระเงินสำเร็จ",
 			"event": [
 				{
 					"listen": "test",

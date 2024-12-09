@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "ccbfeb8c-26d4-49d4-9be9-37728c0125d0",
-		"name": "5.Agent PurchaseOrder ซื้อให้ตัวเอง (ไม่มีจัดการคอร์ส)- Offline payment 1 รูปแบบ Copy",
+		"_postman_id": "033916d5-8f56-4e37-8fad-ac8f82a7a371",
+		"name": "5.Agent PurchaseOrder ซื้อให้ตัวเอง (ไม่มีจัดการคอร์ส)- Offline payment 1 รูปแบบ",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "35987594"
+		"_exporter_id": "27916980"
 	},
 	"item": [
 		{
@@ -2629,7 +2629,7 @@
 			]
 		},
 		{
-			"name": "(หน้า สรุปคำสั่งซื้อ+ ยืนยันยอดสั่งซื้อ) ก่อนกดชำระเงิน",
+			"name": "สรุปรายการคำสั่งซื้อก่อนยืนยันคำสั่งซื้อ",
 			"event": [
 				{
 					"listen": "test",
@@ -2765,7 +2765,7 @@
 			]
 		},
 		{
-			"name": "[Web][Checkout] - Place Order (กด ชำระเงิน)",
+			"name": "ยืนยันคำสั่งซื้อ",
 			"event": [
 				{
 					"listen": "test",
@@ -2887,7 +2887,7 @@
 			]
 		},
 		{
-			"name": "[Web][Order] - Get Order",
+			"name": "สรุปรายการคำสั่งซื้อก่อนชำระเงิน",
 			"event": [
 				{
 					"listen": "test",
@@ -2982,7 +2982,7 @@
 			]
 		},
 		{
-			"name": "[Web][Payment] - Get Payment Method by Amount",
+			"name": "แสดงวิธีการชำระเงินและประเภทการชำระเงิน",
 			"event": [
 				{
 					"listen": "test",
@@ -3149,7 +3149,7 @@
 			]
 		},
 		{
-			"name": "เลือกวิธีการชำระและประเภทการชำระ",
+			"name": "ชำระเงินแบบ Offline",
 			"event": [
 				{
 					"listen": "test",
@@ -3260,7 +3260,7 @@
 			]
 		},
 		{
-			"name": "[Web][Order] - Get Order",
+			"name": "สรุปรายการคำสั่งซื้อหลังชำระเงินสำเร็จ",
 			"event": [
 				{
 					"listen": "test",

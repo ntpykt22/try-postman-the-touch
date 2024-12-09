@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "2be57cc6-b442-4a51-804b-ef860c0c5950",
-		"name": "1.Agent PurchaseOrder ซื้อให้ตัวเอง (ไม่มีจัดการคอร์ส)- Full payment 1 รูปแบบ Copy",
+		"_postman_id": "2ecd1af9-9860-4059-b6fb-34252b995698",
+		"name": "1.Agent PurchaseOrder ซื้อให้ตัวเอง (ไม่มีจัดการคอร์ส)- Full payment 1 รูปแบบ",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "35987594"
+		"_exporter_id": "27916980"
 	},
 	"item": [
 		{
@@ -2616,7 +2616,7 @@
 			]
 		},
 		{
-			"name": "(หน้า สรุปคำสั่งซื้อ+ ยืนยันยอดสั่งซื้อ) ก่อนกดชำระเงิน",
+			"name": "สรุปรายการคำสั่งซื้อก่อนยืนยันคำสั่งซื้อ",
 			"event": [
 				{
 					"listen": "test",
@@ -2752,7 +2752,7 @@
 			]
 		},
 		{
-			"name": "[Web][Checkout] - Place Order (กด ชำระเงิน)",
+			"name": "ยืนยันคำสั่งซื้อ",
 			"event": [
 				{
 					"listen": "test",
@@ -2874,7 +2874,7 @@
 			]
 		},
 		{
-			"name": "[Web][Order] - Get Order",
+			"name": "สรุปรายการคำสั่งซื้อก่อนชำระเงิน",
 			"event": [
 				{
 					"listen": "test",
@@ -2969,7 +2969,7 @@
 			]
 		},
 		{
-			"name": "[Web][Payment] - Get Payment Method by Amount",
+			"name": "แสดงวิธีการชำระเงินและประเภทการชำระเงิน",
 			"event": [
 				{
 					"listen": "test",
@@ -3136,7 +3136,7 @@
 			]
 		},
 		{
-			"name": "เลือกวิธีการชำระและประเภทการชำระ",
+			"name": "เลือกประเภทการชำระเงินเป็นเต็มจำนวน",
 			"event": [
 				{
 					"listen": "test",
@@ -3242,7 +3242,7 @@
 			]
 		},
 		{
-			"name": "ช่องทางที่ 1 โอนเงิน",
+			"name": "ชำระเงินผ่านธนาคารกสิกรไทยโดยการโอนเงิน",
 			"event": [
 				{
 					"listen": "test",
@@ -3420,7 +3420,7 @@
 			]
 		},
 		{
-			"name": "[Web][Order] - Get Order",
+			"name": "สรุปรายการคำสั่งซื้อหลังชำระเงินสำเร็จ",
 			"event": [
 				{
 					"listen": "test",
